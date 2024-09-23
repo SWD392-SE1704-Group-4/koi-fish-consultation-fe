@@ -17,6 +17,6 @@ const RoutesConfig: React.FC<any> = (props: any): JSX.Element => {
 }
 
 export function routesConfig(): any {
-
+    
 
 }
