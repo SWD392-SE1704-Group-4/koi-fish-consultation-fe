@@ -74,7 +74,7 @@ const Home: React.FC = (): JSX.Element => {
             <Input placeholder="Type in here…" variant="soft" />
           </Box>
         </Html>
-        <OrbitControls target={[0, 0, 0]} enableZoom={false} minDistance={5} maxDistance={10} enablePan={false} />
+        <OrbitControls target={[0, 0, 0]} enableZoom={false} minDistance={5} maxDistance={10} enablePan={false}  />
         {/* <axesHelper></axesHelper> */}
       </Canvas>
       <Typography>Hello anh em</Typography>

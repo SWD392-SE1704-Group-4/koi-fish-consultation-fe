@@ -16,33 +16,33 @@ const App: React.FC = (): JSX.Element => {
     const [collapsed, setCollapsed] = React.useState(false);
 
     return (
-        <>
-            <Header />
-            <Home />
-        </>
-        // <Grid container sx={{ flexGrow: 1, flexWrap: 'nowrap' }}>
-        //     <Grid
-        //         xs={collapsed ? 1 : 11} 
+        // <>
+        //     <Header />
+        //     <Home />
+        // </>
+        <Grid container sx={{ flexGrow: 1, flexWrap: 'nowrap' }}>
+            <Grid
+                xs={collapsed ? 1 : 11} 
 
-        //         sx={{
-        //             width: collapsed ? '60px' : '240px', 
-        //             transition: 'width 0.3s', 
-        //         }}
-        //     >
-        //         <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
-        //     </Grid>
-        //     <Grid
-        //         xs={collapsed ? 11 : 1}
-        //         sx={{
-        //             flexGrow: 1,
-        //             transition: 'margin-left 0.3s',
-        //         }}
-        //     >
-        //         <Header /> 
-        //        {/* <Dashboard></Dashboard> */}
+                sx={{
+                    width: collapsed ? '60px' : '240px', 
+                    transition: 'width 0.3s', 
+                }}
+            >
+                <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+            </Grid>
+            <Grid
+                xs={collapsed ? 11 : 1}
+                sx={{
+                    flexGrow: 1,
+                    transition: 'margin-left 0.3s',
+                }}
+            >
+                <Header /> 
+               <Dashboard></Dashboard>
 
-        //     </Grid>
-        // </Grid>
+            </Grid>
+        </Grid>
 
     );
 }
