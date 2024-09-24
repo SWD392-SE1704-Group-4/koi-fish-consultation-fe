@@ -9,6 +9,8 @@ import Dashboard from "../Dashboard";
 import Home from "../Home";
 import { applyTheme } from '@cloudscape-design/components/theming';
 import { theme } from "../../utils/theme";
+import Login from "../LoginPage";
+import SignUp from "../SignUpPage";
 
 const { reset } = applyTheme({ theme });
 
@@ -17,8 +19,8 @@ const App: React.FC = (): JSX.Element => {
 
     return (
         <>
-            <Header />
-            <Home />
+            {/* <Header /> */}
+            <SignUp />
         </>
         // <Grid container sx={{ flexGrow: 1, flexWrap: 'nowrap' }}>
         //     <Grid
