@@ -1,0 +1,72 @@
+/* .blog-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+}
+
+.blog-box:hover {
+  transform: scale(1.05);
+} */
+
+/* Container for the main 3D model */
+.model-container {
+  height: 720px;
+  background-color: #e6eced;
+}
+
+/* Style for the Box overlay */
+.overlay-box {
+  background-color: white;
+  padding: 16px; /* Padding in pixels */
+}
+
+/* Container for the clickable blog cards */
+.blog-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Style for the background images */
+.blog-card img {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+}
+
+/* Style for the overlay text box */
+.overlay-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+/* Style for the overlay text */
+.overlay-text-content {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.header-content-blog {
+  padding-top: 30px;
+  text-align: center;
+  font-size: 3.4rem !important;
+  font-weight: bold;
+}
+
+.under-content-blog {
+  text-align: center;
+  font-size: 1.2rem !important;
+}
