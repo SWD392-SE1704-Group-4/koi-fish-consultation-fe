@@ -9,6 +9,7 @@ const store = configureStore({
         serializableCheck: false,
       })
 })
+
 export type AppDispatcher = typeof store.dispatch;
 export const useAppDispatcher = () => useDispatch<AppDispatcher>();
 export default store;

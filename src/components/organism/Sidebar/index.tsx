@@ -32,24 +32,24 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }): JSX.Eleme
       };
     const listData = [
         {
-            title: 'Trang chủ',
+            title: 'My dashboard',
             icon: <HomeIcon/>,
-            href: '/home'
+            href: '/me/home'
         },
         {
-            title: 'Quản lý truyện',
+            title: 'My profile',
             icon: <HomeIcon/>,
-            href: '/home'
+            href: '/me/dashboard'
         },
         {
-            title: 'Quản lý người dùng',
+            title: 'Fengshui consultation',
             icon: <HomeIcon/>,
-            href: '/home'
+            href: '/me/consultation'
         },
         {
-            title: 'Quản lý nội dung',
+            title: 'Favourite',
             icon: <HomeIcon/>,
-            href: '/content'
+            href: '/me/favourite'
         },
     ];
 

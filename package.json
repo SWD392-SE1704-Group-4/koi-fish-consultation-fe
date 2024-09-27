@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "@aws-sdk/client-cognito-identity-provider": "^3.658.0",
     "@cloudscape-design/board-components": "^3.0.76",
     "@cloudscape-design/components": "^3.0.733",
     "@cloudscape-design/components-themeable": "^3.0.753",
@@ -26,8 +27,13 @@
     "@types/node": "^16.18.104",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "amazon-cognito-identity-js": "^6.3.12",
     "antd": "^5.21.0",
     "axios": "^1.7.3",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "path": "^0.12.7",
@@ -65,5 +71,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2"
   }
 }
