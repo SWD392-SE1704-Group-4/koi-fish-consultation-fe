@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Divider } from "antd";
 import { EyeTwoTone, EyeInvisibleOutlined, GoogleOutlined } from "@ant-design/icons";
@@ -6,16 +6,25 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./index.css";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { getToken } from "../../services/cognito/Authenticate";
+import { requestAuth } from "../../features/auth/auth.actions";
+import { selectIsLoggedIn } from "../../features/auth/auth.selectors";
 
 // Define the validation schema using yup
 const schema = yup.object().shape({
-  email: yup.string().email("Invalid email").required("Email is required"),
+  username: yup.string().required("Username is required"),
   password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
 });
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // State for password visibility
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   // Set up react-hook-form with yup validation
   const {
@@ -27,10 +36,21 @@ const Login: React.FC = () => {
   });
 
   // Handle form submission
-  const onSubmit = (data: any) => {
-    console.log(data);
-    // Add your form submission logic (API call, etc.) here
+  const onSubmit = async (data: any) => {
+    try {
+      const username = data.username;
+      const password = data.password;
+      dispatch(requestAuth({ username, password }));
+    } catch (err) {
+      console.log(err)
+    }
   };
+  
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
     <div className="login-container">
@@ -41,13 +61,13 @@ const Login: React.FC = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
 
           {/* Email Input */}
-          <label>Email Address *</label>
+          <label>Username *</label>
           <input
             type="text"
-            placeholder="Email Address"
-            {...register("email")}
+            placeholder="Username"
+            {...register("username")}
           />
-          {errors.email && <p className="error-message">{errors.email.message}</p>}
+          {errors.username && <p className="error-message">{errors.username.message}</p>}
 
           {/* Password Input */}
           <div className="password-container">

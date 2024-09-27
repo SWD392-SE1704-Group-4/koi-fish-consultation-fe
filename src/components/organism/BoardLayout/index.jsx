@@ -8,12 +8,12 @@ import styles from './style.module.css'
 
 export default () => {
   const [items, setItems] = React.useState([
-    {
-      id: "1",
-      rowSpan: 5,
-      columnSpan: 3,
-      data: { title: "Comic List", content: <ComicList /> }
-    },
+    // {
+    //   id: "1",
+    //   rowSpan: 5,
+    //   columnSpan: 3,
+    //   data: { title: "Comic List", content: <ComicList /> }
+    // },
     {
       id: "2",
       rowSpan: 5,

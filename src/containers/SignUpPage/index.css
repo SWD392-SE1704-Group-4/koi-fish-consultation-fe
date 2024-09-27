@@ -4,24 +4,31 @@
   box-sizing: border-box;
   justify-content: center;
   background-image: url("https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650");
-  background-size: cover; /* Để ảnh phủ kín màn hình */
-  background-position: center; /* Để ảnh căn giữa */
-  background-repeat: no-repeat; /* Không lặp lại ảnh */
+  background-size: cover;
+  /* Để ảnh phủ kín màn hình */
+  background-position: center;
+  /* Để ảnh căn giữa */
+  background-repeat: no-repeat;
+  /* Không lặp lại ảnh */
   background-size: 150% 125%;
   animation: rotateGradient 60s linear infinite;
   font-family: "Gantari";
 }
+
 @keyframes rotateGradient {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
 }
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -37,7 +44,8 @@
   border-radius: 25px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   max-width: 400px;
-  background: rgba(255, 255, 255, 0.9); /* Đặt nền trắng với độ trong suốt */
+  background: rgba(255, 255, 255, 0.9);
+  /* Đặt nền trắng với độ trong suốt */
 }
 
 .login-form h2 {
@@ -68,7 +76,8 @@
 }
 
 .login-form input:focus {
-  outline: 3px solid rgba(86, 74, 56, 0.1); /* Màu và độ dày của outline khi focus */
+  outline: 3px solid rgba(86, 74, 56, 0.1);
+  /* Màu và độ dày của outline khi focus */
   border: 0.5px solid rgba(27, 17, 3, 0.1);
 }
 
