@@ -1,26 +1,19 @@
-import React, { Suspense, useEffect, forwardRef } from "react";
-import { Box, Button, Input, Typography, FormLabel } from "@mui/joy";
-import { Grid } from "@mui/material";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Html } from "@react-three/drei";
-import BlogCard from "../../components/blogs/BlogCard";
-import "./index.css"; // Import the new CSS file
+import React, { Suspense, useEffect, forwardRef, Ref } from 'react';
+import { Box, Button, Input, Typography, FormLabel } from '@mui/joy';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useGLTF, Text, Html } from '@react-three/drei';
+import { useSelector, useDispatch } from 'react-redux';
+import Header from '../../components/organism/Header';
+import { selectUserInfo } from '../../features/auth/auth.selectors';
 
 const Model = forwardRef(({ path }: { path: string }, ref: any) => {
   const { scene } = useGLTF(path);
-  const handlePointerUp = (e) => {
-    console.log(e);
-  };
   const animationRef = React.useRef<any>();
   useFrame((state, delta) => {
     animationRef.current.rotation.y += delta / 4;
-  });
+  })
   return (
-    <mesh
-      ref={animationRef}
-      position={[0.5, 0, 2]}
-      onPointerUp={handlePointerUp}
-    >
+    <mesh ref={animationRef} position={[0, -0.5, -1]}>
       <primitive object={scene} />
     </mesh>
   );

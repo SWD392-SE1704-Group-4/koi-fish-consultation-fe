@@ -2,21 +2,18 @@ import { privateRoutes, publicRoutes } from "../constants/routes";
 import { Route, Routes } from "react-router-dom";
 
 
-const RoutesConfig: React.FC<any> = (props: any): JSX.Element => {
+const RouteComponent: React.FC<any> = (props: any): JSX.Element => {
     const { listItem } = props;
     return (
         <Routes>
-            {privateRoutes.map((path: string) => {
-                return (<Route path={path} />);
+            {privateRoutes.map((route: any) => {
+                return (<Route path={route.path} element={<route.container/>} />);
             })}
-            {publicRoutes.map((path: string) => {
-                return (<Route path={path} />);
+            {publicRoutes.map((route: any) => {
+                 return (<Route path={route.path} element={<route.container/>} />);
             })}
         </Routes>
     );
 }
 
-export function routesConfig(): any {
-    
-
-}
+export default RouteComponent;

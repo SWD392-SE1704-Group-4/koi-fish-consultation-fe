@@ -11,17 +11,21 @@
   animation: rotateGradient 50s linear infinite;
   font-family: "Gantari";
 }
+
 @keyframes rotateGradient {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
 }
+
 .login-container {
   display: flex;
   justify-content: center;
@@ -37,7 +41,8 @@
   border-radius: 25px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   max-width: 400px;
-  background: rgba(255, 255, 255, 0.9); /* Đặt nền trắng với độ trong suốt */
+  background: rgba(255, 255, 255, 0.9);
+  /* Đặt nền trắng với độ trong suốt */
 }
 
 .login-form h2 {
@@ -68,7 +73,8 @@
 }
 
 .login-form input:focus {
-  outline: 3px solid rgba(86, 74, 56, 0.1); /* Màu và độ dày của outline khi focus */
+  outline: 3px solid rgba(86, 74, 56, 0.1);
+  /* Màu và độ dày của outline khi focus */
   border: 0.5px solid rgba(27, 17, 3, 0.1);
 }
 
