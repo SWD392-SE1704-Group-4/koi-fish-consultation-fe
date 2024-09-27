@@ -19,8 +19,9 @@ const App: React.FC = (): JSX.Element => {
 
     return (
         <>
-            {/* <Header /> */}
-            <SignUp />
+            <Header />
+            {/* <SignUp /> */}
+            <Home/>
         </>
         // <Grid container sx={{ flexGrow: 1, flexWrap: 'nowrap' }}>
         //     <Grid

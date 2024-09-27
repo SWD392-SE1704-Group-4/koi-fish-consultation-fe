@@ -3,12 +3,12 @@
   padding: 0;
   box-sizing: border-box;
   justify-content: center;
-  background-image: url("https://cdn.shopify.com/s/files/1/1083/2612/files/koi2_480x480.jpg?v=1719301650");
+  background-image: url("../../../public/koifishlogin.png");
   background-size: cover; /* Để ảnh phủ kín màn hình */
   background-position: center; /* Để ảnh căn giữa */
   background-repeat: no-repeat; /* Không lặp lại ảnh */
-  background-size: 150% 125%;
-  animation: rotateGradient 60s linear infinite;
+  background-size: 130% 105%;
+  animation: rotateGradient 50s linear infinite;
   font-family: "Gantari";
 }
 @keyframes rotateGradient {
