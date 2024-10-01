@@ -3,21 +3,25 @@ import BoardLayout from "../../components/organism/BoardLayout";
 import Sidebar from "../../components/organism/Sidebar";
 import Header from "../../components/organism/Header";
 import React from "react";
+import DashboardHeader from "../../components/organism/DashboardHeader";
+import UserSettingDashboard from "./UserSetting";
+import { memberDashboardSubRoutes } from "../../constants/routes";
+import { Routes, Route } from "react-router-dom";
 
 const Dashboard: React.FC = (): JSX.Element => {
     const [collapsed, setCollapsed] = React.useState(false);
+    const [currentRoute, setCurrentRoute] = React.useState(memberDashboardSubRoutes[0]);
 
     return (
         <Grid container sx={{ flexGrow: 1, flexWrap: 'nowrap' }}>
             <Grid
                 xs={collapsed ? 1 : 11}
-
                 sx={{
                     width: collapsed ? '60px' : '240px',
                     transition: 'width 0.3s',
                 }}
             >
-                <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
+                <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} listItem={memberDashboardSubRoutes} />
             </Grid>
             <Grid
                 xs={collapsed ? 11 : 1}
@@ -26,17 +30,20 @@ const Dashboard: React.FC = (): JSX.Element => {
                     transition: 'margin-left 0.3s',
                 }}
             >
-                <Header />
+                <DashboardHeader title={currentRoute?.title}/>
                 <Box sx={{
                     height: "100vh",
                     padding: 2
                 }}>
-                    <BoardLayout></BoardLayout>
+                    <Routes>
+                        {memberDashboardSubRoutes.map(r => {
+                            return <Route path={r.path} element={<r.container />} />
+                        })}
+                    </Routes>
                 </Box>
 
             </Grid>
         </Grid>
-
     );
 }
 

@@ -10,15 +10,14 @@ import {
 import { RemoveAccessToken } from '../../../utils/tokens';
 import { useNavigate } from 'react-router-dom';
 import styles from './style.module.scss';
-import zIndex from '@mui/material/styles/zIndex';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { requestUserInfo } from '../../../features/auth/auth.actions';
 import { selectUserInfo, selectIsLoggedIn } from '../../../features/auth/auth.selectors';
-import { setIsLoggedIn } from '../../../features/auth/auth.reducers';
 import { setIsLoggedInAction } from '../../../features/auth';
 
-const Header: React.FC<any> = (): JSX.Element => {
+const DashboardHeader: React.FC<any> = (props): JSX.Element => {
+    const title = props.title;
     const userInfo = useSelector(selectUserInfo);
     const isLoggedIn = useSelector(selectIsLoggedIn);
 
@@ -49,10 +48,7 @@ const Header: React.FC<any> = (): JSX.Element => {
             sx={{
                 width: '100%',
                 height: '60px',
-                padding: {
-                    xs: '10px',
-                    md: '5px 80px',
-                },
+                padding: '16px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -64,7 +60,7 @@ const Header: React.FC<any> = (): JSX.Element => {
             <Typography
                 sx={{ color: 'black' }}
             >
-                <img src={"/img/fengshui-logo.png"} width="100" height="60" />
+                {title}
             </Typography>
 
             {isMobile ? (
@@ -81,37 +77,7 @@ const Header: React.FC<any> = (): JSX.Element => {
                         alignItems: 'center',
                         gap: 4
                     }}
-                >
-                    <Dropdown>
-                        <MenuButton variant="plain" endDecorator={<ArrowDropDown />}>
-                            <Typography sx={{ color: 'black', fontWeight: 'bold' }}>Information</Typography>
-
-                        </MenuButton>
-                        <Menu>
-                            <MenuItem>
-                                <Link href="/information/koi-fish" sx={{ color: 'black', textDecoration: 'none' }}>
-                                    All Koi fish
-                                </Link>
-                            </MenuItem>
-                            <MenuItem>
-                                <Link href="/information/fish-pond" sx={{ color: 'black', textDecoration: 'none' }}>
-                                    All Fish pond
-                                </Link>
-                            </MenuItem>
-                            <MenuItem>
-                                <Link href="/information/fengshui-element" sx={{ color: 'black', textDecoration: 'none' }}>
-                                    Fengshui element
-                                </Link>
-                            </MenuItem>
-                        </Menu>
-                    </Dropdown>
-
-                    <Link href="/annual-feng-shui" sx={{ color: 'black', textDecoration: 'none', fontWeight: 'bold' }}>
-                        Annual feng shui
-                    </Link>
-                    <Link href="/about-us" sx={{ color: 'black', textDecoration: 'none', fontWeight: 'bold' }}>
-                        About us
-                    </Link>
+                >            
                     {userInfo && isLoggedIn ? (
                         <>
                             <Dropdown>
@@ -139,11 +105,11 @@ const Header: React.FC<any> = (): JSX.Element => {
                                         </MenuItem>
                                     ) : (
                                         <>
-                                            <MenuItem onClick={() => navigate('/me/profile')}>
+                                            <MenuItem onClick={() => navigate('/me/dashboard')}>
                                                 <ListItemDecorator><DeckIcon /></ListItemDecorator>
                                                 My profile
                                             </MenuItem>
-                                            <MenuItem onClick={() => navigate('/me/consultation')}>
+                                            <MenuItem onClick={() => navigate('/me/dashboard')}>
                                                 <ListItemDecorator><ConfirmationNumberIcon /></ListItemDecorator>
                                                 My consultation
                                             </MenuItem>
@@ -224,4 +190,4 @@ const Header: React.FC<any> = (): JSX.Element => {
     );
 };
 
-export default Header;
+export default DashboardHeader;
