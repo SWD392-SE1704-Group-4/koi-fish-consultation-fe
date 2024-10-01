@@ -8,14 +8,12 @@ const BaseListItem: React.FC<BaseListItemProps> = (props: BaseListItemProps): JS
     const navigate = useNavigate();
 
     return (
-
             <ListItemButton sx={{ color: 'white' }} onClick={() => navigate(href)}>
                 <ListItemButton sx={{ padding: 0}}>
                     {icon}
                 </ListItemButton>
-                {!collapsed && <ListItemContent sx={{textAlign: 'left', whiteSpace: 'noWrap'}}>{title}</ListItemContent>} {/* Conditionally render the title */}
+                {!collapsed && <ListItemContent sx={{textAlign: 'left', whiteSpace: 'noWrap'}}>{title}</ListItemContent>} 
             </ListItemButton>
-
     );
 }
 

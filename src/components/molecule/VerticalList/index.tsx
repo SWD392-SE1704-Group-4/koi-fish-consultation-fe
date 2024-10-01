@@ -4,7 +4,6 @@ import styles from './style.module.scss';
 
 const VerticalList: React.FC<any> = (props: any): JSX.Element => {
     const { listItem, collapsed } = props;
-
     return (
         <List>
             {listItem?.map((element: any, index: number) => {
@@ -12,7 +11,7 @@ const VerticalList: React.FC<any> = (props: any): JSX.Element => {
                     <BaseListItem 
                         key={index}
                         title={element.title} 
-                        icon={element.icon} 
+                        icon={<element.icon/>} 
                         href={element.href}
                         collapsed={collapsed}  
                     />

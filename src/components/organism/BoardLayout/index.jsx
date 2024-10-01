@@ -2,31 +2,9 @@ import * as React from "react";
 import Board from "@cloudscape-design/board-components/board";
 import BoardItem from "@cloudscape-design/board-components/board-item";
 import Header from "@cloudscape-design/components/header";
-import ComicList from "../../../containers/Dashboard/ComicList";
-import ComicMetric from "../../../containers/Dashboard/ComicMetric";
-import styles from './style.module.css'
+import styles from './style.module.css';
 
-export default () => {
-  const [items, setItems] = React.useState([
-    // {
-    //   id: "1",
-    //   rowSpan: 5,
-    //   columnSpan: 3,
-    //   data: { title: "Comic List", content: <ComicList /> }
-    // },
-    {
-      id: "2",
-      rowSpan: 5,
-      columnSpan: 1,
-      data: { title: "Demo 2", content: <ComicMetric /> }
-    },
-    {
-      id: "3",
-      rowSpan: 1,
-      columnSpan: 3,
-      data: { title: "Demo 3", content: <ComicMetric /> }
-    }
-  ]);
+const DashboardBoard = ({ items, onItemsChange }) => {
   return (
     <Board
       renderItem={item => (
@@ -42,31 +20,20 @@ export default () => {
             resizeHandleAriaDescription:
               "Use Space or Enter to activate resize, arrow keys to move, Space or Enter to submit, or Escape to discard."
           }}
-          
         >
           {item.data.content}
         </BoardItem>
       )}
-      onItemsChange={event =>
-        setItems(event.detail.items)
-      }
+      onItemsChange={event => onItemsChange(event.detail.items)}
       items={items}
       i18nStrings={(() => {
-        function createAnnouncement(
-          operationAnnouncement,
-          conflicts,
-          disturbed
-        ) {
-          const conflictsAnnouncement =
-            conflicts.length > 0
-              ? `Conflicts with ${conflicts
-                .map(c => c.data.title)
-                .join(", ")}.`
-              : "";
-          const disturbedAnnouncement =
-            disturbed.length > 0
-              ? `Disturbed ${disturbed.length} items.`
-              : "";
+        function createAnnouncement(operationAnnouncement, conflicts, disturbed) {
+          const conflictsAnnouncement = conflicts.length > 0
+            ? `Conflicts with ${conflicts.map(c => c.data.title).join(", ")}.`
+            : "";
+          const disturbedAnnouncement = disturbed.length > 0
+            ? `Disturbed ${disturbed.length} items.`
+            : "";
           return [
             operationAnnouncement,
             conflictsAnnouncement,
@@ -75,21 +42,17 @@ export default () => {
             .filter(Boolean)
             .join(" ");
         }
+
         return {
           liveAnnouncementDndStarted: operationType =>
-            operationType === "resize"
-              ? "Resizing"
-              : "Dragging",
+            operationType === "resize" ? "Resizing" : "Dragging",
           liveAnnouncementDndItemReordered: operation => {
-            const columns = `column ${operation.placement
-              .x + 1}`;
-            const rows = `row ${operation.placement.y +
-              1}`;
+            const columns = `column ${operation.placement.x + 1}`;
+            const rows = `row ${operation.placement.y + 1}`;
             return createAnnouncement(
               `Item moved to ${operation.direction === "horizontal"
                 ? columns
-                : rows
-              }.`,
+                : rows}.`,
               operation.conflicts,
               operation.disturbed
             );
@@ -101,10 +64,9 @@ export default () => {
             const rowsConstraint = operation.isMinimalRowsReached
               ? " (minimal)"
               : "";
-            const sizeAnnouncement =
-              operation.direction === "horizontal"
-                ? `columns ${operation.placement.width}${columnsConstraint}`
-                : `rows ${operation.placement.height}${rowsConstraint}`;
+            const sizeAnnouncement = operation.direction === "horizontal"
+              ? `columns ${operation.placement.width}${columnsConstraint}`
+              : `rows ${operation.placement.height}${rowsConstraint}`;
             return createAnnouncement(
               `Item resized to ${sizeAnnouncement}.`,
               operation.conflicts,
@@ -112,10 +74,8 @@ export default () => {
             );
           },
           liveAnnouncementDndItemInserted: operation => {
-            const columns = `column ${operation.placement
-              .x + 1}`;
-            const rows = `row ${operation.placement.y +
-              1}`;
+            const columns = `column ${operation.placement.x + 1}`;
+            const rows = `row ${operation.placement.y + 1}`;
             return createAnnouncement(
               `Item inserted to ${columns}, ${rows}.`,
               operation.conflicts,
@@ -127,18 +87,15 @@ export default () => {
           liveAnnouncementDndDiscarded: operationType =>
             `${operationType} discarded`,
           liveAnnouncementItemRemoved: op =>
-            createAnnouncement(
-              `Removed item ${op.item.data.title}.`,
-              [],
-              op.disturbed
-            ),
+            createAnnouncement(`Removed item ${op.item.data.title}.`, [], op.disturbed),
           navigationAriaLabel: "Board navigation",
           navigationAriaDescription:
             "Click on non-empty item to move focus over",
-          navigationItemAriaLabel: item =>
-            item ? item.data.title : "Empty"
+          navigationItemAriaLabel: item => (item ? item.data.title : "Empty")
         };
       })()}
     />
   );
-}
+};
+
+export default DashboardBoard;

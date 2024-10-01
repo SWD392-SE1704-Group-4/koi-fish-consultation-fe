@@ -7,19 +7,22 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
+import BaseListItem from '../../atoms/BaseListItem';
 
 
 
 interface SidebarProps {
     collapsed: boolean;
     setCollapsed: (collapsed: boolean) => void;
+    listItem: any;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }): JSX.Element => {
+const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed, listItem }): JSX.Element => {
 
     const toggleCollapse = () => {
         setCollapsed(!collapsed);
     };
+
     const sidebarStyles: SxProps = {
         position: 'fixed',
         height: '100vh',
@@ -29,32 +32,10 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }): JSX.Eleme
         boxSizing: 'border-box',
         transition: 'width 0.3s',
         overflow: 'hidden',
-      };
-    const listData = [
-        {
-            title: 'My dashboard',
-            icon: <HomeIcon/>,
-            href: '/me/home'
-        },
-        {
-            title: 'My profile',
-            icon: <HomeIcon/>,
-            href: '/me/dashboard'
-        },
-        {
-            title: 'Fengshui consultation',
-            icon: <HomeIcon/>,
-            href: '/me/consultation'
-        },
-        {
-            title: 'Favourite',
-            icon: <HomeIcon/>,
-            href: '/me/favourite'
-        },
-    ];
+    };
 
     return (
-        <Box sx={sidebarStyles} className={styles.sidebar} >
+        <Box sx={{ ...sidebarStyles, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} className={styles.sidebar}>
             <Box sx={{
                 padding: '0 13px',
                 height: '60px',
@@ -63,10 +44,19 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed, setCollapsed }): JSX.Eleme
                 alignItems: 'center',
                 display: 'inline-flex',
             }}>
-                <MenuIcon color= 'primary' onClick={toggleCollapse} />
+                <MenuIcon color='primary' onClick={toggleCollapse} />
             </Box>
-            <VerticalList listItem={listData} collapsed={collapsed} />
+
+            <VerticalList listItem={listItem} collapsed={collapsed} />
+
+            <Box sx={{
+                padding: '0 13px',
+                marginBottom: '20px',
+            }}>
+                <BaseListItem title="Back to home" icon={<HomeIcon/>} collapsed={collapsed} href='/home'/>
+            </Box>
         </Box>
+
     );
 }
 
