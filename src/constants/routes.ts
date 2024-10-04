@@ -16,6 +16,7 @@ import Favourite from "../containers/Dashboard/Favourite";
 import Consultation from "../containers/Dashboard/Consultation";
 import KoiFishPage from "../containers/KoiFishPage";
 import Annual from "../containers/AnnualFengShui/Annual";
+import AboutUsSection from "../containers/AboutUs/AboutUs";
 import path from "path";
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
@@ -27,6 +28,7 @@ export const publicRoutes = [
   { path: "/home", container: Home },
   { path: "/information/koi-fish", container: KoiFishPage },
   { path: "/annual-feng-shui", container: Annual },
+  { path: "/about-us", container: AboutUsSection },
 ];
 
 export const memberDashboardSubRoutes = [
