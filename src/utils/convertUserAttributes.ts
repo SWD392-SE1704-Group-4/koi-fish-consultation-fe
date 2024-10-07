@@ -36,6 +36,12 @@ export function convertUserAttributes(attributes) {
             case 'picture':
                 user.picture = attr.Value;
                 break;
+            case 'given_name':
+                user.lastname = attr.Value;
+                break;
+            case 'family_name':
+                user.firstname = attr.Value;
+                break;
             default:
                 break;
         }

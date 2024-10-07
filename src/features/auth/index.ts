@@ -3,23 +3,29 @@ import authInitialState from "./auth.initialState";
 import {
     setUserInfo, 
     setAuthInfo,
-    setIsLoggedIn
+    setIsLoggedIn,
+    setAuthError,
+    setSignUpStatus
 } from "./auth.reducers";
 
-const comic = createSlice({
+const auth = createSlice({
     name: "auth",
     initialState: authInitialState,
     reducers: {
         setUserInfoAction: setUserInfo,
         setAuthInfoAction: setAuthInfo,
-        setIsLoggedInAction: setIsLoggedIn
+        setIsLoggedInAction: setIsLoggedIn,
+        setAuthErrorAction: setAuthError,
+        setSignUpStatusAction: setSignUpStatus
     }
 })
 
 export const {
     setUserInfoAction,
     setAuthInfoAction,
-    setIsLoggedInAction
-} = comic.actions;
+    setIsLoggedInAction,
+    setAuthErrorAction,
+    setSignUpStatusAction
+} = auth.actions;
 
-export default comic.reducer;
+export default auth.reducer;
