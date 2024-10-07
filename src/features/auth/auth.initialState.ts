@@ -2,6 +2,7 @@ import { TAppState, TAuthState } from "AppModels"
 
 const authInitialState: TAuthState = {
     auth: {
+        signUpStatus: null,
         isPrepared: false,
         isLoggedIn: false,
         newPasswordRequired: false,
@@ -9,7 +10,7 @@ const authInitialState: TAuthState = {
         new_password: false,
         reset: false,
         isFetching: false,
-        error: undefined,
+        error: null,
     },
     user: {
         sub: '',

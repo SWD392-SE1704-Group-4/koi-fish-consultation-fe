@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Divider } from "antd";
 import { GoogleOutlined, EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
@@ -6,6 +6,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./index.css";
+import { requestSignUp } from "../../features/auth/auth.actions";
+import { useDispatch, useSelector } from "react-redux";
+import { formatPhoneNumber } from "../../utils/formatPhoneNumber";
+import { useSnackbar } from "notistack";
+import { selectAuthInfo } from "../../features/auth/auth.selectors";
+import { setAuthErrorAction, setSignUpStatusAction } from "../../features/auth";
 
 // Define the validation schema using yup
 const schema = yup.object().shape({
@@ -23,9 +29,11 @@ const schema = yup.object().shape({
 });
 
 const SignUp: React.FC = () => {
+  const authInfo = useSelector(selectAuthInfo);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const dispatch = useDispatch();
 
-  // Set up react-hook-form with yup validation
   const {
     register,
     handleSubmit,
@@ -34,10 +42,27 @@ const SignUp: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  // Handle form submission
+  useEffect(() => {
+    if(authInfo.error){
+      enqueueSnackbar({message:authInfo.error, variant:"error", autoHideDuration: 2000})
+    }
+     dispatch(setAuthErrorAction(null))
+  }, [authInfo?.error]);
+
+  useEffect(() => {
+    if(authInfo.signUpStatus){
+      enqueueSnackbar({message:authInfo.signUpStatus, variant:"success", autoHideDuration: 2000})
+    }
+     dispatch(setSignUpStatusAction(null))
+  }, [authInfo?.signUpStatus]);
+
   const onSubmit = (data: any) => {
-    console.log("Form Data:", data);
-    // Add your form submission logic here (API call, etc.)
+    const password = data.password;
+    const email = data.email;
+    const phoneNumber = formatPhoneNumber(data.tel);
+    const firstName = data.firstName;
+    const lastName = data.lastName;
+    dispatch(requestSignUp({ password, email, phoneNumber, firstName, lastName }))
   };
 
   return (

@@ -5,6 +5,9 @@ import {
     RespondToAuthChallengeCommand,
     RespondToAuthChallengeCommandOutput,
     MessageActionType,
+    SignUpCommandInput,
+    SignUpCommandOutput,
+    SignUpCommand,
     GetUserCommand
 } from '@aws-sdk/client-cognito-identity-provider';
 import CryptoJS from "crypto-js";
@@ -69,6 +72,32 @@ export async function getToken(Username, Password, newPassword?: string): Promis
     }
 }
 
+export const signUpUser = async (username: string, password: string, email: string, phoneNumber: string, firstName: string, lastName: string) => {
+    const client = new CognitoIdentityProviderClient({ region });
+    const secretHash = calculateSecretHash(clientSecret, username, clientId);
+    const signUpParams: SignUpCommandInput = {
+        ClientId: clientId,
+        Username: username,
+        Password: password,
+        SecretHash: secretHash,
+        UserAttributes: [
+            { Name: 'email', Value: email },
+            { Name: 'phone_number', Value: phoneNumber },
+            { Name: 'given_name', Value: firstName },
+            { Name: 'family_name', Value: lastName }
+        ]
+    };
+    try {
+        const command = new SignUpCommand(signUpParams);
+        const response = await client.send(command);
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw error; 
+    }
+};
+
 export async function getUserInfo(accessToken) {
     const client = new CognitoIdentityProviderClient({ region });
     try {
@@ -79,26 +108,3 @@ export async function getUserInfo(accessToken) {
         console.error("Error fetching user info:", error);
     }
 }
-
-// async function createCognitoUser ({ userPoolId, email, givenName, familyName, name }) {
-//     const fullName = getFullName({ name, givenName, familyName })
-//     const createdCognitoUser = await cognitoIdpClient.send(new AdminCreateUserCommand({
-//       UserPoolId: userPoolId,
-//       // Don't send an email with the temporary password
-//       MessageAction: MessageActionType.SUPPRESS,
-//       Username: email,
-//       UserAttributes: [
-//         {
-//           Name: 'name',
-//           Value: fullName,
-//         },
-//         {
-//           Name: 'email',
-//           Value: email,
-//         },
-//         {
-//           Name: 'email_verified',
-//           Value: 'true',
-//         },
-//       ],
-//     }))

@@ -2,6 +2,7 @@
 declare module 'AppModels' {
     export type TAuthState = {
         auth: {
+            signUpStatus: string,
             isPrepared: boolean,
             isLoggedIn: boolean,
             newPasswordRequired: boolean,
@@ -9,7 +10,7 @@ declare module 'AppModels' {
             new_password: boolean,
             reset: boolean,
             isFetching: boolean,
-            error: boolean,
+            error: string,
         },
         user: {
             sub: string,

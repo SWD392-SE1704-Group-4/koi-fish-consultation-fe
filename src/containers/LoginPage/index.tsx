@@ -10,7 +10,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getToken } from "../../services/cognito/Authenticate";
 import { requestAuth } from "../../features/auth/auth.actions";
-import { selectIsLoggedIn } from "../../features/auth/auth.selectors";
+import { selectAuthInfo, selectIsLoggedIn } from "../../features/auth/auth.selectors";
+import { useSnackbar } from "notistack";
+import { setAuthErrorAction } from "../../features/auth";
 
 // Define the validation schema using yup
 const schema = yup.object().shape({
@@ -19,6 +21,8 @@ const schema = yup.object().shape({
 });
 
 const Login: React.FC = () => {
+  const authInfo = useSelector(selectAuthInfo);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -34,16 +38,18 @@ const Login: React.FC = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  useEffect(() => {
+    if(authInfo.error){
+      enqueueSnackbar({message:authInfo.error, variant:"error", autoHideDuration: 2000})
+    }
+     dispatch(setAuthErrorAction(null))
+  }, [authInfo?.error]);
 
   // Handle form submission
   const onSubmit = async (data: any) => {
-    try {
       const username = data.username;
       const password = data.password;
       dispatch(requestAuth({ username, password }));
-    } catch (err) {
-      console.log(err)
-    }
   };
   
   useEffect(() => {

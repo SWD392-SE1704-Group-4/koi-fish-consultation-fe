@@ -10,3 +10,10 @@ export const setIsLoggedIn = (state: TAuthState, action: PayloadAction<any>) => 
 export const setUserInfo = (state: TAuthState, action: PayloadAction<any>) => {
     state.user = action.payload;
 }
+export const setAuthError = (state: TAuthState, action: PayloadAction<any>) => {
+    state.auth.error = action.payload;
+}
+
+export const setSignUpStatus = (state: TAuthState, action: PayloadAction<any>) => {
+    state.auth.signUpStatus = action.payload;
+}

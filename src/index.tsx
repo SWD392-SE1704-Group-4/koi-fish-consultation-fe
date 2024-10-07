@@ -8,19 +8,22 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { CssVarsProvider } from '@mui/joy/styles';
 import { muiTheme } from './utils/theme';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-    <BrowserRouter>
-      <Provider store={store}>
-        <CssVarsProvider theme={muiTheme}>
+  <BrowserRouter>
+    <Provider store={store}>
+      <CssVarsProvider theme={muiTheme}>
+        <SnackbarProvider>
           <App />
-        </CssVarsProvider>
-      </Provider>
-    </BrowserRouter>
+        </SnackbarProvider>
+      </CssVarsProvider>
+    </Provider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
