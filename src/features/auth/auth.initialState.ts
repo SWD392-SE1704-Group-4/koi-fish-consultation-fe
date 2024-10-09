@@ -3,6 +3,7 @@ import { TAppState, TAuthState } from "AppModels"
 const authInitialState: TAuthState = {
     auth: {
         signUpStatus: null,
+        updateUserStatus: null,
         isPrepared: false,
         isLoggedIn: false,
         newPasswordRequired: false,
@@ -13,7 +14,7 @@ const authInitialState: TAuthState = {
         error: null,
     },
     user: {
-        sub: '',
+        sub: null,
         username: '',
         email: '',
         firstname: '',

@@ -7,3 +7,9 @@ export const api = setupInterceptors(
         baseURL: 'http://localhost:8080/api/v1'
     })
 )
+
+export const apiGateway = setupInterceptors(
+    axios.create({
+        baseURL: process.env.REACT_APP_AWS_GATEWAY_URL
+    })
+)
