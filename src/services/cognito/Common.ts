@@ -3,6 +3,7 @@ import {
     GetUserCommand
 } from '@aws-sdk/client-cognito-identity-provider';
 import CryptoJS from "crypto-js";
+import { apiGateway } from '../../api/api';
 
 const region = process.env.REACT_APP_AWS_REGION;
 
@@ -21,8 +22,38 @@ export async function getUserInfo(accessToken) {
 export async function getUserGroup(accessToken) {
     const client = new CognitoIdentityProviderClient({ region });
     try {
-        const command = new GetUserCommand({ AccessToken: accessToken }); 
+        const command = new GetUserCommand({ AccessToken: accessToken });
     } catch (error) {
 
+    }
+}
+
+export async function updateUser(userData: any) {
+    try {
+        const event = {
+            body: {
+                userName: userData.userName,
+                fileName: userData.fileName,
+                fileType: userData.fileType,
+                userPicture: userData.userPicture,
+                otherUserData: userData.otherUserData,
+            }
+        };
+        const response = await apiGateway.post('/user/update-cognito-user', event, {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': process.env.REACT_APP_AWS_GATEWAY_XAPIKEY
+            },
+        });
+        if (response.status === 200) {
+            console.log('User updated successfully:', response.data);
+            return response.data;
+        } else {
+            console.error('Error updating user:', response.data);
+            throw new Error('Failed to update user');
+        }
+    } catch (error) {
+        console.error('Error in updateUser:', error);
+        throw error;
     }
 }

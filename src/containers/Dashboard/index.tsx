@@ -7,10 +7,22 @@ import DashboardHeader from "../../components/organism/DashboardHeader";
 import UserSettingDashboard from "./UserSetting";
 import { memberDashboardSubRoutes } from "../../constants/routes";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoggedIn } from "../../features/auth/auth.selectors";
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = (): JSX.Element => {
+    const navigate = useNavigate();
+    const isLoggedIn = useSelector(selectIsLoggedIn);
     const [collapsed, setCollapsed] = React.useState(false);
     const [currentRoute, setCurrentRoute] = React.useState(memberDashboardSubRoutes[0]);
+
+    //thêm loading vào đây để redirect khi chưa đăng nhập
+    // React.useEffect(() => {
+    //     if (!isLoggedIn) {
+    //       navigate('/');
+    //     }
+    //   }, [isLoggedIn, navigate]);
 
     return (
         <Grid container sx={{ flexGrow: 1, flexWrap: 'nowrap' }}>

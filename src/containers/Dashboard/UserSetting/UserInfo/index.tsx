@@ -5,7 +5,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ValidationError } from "yup";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
-import React from "react";
+import { selectAuthInfo, selectIsLoggedIn, selectUserInfo } from "../../../../features/auth/auth.selectors";
+import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import convertFileToBase64 from "../../../../utils/convertFileToBase64";
+import { useSnackbar } from "notistack";
+import { requestUpdateUser, requestUserInfo } from "../../../../features/auth/auth.actions";
+import { setAuthErrorAction, setUpdateUserStatusAction } from "../../../../features/auth";
+import Select from '@mui/joy/Select';
+import Option from '@mui/joy/Option';
 
 const VisuallyHiddenInput = styled('input')`
   clip: rect(0 0 0 0);
@@ -19,9 +27,10 @@ const VisuallyHiddenInput = styled('input')`
   width: 1px;
 `;
 const schema = yup.object().shape({
-    firstname: yup.string()
+    firstname: yup
+        .string()
         .required("First Name is required!")
-        .matches(/^[a-zA-Z]+$/, 'Field cannot have numeric or special characters'),
+        .matches(/^[a-zA-Z\s]+$/, 'First Name cannot contain numeric or special characters'),
     lastname: yup.string()
         .required("Last Name is required!")
         .matches(/^[a-zA-Z]+$/, 'Field cannot have numeric or special characters'),
@@ -29,7 +38,15 @@ const schema = yup.object().shape({
         .required("Email is required!")
         .matches(/^[^\.\s][\w\-\.{2,}]+@([\w-]+\.)+[\w-]{2,}$/, "Email is invalid!"),
     phone: yup.string()
-        .matches(/^0\d{9}$/, "Invalid phone number")
+        .matches(/^\+\d{2}\d{9,10}$/, "Invalid phone number"),
+    address: yup
+        .string()
+        .required("Address is required")
+        .matches(/^\S[\s\S]{0,48}\S$/, "Invalid address"),
+    gender: yup
+        .string()
+        .matches(/^[01]$/, 'Gender must be either 0 (Male) or 1 (Female)') // Regex to match '0' or '1'
+        .required('Gender is required!'), // Ensure the field is not empty
 })
 const passwordSchema = yup.object().shape({
     currentPassword: yup.string()
@@ -45,75 +62,68 @@ const passwordSchema = yup.object().shape({
 })
 
 const UserInfo: React.FC = (): JSX.Element => {
-    const user = {
-        firstname: "doan",
-        lastname: "tri",
-        email: "doantri2003@gmail.com",
-        phone: "123123123",
-        profilePicture: "qwdqwdqwd"
-    }
-    const isAuthenticated = true;
-    const [selectedImage, setSelectedImage] = React.useState<any>(null);
+    const dispatch = useDispatch();
+
+    const authInfo = useSelector(selectAuthInfo);
+    const userInfo = useSelector(selectUserInfo);
+    const [selectedImage, setSelectedImage] = React.useState<File | string | null>(null);
+    const [birthdate, setBirthdate] = React.useState<string | null>(null);
+    const [gender, setGender] = React.useState<string | null>(null)
     const [isLoaded, setIsLoaded] = React.useState<boolean>(false);
-    const [formData, setFormData] = React.useState({
-        firstname: user?.firstname || '',
-        lastname: user?.lastname || '',
-        email: user?.email || '',
-        phone: user?.phone || '',
-    });
     const [open, setOpen] = React.useState<boolean>(false);
     const [emailVerifyOpen, setEmailVerifyOpen] = React.useState<boolean>(false);
-    const [uploading, setUploading] = React.useState<boolean>();
-    const [passwordUploading, setPasswordUploading] = React.useState<boolean>();
-    // const { enqueueSnackbar } = useSnackbar();
+    const [uploading, setUploading] = React.useState<boolean>(false);
+    const [passwordUploading, setPasswordUploading] = React.useState<boolean>(false);
+    const { enqueueSnackbar } = useSnackbar();
+
     React.useEffect(() => {
-        setIsLoaded(false);
-        if (user) {
-            setFormData({
-                firstname: user?.firstname,
-                lastname: user?.lastname,
-                email: user?.email,
-                phone: user?.phone,
-            })
-            if (user?.profilePicture) {
-                setSelectedImage(user?.profilePicture)
-            }
+        dispatch(requestUserInfo());
+    }, [])
+
+    React.useEffect(() => {
+        setSelectedImage(userInfo.picture);
+        setBirthdate(userInfo.birthday);
+        setGender(userInfo.gender);
+    }, [userInfo])
+
+    useEffect(() => {
+        if (authInfo.error) {
+            enqueueSnackbar({ message: authInfo.error, variant: "error", autoHideDuration: 2000 })
+            setUploading(false);
         }
-        console.log(user);
-        setIsLoaded(true);
-    }, [user, isAuthenticated === true])
+        dispatch(setAuthErrorAction(null))
+    }, [authInfo?.error]);
+
+    useEffect(() => {
+        if (authInfo.updateUserStatus) {
+            enqueueSnackbar({ message: authInfo.updateUserStatus, variant: "success", autoHideDuration: 2000 })
+            setUploading(false);
+        }
+        dispatch(setUpdateUserStatusAction(null))
+    }, [authInfo?.updateUserStatus]);
+
     const handleUpdateUser = async (e: any) => {
-        // try {
-        //     setUploading(true);
-        //     const formData = new FormData();
-        //     formData.append('firstname', e.firstname);
-        //     formData.append('lastname', e.lastname);
-        //     formData.append('email', e.email);
-        //     formData.append('phone', e.phone);
-        //     if (selectedImage instanceof File) {
-        //         formData.append('profilePicture', selectedImage);
-        //     }
-        //     console.log(formData);
-        //     const result = await UpdateUser(user._id, formData);
-        //     if (result) {
-        //         enqueueSnackbar("Updated successully", { variant: "success" });
-        //         window.location.reload();
-        //     }
-        // }
-        // catch (error: any) {
-        //     if (error instanceof ValidationError) {
-        //         console.log(error.inner)
-        //         error.inner.forEach((err) => {
-        //             enqueueSnackbar(err.message, { variant: "error" });
-        //             setUploading(false)
-        //         });
-        //         //enqueueSnackbar(error.inner[0].message, { variant: "error" });
-        //     } else {
-        //         enqueueSnackbar(`Error while updating information: ${error.response.data.message}`, { variant: "error" });
-        //         setUploading(false)
-        //     }
-        // }
-    }
+        setUploading(true);
+        const userName = userInfo.username;
+        const family_name = e.firstname;
+        const given_name = e.lastname;
+        const address = e.address;
+        const phone_number = e.phone;
+        const gender = e.gender;
+        var userPicture;
+        var fileName;
+        var fileType;
+        const otherUserData = { given_name, family_name, address, phone_number, birthdate, gender };
+        if (selectedImage instanceof File) {
+            const base64Image = await convertFileToBase64(selectedImage);
+            userPicture = base64Image;
+            fileName = selectedImage.name;
+            fileType = selectedImage.type;
+        };
+        dispatch(requestUpdateUser({ userName, fileName, fileType, userPicture, otherUserData }));
+        
+    };
+
     const {
         register,
         handleSubmit,
@@ -134,12 +144,9 @@ const UserInfo: React.FC = (): JSX.Element => {
             sx={{
                 display: 'flex',
                 overflow: 'hidden'
-                // mx: 'auto',
-                // px: { xs: 2, md: 6 },
-                // py: { xs: 2, md: 3 },
             }}
         >
-            {isLoaded && (
+            {(!isLoaded && userInfo.sub) && (
                 <Card>
                     <Box sx={{ mb: 1 }}>
                         <Typography level="title-md">Personal info</Typography>
@@ -191,9 +198,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                     type="file"
                                     accept="image/*"
                                     onChange={(e) => {
-                                        //console.log('update image');
                                         if (e?.target?.files) {
-                                            //console.log(e.target.files[0])
                                             setSelectedImage(e?.target?.files[0]);
                                         }
                                     }} />
@@ -211,14 +216,14 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             size="sm"
                                             placeholder="First name"
                                             {...register('firstname')}
-                                            defaultValue={formData.firstname}
+                                            defaultValue={userInfo.firstname}
                                         />
                                         {errors.firstname && <p>{errors.firstname.message}</p>}
                                         <FormLabel sx={{ mt: 2 }}>Last name</FormLabel>
                                         <Input
                                             size="sm"
                                             placeholder="Last name"
-                                            defaultValue={formData.lastname}
+                                            defaultValue={userInfo.lastname}
                                             {...register('lastname')}
                                             sx={{ flexGrow: 1 }}
                                         />
@@ -229,7 +234,8 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             type="email"
                                             startDecorator={<EmailRoundedIcon />}
                                             placeholder="email"
-                                            defaultValue={formData.email}
+                                            readOnly
+                                            defaultValue={userInfo.email}
                                             {...register('email')}
                                             sx={{ flexGrow: 1 }}
                                         />
@@ -239,14 +245,48 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             size="sm"
                                             placeholder="Phone"
                                             {...register('phone')}
-                                            defaultValue={formData.phone}
+                                            defaultValue={userInfo.phone}
                                             sx={{ flexGrow: 1 }}
                                         />
                                         {errors.phone && <p>{errors.phone.message}</p>}
-                                        {/* Add more form fields as needed */}
-                                        {/* <CountrySelector
-                                                value={formData.country}
-                                                onChange={handleInputChange} /> */}
+                                        <FormLabel sx={{ mt: 2 }}>Address</FormLabel>
+                                        <Input
+                                            size="sm"
+                                            placeholder="Address"
+                                            {...register('address')}
+                                            defaultValue={userInfo.address}
+                                            sx={{ flexGrow: 1 }}
+                                        />
+                                        {errors.address && <p>{errors.address.message}</p>}
+                                        <Box sx={{ display: 'flex', gap: 5 }}>
+                                            <div>
+                                                <FormLabel sx={{ mt: 2 }}>Birth day</FormLabel>
+                                                <input style={{
+                                                    width: '120px',
+                                                    padding: '9px',
+                                                    border: '1px solid #ccc',
+                                                    borderRadius: '5px',
+                                                    transition: 'border-color 0.3s',
+                                                    outline: 'none',
+                                                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
+                                                }}
+                                                    type="date"
+                                                    id="birthday"
+                                                    name="birthday"
+                                                    onChange={(e) => setBirthdate(e.target.value)}
+                                                    value={birthdate} />
+                                            </div>
+                                            <div>
+                                                <FormLabel sx={{ mt: 2 }}>Gender</FormLabel>
+                                                <Select sx={{ width: "120px" }} {...register('gender')} defaultValue={userInfo?.gender}>
+                                                    <Option value="">None</Option>
+                                                    <Option value="0">Male</Option>
+                                                    <Option value="1">Female</Option>
+                                                </Select>
+                                            </div>
+                                        </Box>
+
+
                                         <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider', mt: 2 }}>
                                             <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
                                                 <Button size="sm" variant="outlined" color="neutral">
@@ -271,3 +311,4 @@ const UserInfo: React.FC = (): JSX.Element => {
 }
 
 export default UserInfo;
+

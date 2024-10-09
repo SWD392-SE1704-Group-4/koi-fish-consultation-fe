@@ -34,7 +34,7 @@ export function convertUserAttributes(attributes) {
                 user.phone = attr.Value;
                 break;
             case 'picture':
-                user.picture = attr.Value;
+                user.picture = process.env.REACT_APP_AWS_CLOUDFRONT_URL + attr.Value;
                 break;
             case 'given_name':
                 user.lastname = attr.Value;
@@ -49,9 +49,9 @@ export function convertUserAttributes(attributes) {
 
     user.username = user.email.split('@')[0];
 
-    const nameParts = user.username.split('.');
-    user.firstname = nameParts[0] || '';
-    user.lastname = nameParts[1] || '';
+    // const nameParts = user.username.split('.');
+    // user.firstname = nameParts[0] || '';
+    // user.lastname = nameParts[1] || '';
 
     return user;
 }
