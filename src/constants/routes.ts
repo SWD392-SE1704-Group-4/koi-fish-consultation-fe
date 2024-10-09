@@ -18,6 +18,12 @@ import KoiFishPage from "../containers/KoiFishPage";
 import Annual from "../containers/AnnualFengShui/Annual";
 import AboutUsSection from "../containers/AboutUs/AboutUs";
 import path from "path";
+import ColorMeaning from "../containers/HardBlogs/ColorMeaning";
+import Symbolism from "../containers/HardBlogs/Symbolism";
+import FengShuiKoiFishBlog from "../containers/HardBlogs/HomeDecor";
+import KoiFishMeaningBenefits from "../containers/HardBlogs/MeaningAndBenefits";
+import SeasonalKoiPondCare from "../containers/HardBlogs/Seasonal";
+import KoiCareForGoodFengShui from "../containers/HardBlogs/KoiCare";
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
 
@@ -29,6 +35,12 @@ export const publicRoutes = [
   { path: "/information/koi-fish", container: KoiFishPage },
   { path: "/annual-feng-shui", container: Annual },
   { path: "/about-us", container: AboutUsSection },
+  { path: "/blog/koi-color-meaning", container: ColorMeaning },
+  { path: "/blog/symbolism", container: Symbolism },
+  { path: "/blog/home-decor", container: FengShuiKoiFishBlog },
+  { path: "/blog/meaning-and-benefits", container: KoiFishMeaningBenefits },
+  { path: "/blog/seasonal-koi", container: SeasonalKoiPondCare },
+  { path: "/blog/koi-care-for-feng-shui", container: KoiCareForGoodFengShui },
 ];
 
 export const memberDashboardSubRoutes = [

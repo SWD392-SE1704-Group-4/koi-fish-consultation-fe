@@ -81,7 +81,7 @@ const Home: React.FC = (): JSX.Element => {
             <BlogCard
               title="Color Meaning of Koi Fish in Feng Shui"
               imageUrl="https://fengshuibeginner.com/wp-content/uploads/2022/10/Yin-Yang-Symbol-Meaning.jpg"
-              onClickUrl="/your-blog-url-1"
+              onClickUrl="/blog/koi-color-meaning"
             />
           </Grid>
 
@@ -89,7 +89,7 @@ const Home: React.FC = (): JSX.Element => {
             <BlogCard
               title="Symbolism of Koi Fish in Feng Shui"
               imageUrl="https://fengshuibeginner.com/wp-content/uploads/2023/01/chinese-new-year-foods-nian-gao.jpg"
-              onClickUrl="/your-blog-url-2"
+              onClickUrl="/blog/symbolism"
             />
           </Grid>
 
@@ -97,7 +97,7 @@ const Home: React.FC = (): JSX.Element => {
             <BlogCard
               title="Feng Shui Koi Fish and Home Décor"
               imageUrl="https://fengshuibeginner.com/wp-content/uploads/2019/07/feng-shui-centre-of-home.jpg"
-              onClickUrl="/your-blog-url-3"
+              onClickUrl="/blog/home-decor"
             />
           </Grid>
 
@@ -105,7 +105,7 @@ const Home: React.FC = (): JSX.Element => {
             <BlogCard
               title="Koi Fish in Feng Shui: Meaning & Benefits"
               imageUrl="https://fengshuibeginner.com/wp-content/uploads/2019/01/Chinese-New-Year-Lanterns.jpg"
-              onClickUrl="/your-blog-url-3"
+              onClickUrl="/blog/meaning-and-benefits"
             />
           </Grid>
 
@@ -113,7 +113,7 @@ const Home: React.FC = (): JSX.Element => {
             <BlogCard
               title="Seasonal Koi Pond Care Tips"
               imageUrl="https://fengshuibeginner.com/wp-content/uploads/2019/04/koi-fish-feng-shui.jpg"
-              onClickUrl="/your-blog-url-3"
+              onClickUrl="/blog/seasonal-koi"
             />
           </Grid>
 
@@ -121,7 +121,7 @@ const Home: React.FC = (): JSX.Element => {
             <BlogCard
               title="Koi Care for Good Feng Shui"
               imageUrl="https://fengshuibeginner.com/wp-content/uploads/2022/07/koi-fish-feng-shui.jpg"
-              onClickUrl="/your-blog-url-3"
+              onClickUrl="/blog/koi-care-for-feng-shui"
             />
           </Grid>
         </Grid>
