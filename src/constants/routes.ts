@@ -24,6 +24,7 @@ import FengShuiKoiFishBlog from "../containers/HardBlogs/HomeDecor";
 import KoiFishMeaningBenefits from "../containers/HardBlogs/MeaningAndBenefits";
 import SeasonalKoiPondCare from "../containers/HardBlogs/Seasonal";
 import KoiCareForGoodFengShui from "../containers/HardBlogs/KoiCare";
+import FengShuiForm from "../containers/FengShuiGenerator/HomeGenerator";
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
 
@@ -41,6 +42,7 @@ export const publicRoutes = [
   { path: "/blog/meaning-and-benefits", container: KoiFishMeaningBenefits },
   { path: "/blog/seasonal-koi", container: SeasonalKoiPondCare },
   { path: "/blog/koi-care-for-feng-shui", container: KoiCareForGoodFengShui },
+  { path: "/information/fengshui-element", container: FengShuiForm },
 ];
 
 export const memberDashboardSubRoutes = [
