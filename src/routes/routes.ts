@@ -3,7 +3,7 @@ import Dashboard from "../containers/Dashboard";
 
 const appRoutes = [
     {path: '/home', container: Home},
-    {path: '/admin/dashboard', container: Dashboard}
+    {path: '/admin/dashboard', container: Dashboard},
 ]
 
 export default appRoutes;
