@@ -6,11 +6,11 @@ const RouteComponent: React.FC<any> = (props: any): JSX.Element => {
     const { listItem } = props;
     return (
         <Routes>
-            {privateRoutes.map((route: any) => {
-                return (<Route path={route.path} element={<route.container/>} />);
+            {privateRoutes.map((route: any, index) => {
+                return (<Route path={route.path} element={<route.container/>} key={index} />);
             })}
-            {publicRoutes.map((route: any) => {
-                 return (<Route path={route.path} element={<route.container/>} />);
+            {publicRoutes.map((route: any, index) => {
+                 return (<Route path={route.path} element={<route.container/>} key={index} />);
             })}
         </Routes>
     );

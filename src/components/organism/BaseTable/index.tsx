@@ -1,31 +1,27 @@
-// import { ThemeProvider } from "@emotion/react";
-
 import { Box, Typography } from "@mui/joy";
 import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { ThemeProvider } from "@emotion/react";
 import SearchBox from "../../molecule/SearchBox";
+import { Experimental_CssVarsProvider as MUICssVarsProvider } from '@mui/material/styles';
 
 const BaseTable: React.FC<any> = (props): JSX.Element => {
-  const { rows, columns, variant } = props;
+  const { rows, columns, variant, rowId } = props;
 
   return (
-    <Box>
-      <SearchBox sx={{ margin: 1 }} />
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        checkboxSelection
-        disableRowSelectionOnClick
-      />
-    </Box>
+    <MUICssVarsProvider>
+      <div>
+        <DataGrid
+          getRowId={rowId}
+          rows={rows}
+          columns={columns}
+          pageSizeOptions={[5]}
+          checkboxSelection={false}
+          disableRowSelectionOnClick
+          disableColumnFilter
+        />
+      </div>
+    </MUICssVarsProvider>
   );
 }
 
