@@ -1,10 +1,10 @@
 import { combineReducers, Reducer, AnyAction } from "@reduxjs/toolkit";
-import comic from "../features/comic";
+import fengshui from "../features/fengshui";
 import auth from "../features/auth";
 
 const combineReducer = combineReducers({    
-    comic: comic,
-    auth: auth
+    auth: auth,
+    fengshui: fengshui
 });
 
 export type RootState = ReturnType<typeof combineReducer>;

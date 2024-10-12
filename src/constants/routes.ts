@@ -24,6 +24,7 @@ import FengShuiKoiFishBlog from "../containers/HardBlogs/HomeDecor";
 import KoiFishMeaningBenefits from "../containers/HardBlogs/MeaningAndBenefits";
 import SeasonalKoiPondCare from "../containers/HardBlogs/Seasonal";
 import KoiCareForGoodFengShui from "../containers/HardBlogs/KoiCare";
+import ManageFengshuiDataDashboard from "../containers/Dashboard/ManageFengshuiData";
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
 
@@ -43,6 +44,7 @@ export const publicRoutes = [
   { path: "/blog/koi-care-for-feng-shui", container: KoiCareForGoodFengShui },
 ];
 
+//Route for member
 export const memberDashboardSubRoutes = [
   {
     path: "/profile",
@@ -79,30 +81,37 @@ export const memberDashboardSubRoutes = [
     container: Favourite,
     href: "/me/favourite",
   },
+
 ];
 
+//Route for staff
 export const staffDashboardSubRoutes = [
-  { path: "/profile", title: "My profile", container: UserInfo },
+  {
+    path: "/profile",
+    title: "My profile",
+    container: UserSettingDashboard,
+    icon: AccountCircleIcon,
+    href: "/me/profile",
+  },
   {
     path: "/manage-fengshui-data",
     title: "Manage fengshui data",
-    container: UserInfo,
+    container: ManageFengshuiDataDashboard,
+    icon: AutoAwesomeIcon,
+    href: "/me/manage-fengshui-data",
   },
   {
-    path: "/manage-koi-fish",
-    title: "Manage fengshui data",
-    container: UserInfo,
+    path: "/manage-blog",
+    title: "Manage blog",
+    container: ManageBlog,
+    icon: BookIcon,
+    href: "/me/manage-blog",
   },
-  {
-    path: "/manage-fish-pond",
-    title: "Manage fengshui data",
-    container: UserInfo,
-  },
-  { path: "/manage-blog", title: "Manage advertisement", container: Dashboard },
   {
     path: "/manage-advertisement",
     title: "Manage advertisement",
-    container: Dashboard,
+    container: ManageAdvertisement,
+    icon: AutoAwesomeIcon,
+    href: "/me/manage-advertisement",
   },
-  { path: "/favourite", title: "Favourite", container: Dashboard },
 ];

@@ -17,9 +17,9 @@ const { reset } = applyTheme({ theme });
 
 const App: React.FC = (): JSX.Element => {
     return (
-        <>
-            <RouteComponent></RouteComponent>
-        </>
+        <React.Fragment>
+            <RouteComponent/>
+        </React.Fragment>
     );
 }
 

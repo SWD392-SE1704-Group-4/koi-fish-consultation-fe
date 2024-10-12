@@ -1,10 +1,10 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { Comic, Category, TComicState } from "AppModels";
+import { Comic, Category, TFengshuiState } from "AppModels";
 
-export const setComicList = (state: TComicState, action: PayloadAction<Comic[]>) => {
-    state.comicList = action.payload;
-}
+// export const setComicList = (state: TFengshuiState, action: PayloadAction<Comic[]>) => {
+//     state.comicList = action.payload;
+// }
 
-export const setCategoryList = (state: TComicState, action: PayloadAction<Category[]>) => {
-    state.comicCategory = action.payload;
-}
+// export const setCategoryList = (state: TFengshuiState, action: PayloadAction<Category[]>) => {
+//     state.comicCategory = action.payload;
+// }

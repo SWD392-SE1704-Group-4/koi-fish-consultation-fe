@@ -5,7 +5,7 @@ import Header from "../../components/organism/Header";
 import React from "react";
 import DashboardHeader from "../../components/organism/DashboardHeader";
 import UserSettingDashboard from "./UserSetting";
-import { memberDashboardSubRoutes } from "../../constants/routes";
+import { memberDashboardSubRoutes, staffDashboardSubRoutes } from "../../constants/routes";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../../features/auth/auth.selectors";
@@ -33,7 +33,7 @@ const Dashboard: React.FC = (): JSX.Element => {
                     transition: 'width 0.3s',
                 }}
             >
-                <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} listItem={memberDashboardSubRoutes} />
+                <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} listItem={staffDashboardSubRoutes} />
             </Grid>
             <Grid
                 xs={collapsed ? 11 : 1}
@@ -48,8 +48,8 @@ const Dashboard: React.FC = (): JSX.Element => {
                     padding: 2
                 }}>
                     <Routes>
-                        {memberDashboardSubRoutes.map(r => {
-                            return <Route path={r.path} element={<r.container />} />
+                        {staffDashboardSubRoutes.map((r, index) => {
+                            return <Route path={r.path} element={<r.container />} key={index}/>
                         })}
                     </Routes>
                 </Box>

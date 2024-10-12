@@ -15,15 +15,15 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <CssVarsProvider theme={muiTheme}>
+  <CssVarsProvider theme={muiTheme}>
+    <BrowserRouter>
+      <Provider store={store}>
         <SnackbarProvider>
           <App />
         </SnackbarProvider>
-      </CssVarsProvider>
-    </Provider>
-  </BrowserRouter>
+      </Provider>
+    </BrowserRouter>
+  </CssVarsProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

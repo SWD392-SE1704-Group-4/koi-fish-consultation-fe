@@ -14,8 +14,8 @@ const SearchBox: React.FC<SxProps> = (props): JSX.Element =>{
                 ...props
             }}
         >
-            <Input placeholder="Nhập tên truyện"></Input>
-            <Button>Tìm</Button>
+            <Input placeholder="Typing here..."></Input>
+            <Button>Search</Button>
         </Box>
     );
 }
