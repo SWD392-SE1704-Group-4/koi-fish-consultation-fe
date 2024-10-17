@@ -10,7 +10,7 @@ declare module 'AppModels' {
             resetPassword: boolean,
             new_password: boolean,
             reset: boolean,
-            isFetching: boolean,
+            isLoaded: boolean,
             error: string,
         },
         user: {

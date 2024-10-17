@@ -32,8 +32,8 @@ const FengshuiElementList: React.FC = (): JSX.Element => {
         dispatch(requestGetFengshuiElement({ request }));
     }, []);
     return (
-        <Box sx={{ overflow: "hidden", width: "100%"}}>
-        {(!isFetching && fengshuiElement) && <BaseTable rowId={(r: any) => r.elementId} rows={fengshuiElement} columns={columns} variant={variant} />}
+        <Box sx={{ overflow: "hidden", width: "100%" }}>
+            {(!isFetching && fengshuiElement) && <BaseTable rowId={(r: any) => r.elementId} rows={fengshuiElement} columns={columns} variant={variant} />}
         </Box>
     );
 }

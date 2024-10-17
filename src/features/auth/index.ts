@@ -6,8 +6,10 @@ import {
     setIsLoggedIn,
     setAuthError,
     setSignUpStatus,
-    setUpdateUserStatus
+    setUpdateUserStatus,
+    setIsLoaded
 } from "./auth.reducers";
+
 
 const auth = createSlice({
     name: "auth",
@@ -18,7 +20,8 @@ const auth = createSlice({
         setIsLoggedInAction: setIsLoggedIn,
         setAuthErrorAction: setAuthError,
         setSignUpStatusAction: setSignUpStatus,
-        setUpdateUserStatusAction: setUpdateUserStatus
+        setUpdateUserStatusAction: setUpdateUserStatus,
+        setIsLoadedAction: setIsLoaded
     }
 })
 
@@ -28,7 +31,8 @@ export const {
     setIsLoggedInAction,
     setAuthErrorAction,
     setSignUpStatusAction,
-    setUpdateUserStatusAction
+    setUpdateUserStatusAction,
+    setIsLoadedAction
 } = auth.actions;
 
 export default auth.reducer;
