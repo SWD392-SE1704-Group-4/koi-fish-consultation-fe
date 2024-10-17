@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "../../components/organism/Header";
 import { selectUserInfo } from "../../features/auth/auth.selectors";
 import "./Home.css";
+import Footer from "../../components/organism/Footer";
 
 const Model = forwardRef(({ path }: { path: string }, ref: any) => {
   const { scene } = useGLTF(path);
@@ -68,6 +69,9 @@ const Home: React.FC = (): JSX.Element => {
             enableRotate={false}
           />
         </Canvas>
+      </Box>
+
+      <Box>
         <Typography className="header-content-blog"> Our Blogs </Typography>
         <Typography className="under-content-blog">
           Discover the harmony between Koi Fish and Feng Shui.
@@ -75,7 +79,7 @@ const Home: React.FC = (): JSX.Element => {
         <Grid
           container
           spacing={2}
-          sx={{ mt: 4, padding: "30px", paddingLeft: "50px" }}
+          sx={{ mt: 4, width: 1, pl: 2 }}
         >
           <Grid xs={12} sm={6} md={4} sx={{ padding: "30px" }}>
             <BlogCard
@@ -126,6 +130,8 @@ const Home: React.FC = (): JSX.Element => {
           </Grid>
         </Grid>
       </Box>
+
+      <Footer />
     </React.Fragment>
   );
 };

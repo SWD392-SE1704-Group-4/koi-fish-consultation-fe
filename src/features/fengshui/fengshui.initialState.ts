@@ -4,7 +4,13 @@ const fengshuiInitialState: TFengshuiState = {
     isFetching: null,
     fengshuiElementList: null,
     koifishList: null,
-    fishpondList: []
+    koiFish: null,
+    updateKoiFishModalOpen: null,
+    createKoiFishModalOpen: null,
+    deleteKoiFishModalOpen: null,
+    fishpondList: [],
+    status: null,
+    error: null,
 }
 
 export default fengshuiInitialState;
