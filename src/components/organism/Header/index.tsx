@@ -132,10 +132,18 @@ const Header: React.FC<any> = (): JSX.Element => {
               </MenuItem>
               <MenuItem>
                 <Link
+                  href="/information/fengshui-consultation"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
+                  Consultation
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link
                   href="/information/fengshui-element"
                   sx={{ color: "black", textDecoration: "none" }}
                 >
-                  Fengshui element
+                  Fengshui Element
                 </Link>
               </MenuItem>
               <MenuItem>

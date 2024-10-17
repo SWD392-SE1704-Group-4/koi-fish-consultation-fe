@@ -26,6 +26,9 @@ import SeasonalKoiPondCare from "../containers/HardBlogs/Seasonal";
 import KoiCareForGoodFengShui from "../containers/HardBlogs/KoiCare";
 import ManageFengshuiDataDashboard from "../containers/Dashboard/ManageFengshuiData";
 import FengShuiForm from "../containers/FengShuiGenerator/HomeGenerator";
+import BlogPosting from "../containers/Advertiser/BlogPosting/BlogPosting";
+import KoiFishDetail from "../containers/KoiFishDetail";
+import FengShuiElement from "../containers/FengShuiElement/FengShuiElement";
 import PostAdvertisement from "../containers/PostAdvertisement";
 import AdvertisementList from "../containers/Dashboard/ManageAdvertisement/AdvertisementList";
 import AdvertisementPage from "../containers/AdvertisementList";
@@ -49,7 +52,12 @@ export const publicRoutes = [
   { path: "/blog/meaning-and-benefits", container: KoiFishMeaningBenefits },
   { path: "/blog/seasonal-koi", container: SeasonalKoiPondCare },
   { path: "/blog/koi-care-for-feng-shui", container: KoiCareForGoodFengShui },
-  { path: "/information/fengshui-element", container: FengShuiForm },
+  { path: "/information/fengshui-consultation", container: FengShuiForm },
+  { path: "/information/fengshui-element", container: FengShuiElement },
+
+  // test
+  { path: "/blog-posting", container: BlogPosting },
+  { path: "/details", container: KoiFishDetail },
 ];
 
 //Route for member
@@ -89,7 +97,6 @@ export const memberDashboardSubRoutes = [
     container: Favourite,
     href: "/me/favourite",
   },
-
 ];
 
 //Route for staff

@@ -1,0 +1,35 @@
+.elements-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1rem;
+  text-align: left;
+  padding: 20px;
+}
+
+.elements-table th,
+.elements-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.elements-table th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.elements-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.elements-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.elements-table td {
+  vertical-align: middle;
+}
+
+.elements-table td:first-child {
+  text-align: center;
+}

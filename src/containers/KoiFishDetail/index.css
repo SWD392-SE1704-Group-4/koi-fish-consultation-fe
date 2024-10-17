@@ -1,0 +1,85 @@
+.koi-fish-gallery-card {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+.image-gallery-container {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.koi-fish-details-card {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+.koi-fish-name {
+  color: #2c3e50;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.koi-fish-description {
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+.fengshui-info {
+  margin-top: 20px;
+}
+
+.fengshui-title {
+  color: #27ae60;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.image-gallery-detail {
+  max-height: 100px !important;
+}
+
+/* .koi-fish-card {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+.koi-fish-name {
+  color: #2c3e50;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.koi-fish-description {
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+.koi-fish-details {
+  margin-bottom: 20px;
+}
+
+.koi-fish-images {
+  display: flex;
+  gap: 10px;
+}
+
+.koi-fish-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+}
+
+.fengshui-info {
+  margin-top: 20px;
+}
+
+.fengshui-title {
+  color: #27ae60;
+  margin-bottom: 10px;
+  font-size: 20px;
+} */
