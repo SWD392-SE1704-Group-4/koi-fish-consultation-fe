@@ -24,15 +24,8 @@ const KoiFish: React.FC = (): JSX.Element => {
             sx={{
                 overflow: 'hidden',
             }}
-        >
-            <Box 
-            sx={{
-                display: 'flex',
-            }}>
-                <SearchBox />
-                <BaseButton />
-            </Box>
-          <KoiFishManageList />
+        > 
+            <KoiFishManageList />
         </Box>
     );
 }

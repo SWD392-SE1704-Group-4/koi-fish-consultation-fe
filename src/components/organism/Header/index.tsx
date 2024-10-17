@@ -101,6 +101,12 @@ const Header: React.FC<any> = (): JSX.Element => {
             gap: 4,
           }}
         >
+          <Link
+            href="/post/advertisement"
+            sx={{ color: "black", textDecoration: "none", fontWeight: "bold" }}
+          >
+            Post advertisement
+          </Link>
           <Dropdown>
             <MenuButton variant="plain" endDecorator={<ArrowDropDown />}>
               <Typography sx={{ color: "black", fontWeight: "bold" }}>
@@ -138,6 +144,22 @@ const Header: React.FC<any> = (): JSX.Element => {
                   sx={{ color: "black", textDecoration: "none" }}
                 >
                   Fengshui Element
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link
+                  href="/information/advertisement"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
+                  Advertisement
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link
+                  href="/information/blog"
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
+                  Blog
                 </Link>
               </MenuItem>
             </Menu>

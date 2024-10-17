@@ -1,12 +1,13 @@
 import { combineReducers, Reducer, AnyAction } from "@reduxjs/toolkit";
 import fengshui from "../features/fengshui";
 import auth from "../features/auth";
-import blog from "../features/blog";
 
-const combineReducer = combineReducers({
-  auth: auth,
-  fengshui: fengshui,
-  blog: blog,
+import advertisement from "../features/advertisement";
+
+const combineReducer = combineReducers({    
+    auth: auth,
+    fengshui: fengshui,
+    advertisement: advertisement
 });
 
 export type RootState = ReturnType<typeof combineReducer>;

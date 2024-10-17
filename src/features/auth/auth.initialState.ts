@@ -10,7 +10,7 @@ const authInitialState: TAuthState = {
         resetPassword: false,
         new_password: false,
         reset: false,
-        isFetching: false,
+        isLoaded: null,
         error: null,
     },
     user: {

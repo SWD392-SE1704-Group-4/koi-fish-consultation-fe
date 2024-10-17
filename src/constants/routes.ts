@@ -29,6 +29,10 @@ import FengShuiForm from "../containers/FengShuiGenerator/HomeGenerator";
 import BlogPosting from "../containers/Advertiser/BlogPosting/BlogPosting";
 import KoiFishDetail from "../containers/KoiFishDetail";
 import FengShuiElement from "../containers/FengShuiElement/FengShuiElement";
+import PostAdvertisement from "../containers/PostAdvertisement";
+import AdvertisementList from "../containers/Dashboard/ManageAdvertisement/AdvertisementList";
+import AdvertisementPage from "../containers/AdvertisementList";
+
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
 
@@ -37,7 +41,9 @@ export const publicRoutes = [
   { path: "/register", container: SignUp },
   { path: "/", container: Home },
   { path: "/home", container: Home },
+  { path: "/post/advertisement", container: PostAdvertisement },
   { path: "/information/koi-fish", container: KoiFishPage },
+  { path: "/information/advertisement", container: AdvertisementPage },
   { path: "/annual-feng-shui", container: Annual },
   { path: "/about-us", container: AboutUsSection },
   { path: "/blog/koi-color-meaning", container: ColorMeaning },

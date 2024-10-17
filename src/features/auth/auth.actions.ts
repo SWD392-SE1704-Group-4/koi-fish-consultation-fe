@@ -3,10 +3,11 @@ import { getToken, getUserInfo, signUpUser } from "../../services/cognito/Authen
 import { updateUser } from "../../services/cognito/Common";
 import { SetAccessToken, SetRefreshToken, GetAccessToken } from "../../utils/tokens";
 import { convertUserAttributes } from "../../utils/convertUserAttributes";
-import { setUserInfoAction, setIsLoggedInAction, setAuthErrorAction, setSignUpStatusAction, setUpdateUserStatusAction } from ".";
+import { setUserInfoAction, setIsLoggedInAction, setAuthErrorAction, setSignUpStatusAction, setUpdateUserStatusAction, setIsLoadedAction } from ".";
 
 export const requestAuth = ({ username, password }: { username: string, password: string }): TAppThunk => {
     return async (dispatch: any) => {
+        dispatch(setIsLoadedAction(false))
         try {
             const response = await getToken(username, password, '');
             if(response){
@@ -20,12 +21,16 @@ export const requestAuth = ({ username, password }: { username: string, password
             }
         } catch (error) {
             dispatch(setAuthErrorAction(error.message));
+        } finally{
+            dispatch(setIsLoadedAction(true))
         }
+        
     };
 };
 
 export const requestUserInfo = (): TAppThunk => {
     return async (dispatch: any) => {
+        dispatch(setIsLoadedAction(false))
         try {
             const userInfo = await getUserInfo(GetAccessToken());
             if(!!userInfo?.UserAttributes){
@@ -35,6 +40,7 @@ export const requestUserInfo = (): TAppThunk => {
         } catch (error) {
             dispatch(setAuthErrorAction(error.message));
         }
+        dispatch(setIsLoadedAction(true))
     };
 };
 
