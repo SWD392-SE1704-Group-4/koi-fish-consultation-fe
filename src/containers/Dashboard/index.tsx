@@ -5,7 +5,7 @@ import Header from "../../components/organism/Header";
 import React from "react";
 import DashboardHeader from "../../components/organism/DashboardHeader";
 import UserSettingDashboard from "./UserSetting";
-import { memberDashboardSubRoutes, staffDashboardSubRoutes } from "../../constants/routes";
+import { adminDashboardSubRoutes, memberDashboardSubRoutes, staffDashboardSubRoutes } from "../../constants/routes";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAuthInfo, selectIsLoggedIn, selectUserInfo } from "../../features/auth/auth.selectors";
@@ -18,7 +18,7 @@ const Dashboard: React.FC = (): JSX.Element => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const userInfo = useSelector(selectUserInfo);
     const authInfo = useSelector(selectAuthInfo);
-    
+
     const [collapsed, setCollapsed] = React.useState(false);
     const [currentRoute, setCurrentRoute] = React.useState(memberDashboardSubRoutes[0]);
 
@@ -37,7 +37,15 @@ const Dashboard: React.FC = (): JSX.Element => {
                     transition: 'width 0.3s',
                 }}
             >
-                <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} listItem={staffDashboardSubRoutes} />
+                <Sidebar
+                    collapsed={collapsed}
+                    setCollapsed={setCollapsed}
+                    listItem={
+                        userInfo?.groups?.includes(USER_GROUP.STAFF) ? staffDashboardSubRoutes :
+                            userInfo?.groups?.includes(USER_GROUP.ADMIN) ? adminDashboardSubRoutes :
+                                userInfo?.groups?.includes(USER_GROUP.ADMIN) ? memberDashboardSubRoutes : null
+                    }
+                />
             </Grid>
             <Grid
                 xs={collapsed ? 11 : 1}
@@ -58,12 +66,12 @@ const Dashboard: React.FC = (): JSX.Element => {
                             })
                         }
                         {userInfo?.groups?.includes(USER_GROUP.ADMIN) &&
-                            staffDashboardSubRoutes.map((r, index) => {
+                            adminDashboardSubRoutes.map((r, index) => {
                                 return <Route path={r.path} element={<r.container />} key={index} />
                             })
                         }
                         {userInfo?.groups?.includes(USER_GROUP.MEMBER) &&
-                            staffDashboardSubRoutes.map((r, index) => {
+                            memberDashboardSubRoutes.map((r, index) => {
                                 return <Route path={r.path} element={<r.container />} key={index} />
                             })
                         }

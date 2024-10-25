@@ -166,3 +166,21 @@ export const staffDashboardSubRoutes = [
     href: "/me/manage-transaction",
   },
 ];
+
+
+export const adminDashboardSubRoutes = [
+  {
+    path: "/profile",
+    title: "My profile",
+    container: UserSettingDashboard,
+    icon: AccountCircleIcon,
+    href: "/me/profile",
+  },
+  {
+    path: "/manage/account",
+    title: "Manage account",
+    container: UserSettingDashboard,
+    icon: AccountCircleIcon,
+    href: "/manage/account",
+  }
+]
