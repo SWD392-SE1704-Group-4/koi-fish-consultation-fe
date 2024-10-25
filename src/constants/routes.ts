@@ -33,7 +33,6 @@ import PostAdvertisement from "../containers/PostAdvertisement";
 import AdvertisementList from "../containers/Dashboard/ManageAdvertisement/AdvertisementList";
 import AdvertisementPage from "../containers/AdvertisementList";
 
-
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
 
 export const publicRoutes = [
