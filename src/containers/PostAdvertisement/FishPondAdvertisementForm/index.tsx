@@ -12,8 +12,9 @@ import { selectKoiFishList } from "../../../features/fengshui/fengshui.selectors
 import { requestGetKoiFish } from "../../../features/fengshui/fengshui.actions";
 import { FieldNumberOutlined } from "@ant-design/icons";
 import { setKoiFishAction } from "../../../features/fengshui";
-import { requestCreateAdvertisement } from "../../../features/advertisement/advertisement.actions";
+import { requestCreateAdvertisement, requestGetListAdvertisementType } from "../../../features/advertisement/advertisement.actions";
 import { selectUserInfo } from "../../../features/auth/auth.selectors";
+import { selectAdvertisementType, selectAdvertisementTypeList } from "../../../features/advertisement/advertisement.selectors";
 
 // Validation schema using Yup
 const AdvertisementSchema = Yup.object().shape({
@@ -48,16 +49,18 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
 
     const userInfo = useSelector(selectUserInfo);
 
-    const koiFishList = useSelector(selectKoiFishList);
+    const fishPondList = useSelector(selectKoiFishList);
+    const advertisementType = useSelector(selectAdvertisementType);
 
     const [imageFiles, setImageFiles] = React.useState<any>([]);
 
     const initialValues = {
         title: "",
         description: "",
-        quantity: 0,
         location: '',
         contactInfo: '',
+        phone: '',
+        address: '',
         koiFishId: "",
     };
 
@@ -77,6 +80,7 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
             }
         }
         dispatch(requestGetKoiFish({ request }));
+        dispatch(requestGetListAdvertisementType({ request }));
     }, [])
 
     const handleSubmit = (values: any) => {
@@ -85,6 +89,8 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
             .map((file: any) => file);
 
         const formData = new FormData();
+
+        formData.append("advertisementType", advertisementType.id);
 
         formData.append("postedBy", userInfo.username);
 
@@ -104,7 +110,6 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
             variant="outlined"
             sx={{ borderRadius: 'md', p: 3, boxShadow: 'lg', height: 'fit-content' }}
         >
-            <ModalClose variant="plain" sx={{ m: 1 }} />
             <Typography
                 component="h2"
                 id="modal-title"
@@ -112,7 +117,7 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                 textColor="inherit"
                 sx={{ fontWeight: 'lg', mb: 5 }}
             >
-                Post New Koi Fish Advertisement
+                Post fish pond advertisement
             </Typography>
             <Formik
                 initialValues={initialValues}
@@ -132,40 +137,6 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                                 {...field}
                                                 placeholder="Advertisement Title"
                                                 error={touched.title && Boolean(errors.title)}
-                                                fullWidth
-                                                sx={inputStyles}
-                                            />
-                                        )}
-                                    </Field>
-                                </Box>
-                            </Grid>
-
-                            {/* Location and Contact info Field */}
-                            <Grid xs={12} sx={{ display: 'flex', gap: 5 }}>
-                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                    <FormLabel sx={labelStyles}>Location</FormLabel>
-                                    <Field name="location">
-                                        {({ field }: any) => (
-                                            <Input
-                                                {...field}
-                                                type="text"
-                                                placeholder="Location"
-                                                error={touched.location && Boolean(errors.location)}
-                                                fullWidth
-                                                sx={{ ...inputStyles, width: '200px' }}
-                                            />
-                                        )}
-                                    </Field>
-                                </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', width: 1}}>
-                                    <FormLabel sx={labelStyles}>Contact info</FormLabel>
-                                    <Field name="contactInfo">
-                                        {({ field }: any) => (
-                                            <Input
-                                                {...field}
-                                                type="text"
-                                                placeholder="Contact info"
-                                                error={touched.contactInfo && Boolean(errors.contactInfo)}
                                                 fullWidth
                                                 sx={inputStyles}
                                             />
@@ -205,7 +176,7 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                             {/* Koi fish Field, quantity */}
                             <Grid xs={12} sx={{ display: 'flex', gap: 5 }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                    <FormLabel sx={labelStyles}>Koi Fish</FormLabel>
+                                    <FormLabel sx={labelStyles}>Fish pond</FormLabel>
                                     <Field name="koiFishId">
                                         {({ field, form }) => (
                                             <Select
@@ -214,11 +185,11 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                                 sx={{ ...inputStyles, width: '200px' }}
                                                 onChange={(event, newValue) => {
                                                     form.setFieldValue(field.name, newValue);
-                                                    const currentKoiFish = koiFishList.find((fish: any) => fish.id === newValue);
+                                                    const currentKoiFish = fishPondList.find((fish: any) => fish.id === newValue);
                                                     dispatch(setKoiFishAction(currentKoiFish));
                                                 }}
                                             >
-                                                {koiFishList?.map((fish: any) => (
+                                                {fishPondList?.map((fish: any) => (
                                                     <Option key={fish?.id} value={fish.id}>
                                                         {fish.koiFishName}
                                                     </Option>
@@ -227,7 +198,7 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                         )}
                                     </Field>
                                 </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                {/* <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <FormLabel sx={labelStyles}>Quantity</FormLabel>
                                     <Field name="quantity">
                                         {({ field }: any) => (
@@ -241,7 +212,7 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                             />
                                         )}
                                     </Field>
-                                </Box>
+                                </Box> */}
                             </Grid>
 
                             {/* Advertisement additional picture */}
@@ -274,31 +245,99 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                     </Field>
                                 </Box>
                                 {/* Image Preview */}
-                                {imageFiles?.length !== 0 && (
-                                    <Box sx={{ display: 'flex', width: 1, flexWrap: 'wrap', mt: 2 }}>
-                                        {imageFiles.map(function (url, imageIndex) {
-                                            return (<div style={{ position: "relative" }}>
-                                                <img src={typeof url === 'string' ? `${cloudfrontUrl + url}` : URL.createObjectURL(url)} alt="Pasted Image" height={90} style={{ borderRadius: "5px", margin: '2px' }} />
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.preventDefault()
-                                                        setImageFiles((prev) => prev.filter((_, index) => index !== imageIndex));
-                                                    }}
-                                                    style={{
-                                                        position: 'absolute',
-                                                        top: 5,
-                                                        right: 5,
-                                                    }}
-                                                >
-                                                    <DeleteForeverIcon />
-                                                </button>
-                                            </div>
-                                            )
-                                        })}
-                                    </Box>
-                                )}
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <FormLabel sx={labelStyles}></FormLabel>
+                                    {imageFiles?.length !== 0 && (
+                                        <Box sx={{ display: 'flex', width: 1, flexWrap: 'wrap', mt: 2 }}>
+                                            {imageFiles.map(function (url, imageIndex) {
+                                                return (<div style={{ position: "relative" }}>
+                                                    <img src={typeof url === 'string' ? `${cloudfrontUrl + url}` : URL.createObjectURL(url)} alt="Pasted Image" height={90} style={{ borderRadius: "5px", margin: '2px' }} />
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.preventDefault()
+                                                            setImageFiles((prev) => prev.filter((_, index) => index !== imageIndex));
+                                                        }}
+                                                        style={{
+                                                            position: 'absolute',
+                                                            top: 5,
+                                                            right: 5,
+                                                        }}
+                                                    >
+                                                        <DeleteForeverIcon />
+                                                    </button>
+                                                </div>
+                                                )
+                                            })}
+                                        </Box>
+                                    )}
+                                </Box>
                             </Grid>
-
+                            {/* Location and Contact info Field */}
+                            <Grid xs={12} sx={{ display: 'flex', gap: 5, mt: 4 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <FormLabel sx={labelStyles}>Location</FormLabel>
+                                    <Field name="location">
+                                        {({ field }: any) => (
+                                            <Input
+                                                {...field}
+                                                type="text"
+                                                placeholder="Location"
+                                                error={touched.location && Boolean(errors.location)}
+                                                fullWidth
+                                                sx={{ ...inputStyles, width: '250px' }}
+                                            />
+                                        )}
+                                    </Field>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: 1 }}>
+                                    <FormLabel sx={labelStyles}>Contact info</FormLabel>
+                                    <Field name="contactInfo">
+                                        {({ field }: any) => (
+                                            <Input
+                                                {...field}
+                                                type="text"
+                                                placeholder="Contact info"
+                                                error={touched.contactInfo && Boolean(errors.contactInfo)}
+                                                fullWidth
+                                                sx={inputStyles}
+                                            />
+                                        )}
+                                    </Field>
+                                </Box>
+                            </Grid>
+                            {/* Phone and address */}
+                            <Grid xs={12} sx={{ display: 'flex', gap: 5 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <FormLabel sx={labelStyles}>Phone</FormLabel>
+                                    <Field name="phone">
+                                        {({ field }: any) => (
+                                            <Input
+                                                {...field}
+                                                type="number"
+                                                placeholder="Phone"
+                                                error={touched.phone && Boolean(errors.phone)}
+                                                fullWidth
+                                                sx={{ ...inputStyles, width: '250px' }}
+                                            />
+                                        )}
+                                    </Field>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: 1 }}>
+                                    <FormLabel sx={labelStyles}>Address</FormLabel>
+                                    <Field name="address">
+                                        {({ field }: any) => (
+                                            <Input
+                                                {...field}
+                                                type="number"
+                                                placeholder="Address"
+                                                error={touched.quantity && Boolean(errors.quantity)}
+                                                fullWidth
+                                                sx={inputStyles}
+                                            />
+                                        )}
+                                    </Field>
+                                </Box>
+                            </Grid>
 
                         </Grid>
 

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/joy";
 import { VariantProp, ColorPaletteProp } from '@mui/joy/styles';
 import { useEffect, useState } from "react";
-import  {useAdvertisementColumns} from "./GetAdvertisementCol"
+import  { useAdsPackageColumns } from './GetAdsPackageCol';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
@@ -9,13 +9,13 @@ import BaseTable from "../../../../components/organism/BaseTable";
 import { selectAdvertisementList } from "../../../../features/advertisement/advertisement.selectors";
 import { setAdvertisementErrorAction, setAdvertisementListAction } from "../../../../features/advertisement";
 import { requestGetListAdvertisement } from "../../../../features/advertisement/advertisement.actions";
-import AdsDetailModal from "./AdsDetailModal";
 
-const AdvertisementList: React.FC = (): JSX.Element => {
+const AdsPackageList: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
-    const columns = useAdvertisementColumns();
-    const advertisementList = useSelector(selectAdvertisementList);
+    const columns = useAdsPackageColumns();
+    const advertisementList = [];
     const [variant, setVariant] = useState<VariantProp>('plain');
+
     const request = {
         keyword: "",
         categoryIds: [
@@ -30,15 +30,16 @@ const AdvertisementList: React.FC = (): JSX.Element => {
             direction: "DESC"
         }
     }
+
     useEffect(() => {
         dispatch(requestGetListAdvertisement({ request }));
-    }, []);
+    }, []); 
+
     return (
         <Box sx={{ overflow: "hidden", width: "100%" }}>
-            <AdsDetailModal/>
             {(advertisementList) && <BaseTable rowId={(r: any) => r.advertisementId} rows={advertisementList} columns={columns} variant={variant} />}
         </Box>
     );
 }
 
-export default AdvertisementList;
+export default AdsPackageList;

@@ -1,14 +1,31 @@
 import React, { useState } from "react";
 import Header from "../../components/organism/Header";
-import { Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
 import KoiFishList from "../../components/organism/KoiFishList";
+import { useDispatch, useSelector } from "react-redux";
+import { selectKoiFishList } from "../../features/fengshui/fengshui.selectors";
+import { requestGetKoiFish } from "../../features/fengshui/fengshui.actions";
+import { selectAdvertisementList } from "../../features/advertisement/advertisement.selectors";
+import { requestGetListAdvertisement } from "../../features/advertisement/advertisement.actions";
+import AdvertisementCard from "../../components/organism/AdvertisementCard";
 
 const FengShuiForm: React.FC = () => {
   const [year, setYear] = useState<number | "">("");
   const [gender, setGender] = useState<string>("");
-  const [result, setResult] = useState<string>("");
+  const [result, setResult] = useState<string>(null);
   const [error, setError] = useState<string>("");
   const [filteredKoiFish, setFilteredKoiFish] = useState<any[]>([]);
+  const [filteredAds, setFilteredAds] = useState<any[]>([]);
+
+  const dispatch = useDispatch();
+  const koiFishList = useSelector(selectKoiFishList);
+  const advertisement = useSelector(selectAdvertisementList);
+
+  React.useEffect(() => {
+    const request = {};
+    dispatch(requestGetKoiFish({ request }));
+    dispatch(requestGetListAdvertisement({ request }));
+  })
 
   const heavenlyStems = [
     "Jia",
@@ -123,6 +140,14 @@ const FengShuiForm: React.FC = () => {
     const element = calculateElement(year);
     setResult(`Year of birth: ${year} 
         Belongs to ${element}`);
+    const filteredKoiFish = koiFishList.filter((koi: any) => koi.fengshuiElement.elementName === element);
+    setFilteredKoiFish(filteredKoiFish);
+    const filterAdvertisementsByKoiFishName = (advertisements: any, filteredKoiFish: any) => {
+      return advertisements.filter(advertisement =>
+        filteredKoiFish.some(koiFish => koiFish.koiFishName === advertisement.koiFishName)
+      );
+    };
+    setFilteredAds(filterAdvertisementsByKoiFishName(advertisement, filteredKoiFish))
   };
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -259,10 +284,30 @@ const FengShuiForm: React.FC = () => {
         )}
       </div>
       <div style={{ padding: "0 80px" }}>
-        <Typography style={{ fontSize: "50px" }}>Koi Fish List</Typography>
-        <div style={{ marginTop: "20px" }}>
-          <KoiFishList koiFishData={filteredKoiFish} />
-        </div>
+        {result &&
+          <Box>
+            <Typography style={{ fontSize: "50px" }}>Koi Fish List</Typography>
+            <div style={{ marginTop: "20px" }}>
+              <KoiFishList koiFishData={filteredKoiFish} />
+            </div>
+            <Typography style={{ fontSize: "50px" }}>Related advertisement</Typography>
+            <div style={{ marginTop: "20px" }}>
+            <Box
+                display="flex"
+                gap={2}
+            >
+                {filteredAds && filteredAds.length > 0 ? (
+                    filteredAds.map(ad => (
+                        <AdvertisementCard key={ad.advertisementId} advertisement={ad} />
+                    ))
+                ) : (
+                    <p>No advertisements available.</p>
+                )}
+            </Box>
+            </div>
+          </Box>
+
+        }
       </div>
     </React.Fragment>
   );

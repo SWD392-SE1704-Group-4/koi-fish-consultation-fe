@@ -1,9 +1,14 @@
 import {
     CognitoIdentityProviderClient,
-    GetUserCommand
+    GetUserCommand,
+    GetGroupCommand,
+    AdminListGroupsForUserCommand
 } from '@aws-sdk/client-cognito-identity-provider';
 import CryptoJS from "crypto-js";
-import { apiGateway } from '../../api/api';
+import { api, apiGateway } from '../../api/api';
+import { AxiosResponse } from 'axios';
+import { endpoint } from '../../constants/endpoint';
+import { BaseResponse } from 'AppModels';
 
 const region = process.env.REACT_APP_AWS_REGION;
 
@@ -19,14 +24,11 @@ export async function getUserInfo(accessToken) {
     }
 }
 
-export async function getUserGroup(accessToken) {
-    const client = new CognitoIdentityProviderClient({ region });
-    try {
-        const command = new GetUserCommand({ AccessToken: accessToken });
-    } catch (error) {
 
-    }
+export function getAppUserGroup(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
+    return api.post(endpoint.GET_APP_USER_GROUP, requestBody);
 }
+
 
 export async function updateUser(userData: any) {
     try {

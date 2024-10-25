@@ -199,29 +199,6 @@ const Header: React.FC<any> = (): JSX.Element => {
                     </ListItemDecorator>
                     Dashboard
                   </MenuItem>
-                  {userInfo?.role === "admin" ? (
-                    <MenuItem onClick={() => navigate("/me/dashboard")}>
-                      <ListItemDecorator>
-                        <DashboardIcon />
-                      </ListItemDecorator>
-                      Dashboard
-                    </MenuItem>
-                  ) : (
-                    <>
-                      <MenuItem onClick={() => navigate("/me/profile")}>
-                        <ListItemDecorator>
-                          <DeckIcon />
-                        </ListItemDecorator>
-                        My profile
-                      </MenuItem>
-                      <MenuItem onClick={() => navigate("/me/consultation")}>
-                        <ListItemDecorator>
-                          <ConfirmationNumberIcon />
-                        </ListItemDecorator>
-                        My consultation
-                      </MenuItem>
-                    </>
-                  )}
                   <MenuItem onClick={logout}>
                     <ListItemDecorator>
                       <LogoutIcon />

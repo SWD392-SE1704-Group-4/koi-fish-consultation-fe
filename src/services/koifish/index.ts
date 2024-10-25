@@ -18,3 +18,4 @@ export function UpdateKoiFish(requestBody: any): AxiosResponse<BaseResponse<any>
 export function DeleteKoiFish(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
     return api.post(endpoint.DELETE_KOI_FISH, requestBody);
 }
+

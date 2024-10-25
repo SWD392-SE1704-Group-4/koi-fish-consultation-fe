@@ -10,13 +10,13 @@ const UserSettingDashboard: React.FC = (): JSX.Element => {
     const [items, setItems] = React.useState([
         {
           id: "1",
-          rowSpan: 5,
+          rowSpan: 6,
           columnSpan: 3,
           data: { title: "User information", content: <UserInfo /> }
         },
         {
           id: "2",
-          rowSpan: 1,
+          rowSpan: 3,
           columnSpan: 1,
           data: { title: "Change password", content: <></> }
         },

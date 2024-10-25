@@ -14,6 +14,12 @@ export const selectDeleteKoiFishModalOpen = (state: RootState) => state.fengshui
 
 export const selectKoiFish = (state: RootState) => state.fengshui.koiFish;
 
+export const selectFishPond = (state: RootState) => state.fengshui.fishPond;
+
+export const selectFishPondDetailModalOpen = (state: RootState) => state.fengshui.fishPondDetailModalOpen;
+
+export const selectFishPondList = (state: RootState) => state.fengshui.fishPondList;
+
 export const selectFengshuiInfo = (state: RootState) => state.fengshui;
 
 export const selectStatus = (state: RootState) => state.fengshui.status;

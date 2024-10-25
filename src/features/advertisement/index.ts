@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import advertisementInitialState from "./advertisement.initialState";
-import { setAdvertisementError, setAdvertisementList, setAdvertisementStatus } from "./advertisement.reducers";
-
+import { setAdvertisement, setAdvertisementDetailModalOpen, setAdvertisementError, setAdvertisementList, setAdvertisementStatus, setAdvertisementType, setAdvertisementTypeList } from "./advertisement.reducers";
 
 const advertisement = createSlice({
     name: "advertisement",
@@ -9,14 +8,22 @@ const advertisement = createSlice({
     reducers: {
         setAdvertisementErrorAction: setAdvertisementError,
         setAdvertisementStatusAction: setAdvertisementStatus,
-        setAdvertisementListAction: setAdvertisementList
+        setAdvertisementListAction: setAdvertisementList,
+        setAdvertisementTypeListAction: setAdvertisementTypeList,
+        setAdvertisementTypeAction: setAdvertisementType,
+        setAdvertisementAction: setAdvertisement,
+        setAdvertisementDetailModalOpenAction: setAdvertisementDetailModalOpen,
     }
 })
 
 export const {
     setAdvertisementErrorAction,
     setAdvertisementStatusAction,
-    setAdvertisementListAction
+    setAdvertisementListAction,
+    setAdvertisementTypeListAction,
+    setAdvertisementTypeAction,
+    setAdvertisementAction,
+    setAdvertisementDetailModalOpenAction
 } = advertisement.actions;
 
 export default advertisement.reducer;

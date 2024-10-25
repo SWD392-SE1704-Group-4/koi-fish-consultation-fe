@@ -9,9 +9,11 @@ import {
     setFengshuiStatusAction,
     setUpdateKoiFishModalOpenAction,
     setCreateKoiFishModalOpenAction,
-    setDeleteKoiFishModalOpenAction
+    setDeleteKoiFishModalOpenAction,
+    setFishPondListAction
 } from "./index";
 import { CreateKoiFish, DeleteKoiFish, GetKoiFish, UpdateKoiFish } from "../../services/koifish";
+import { GetFishPond } from "../../services/fishPond";
 
 export const requestGetFengshuiElement = ({ request }: { request: any }): TAppThunk => {
     return async (dispatch: any) => {
@@ -94,3 +96,17 @@ export const requestDeleteKoiFish = ({ request }: { request: any }): TAppThunk =
 };
 
 
+export const requestGetFishPondList = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        dispatch(setIsFetchingAction(true))
+        try {
+            const response = await GetFishPond(request);
+            const fishPondList: any = response?.data?.payload;
+            dispatch(setFishPondListAction(fishPondList));
+        } catch (error) {
+            dispatch(setFengshuiErrorAction("Error:" + error.message));
+        } finally {
+            dispatch(setIsFetchingAction(false))
+        }
+    };
+};

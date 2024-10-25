@@ -9,11 +9,6 @@ import { setDeleteKoiFishModalOpenAction, setKoiFishAction, setUpdateKoiFishModa
 export const useColumns = () => {
     const dispatch = useDispatch();
 
-    const handleDeleteClick = (id: string) => {
-        console.log(`Delete koi fish with ID: ${id}`);
-        // Thêm logic xóa ở đây
-    };
-
     const columns: GridColDef<(any)[number]>[] = [
         { field: 'koiFishName', headerName: 'Koi Fish Name', width: 150 },
         { field: 'koiFishColor', headerName: 'Color', width: 120 },
@@ -32,7 +27,7 @@ export const useColumns = () => {
             cellClassName: 'actions',
             getActions: ({ id, row }) => [
                 <GridActionsCellItem
-                    icon={<EditIcon />}
+                    icon={<EditIcon sx={{color: 'green'}}/>}
                     label="Edit"
                     className="textPrimary"
                     onClick={() => {
@@ -42,7 +37,7 @@ export const useColumns = () => {
                     color="inherit"
                 />,
                 <GridActionsCellItem
-                    icon={<DeleteIcon />}
+                    icon={<DeleteIcon sx={{color: 'red'}} />}
                     label="Delete"
                     onClick={() =>{
                         console.log('delete')

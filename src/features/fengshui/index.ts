@@ -9,9 +9,11 @@ import {
     setFengshuiError,
     setStatus,
     setCreateKoiFishModalOpen,
-    setDeleteKoiFishModalOpen
+    setDeleteKoiFishModalOpen,
+    setFishPondList,
+    setFishPond,
+    setFishPondDetailModalOpen
 } from "./fengshui.reducers";
-import { selectDeleteKoiFishModalOpen } from "./fengshui.selectors";
 
 const fengshui = createSlice({
     name: "fengshui",
@@ -25,7 +27,10 @@ const fengshui = createSlice({
         setFengshuiStatusAction: setStatus,
         setCreateKoiFishModalOpenAction: setCreateKoiFishModalOpen,
         setUpdateKoiFishModalOpenAction: setUpdateKoiFishModalOpen, 
-        setDeleteKoiFishModalOpenAction: setDeleteKoiFishModalOpen
+        setDeleteKoiFishModalOpenAction: setDeleteKoiFishModalOpen,
+        setFishPondListAction: setFishPondList,
+        setFishPondAction: setFishPond,
+        setFishPondDetailModalOpenAction: setFishPondDetailModalOpen,
     }
 })
 
@@ -38,7 +43,10 @@ export const {
     setFengshuiErrorAction,
     setFengshuiStatusAction,
     setCreateKoiFishModalOpenAction,
-    setDeleteKoiFishModalOpenAction
+    setDeleteKoiFishModalOpenAction,
+    setFishPondListAction,
+    setFishPondAction,
+    setFishPondDetailModalOpenAction
 } = fengshui.actions;
 
 export default fengshui.reducer;
