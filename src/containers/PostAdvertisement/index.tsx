@@ -2,7 +2,7 @@ import React from "react";
 import "./Advertisement.css";
 import Header from "../../components/organism/Header";
 import { Box, Grid } from "@mui/joy";
-import PostAdvertisementForm from "./PostAdvertisementForm";
+import PostAdvertisementForm from "./KoiAdvertisementForm";
 import KoiFishPreviewCard from "../../components/organism/KoiFishPreviewCard";
 import { useDispatch, useSelector } from "react-redux";
 import { selectKoiFish } from "../../features/fengshui/fengshui.selectors";
@@ -11,16 +11,21 @@ import { selectAuthInfo, selectIsLoggedIn } from "../../features/auth/auth.selec
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 import { setAdvertisementErrorAction, setAdvertisementStatusAction } from "../../features/advertisement";
-import { selectAdvertisementInfo } from "../../features/advertisement/advertisement.selectors";
+import { selectAdvertisementInfo, selectAdvertisementType, } from "../../features/advertisement/advertisement.selectors";
+import AdvertisementType from "./AdvertisementType";
+import KoiAdvertisementForm from "./KoiAdvertisementForm";
+import FishPondAdvertisementForm from "./FishPondAdvertisementForm";
+import ItemAdvertisementForm from "./ItemAdvertisementForm";
 
 const PostAdvertisement: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
-    const currentKoiFish = useSelector(selectKoiFish)
+    const advertisementType = useSelector(selectAdvertisementType);
+    const currentKoiFish = useSelector(selectKoiFish);
     const advertisementInfo = useSelector(selectAdvertisementInfo);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const authInfo = useSelector(selectAuthInfo);
     const navigate = useNavigate();
-    
+
     React.useEffect(() => {
         if (advertisementInfo.error) {
             enqueueSnackbar({ message: advertisementInfo.error, variant: "error", autoHideDuration: 2000 })
@@ -69,7 +74,11 @@ const PostAdvertisement: React.FC = (): JSX.Element => {
                 }}
             >
                 <Grid xs={12} md={currentKoiFish ? 8 : 12}>
-                    <PostAdvertisementForm />
+                    <AdvertisementType />
+                    {advertisementType?.typeName === 'Koi fish' && <KoiAdvertisementForm />}
+                    {advertisementType?.typeName === 'Feng shui item' && <ItemAdvertisementForm />}
+                    {advertisementType?.typeName === 'Fish pond' && <FishPondAdvertisementForm />}
+                    {advertisementType?.typeName === 'Others' && <div>Other advertisement form or component</div>}
                 </Grid>
                 {currentKoiFish && (
                     <Grid xs={12} md={4}>

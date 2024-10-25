@@ -1,30 +1,34 @@
 import { TAppThunk } from "AppModels";
 import { getToken, getUserInfo, signUpUser } from "../../services/cognito/Authenticate";
-import { updateUser } from "../../services/cognito/Common";
+import { getAppUserGroup, updateUser } from "../../services/cognito/Common";
 import { SetAccessToken, SetRefreshToken, GetAccessToken } from "../../utils/tokens";
 import { convertUserAttributes } from "../../utils/convertUserAttributes";
-import { setUserInfoAction, setIsLoggedInAction, setAuthErrorAction, setSignUpStatusAction, setUpdateUserStatusAction, setIsLoadedAction } from ".";
+import { setUserInfoAction, setIsLoggedInAction, setAuthErrorAction, setSignUpStatusAction, setUpdateUserStatusAction, setIsLoadedAction, setUserGroupsAction } from ".";
 
 export const requestAuth = ({ username, password }: { username: string, password: string }): TAppThunk => {
     return async (dispatch: any) => {
         dispatch(setIsLoadedAction(false))
         try {
             const response = await getToken(username, password, '');
-            if(response){
+            if (response) {
                 SetAccessToken(response.AccessToken);
                 SetRefreshToken(response.RefreshToken);
                 dispatch(setIsLoggedInAction(true));
             };
             const userInfo = await getUserInfo(GetAccessToken());
-            if(!!userInfo?.UserAttributes){
+            const userGroups = await getAppUserGroup({ userName: username });
+            if (!!userInfo?.UserAttributes) {
                 dispatch(setUserInfoAction(convertUserAttributes(userInfo.UserAttributes)));
+            }
+            if (userGroups) {
+                dispatch(setUserGroupsAction(userGroups.data.payload));
             }
         } catch (error) {
             dispatch(setAuthErrorAction(error.message));
-        } finally{
+        } finally {
             dispatch(setIsLoadedAction(true))
         }
-        
+
     };
 };
 
@@ -33,9 +37,14 @@ export const requestUserInfo = (): TAppThunk => {
         dispatch(setIsLoadedAction(false))
         try {
             const userInfo = await getUserInfo(GetAccessToken());
-            if(!!userInfo?.UserAttributes){
-                dispatch(setUserInfoAction(convertUserAttributes(userInfo.UserAttributes)));
-                dispatch(setIsLoggedInAction(true));
+            if (!!userInfo?.UserAttributes) {
+                const user = convertUserAttributes(userInfo.UserAttributes);
+                const userGroups = await getAppUserGroup({ userName: user.username });
+                if (userGroups && user) {
+                    dispatch(setUserInfoAction(user));
+                    dispatch(setIsLoggedInAction(true));
+                    dispatch(setUserGroupsAction(userGroups.data.payload));
+                }
             }
         } catch (error) {
             dispatch(setAuthErrorAction(error.message));
@@ -58,7 +67,7 @@ export const requestSignUp = ({ email, password, firstName, lastName, phoneNumbe
     };
 };
 
-export const requestUpdateUser = ({ userName, fileName, fileType, userPicture, otherUserData }) : TAppThunk => {
+export const requestUpdateUser = ({ userName, fileName, fileType, userPicture, otherUserData }): TAppThunk => {
     return async (dispatch: any) => {
         try {
             const response = await updateUser({
@@ -73,7 +82,7 @@ export const requestUpdateUser = ({ userName, fileName, fileType, userPicture, o
                 await dispatch(requestUserInfo());
             }
         } catch (error) {
-            dispatch(setAuthErrorAction(error.message)); 
+            dispatch(setAuthErrorAction(error.message));
         }
     };
 };

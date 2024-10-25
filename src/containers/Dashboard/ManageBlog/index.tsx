@@ -2,16 +2,16 @@
 
 import { Box, Typography } from "@mui/joy";
 
-const ManageBlog: React.FC = (): JSX.Element => {
+const ManageTransaction: React.FC = (): JSX.Element => {
 
 
     return (
         <Box>
             <Typography>
-                Manage Blog
+                Manage transaction
             </Typography>
         </Box>
     );
 }
 
-export default ManageBlog;
+export default ManageTransaction;

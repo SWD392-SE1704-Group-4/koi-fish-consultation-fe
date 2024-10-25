@@ -90,7 +90,6 @@ export const signUpUser = async (username: string, password: string, email: stri
     try {
         const command = new SignUpCommand(signUpParams);
         const response = await client.send(command);
-        console.log(response);
         return response;
     } catch (error) {
         console.log(error);

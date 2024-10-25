@@ -13,3 +13,19 @@ export const setAdvertisementStatus = (state: TAdvertisementState, action: Paylo
 export const setAdvertisementList = (state: TAdvertisementState, action: PayloadAction<any>) => {
     state.advertisementList = action.payload;
 }
+
+export const setAdvertisementTypeList = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.advertisementTypeList = action.payload;
+}
+
+export const setAdvertisementType = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.advertisementType = action.payload;
+}
+
+export const setAdvertisement = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.advertisement = action.payload;
+}
+
+export const setAdvertisementDetailModalOpen = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.advertisementDetailModalOpen = action.payload;
+}

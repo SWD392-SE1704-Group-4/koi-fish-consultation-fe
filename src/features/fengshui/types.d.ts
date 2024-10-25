@@ -28,15 +28,35 @@ declare module 'AppModels' {
         koiFishPrice: number;
     };
 
+    export type FishPond = {
+        pondId: string;
+        pondName: string;
+        pondShape: string;
+        pondSize: number;
+        pondDepth: number;
+        pondMaterial: string;
+        hasWaterfall: boolean;
+        hasPlants: boolean;
+        hasRocks: boolean;
+        isSaltwater: boolean;
+        numKoiFish: number;
+        waterCapacity: number;
+        pondElement: string | null;
+        pondLocation: string;
+        pondOrientation: string;
+    };
+    
     export type TFengshuiState = {
         isFetching: boolean;
         fengshuiElementList: FengshuiElement[],
         koiFish: KoiFish,
+        fishPond: FishPond,
         updateKoiFishModalOpen: false,
         createKoiFishModalOpen: false,
         deleteKoiFishModalOpen: false,
         koifishList: [],
-        fishpondList: [],
+        fishPondList: FishPond[],
+        fishPondDetailModalOpen: boolean,
         status: string;
         error: string,
     }

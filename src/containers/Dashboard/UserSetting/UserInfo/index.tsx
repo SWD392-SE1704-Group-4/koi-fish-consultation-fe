@@ -60,6 +60,20 @@ const passwordSchema = yup.object().shape({
         .required("Repeat password is required!")
         .oneOf([yup.ref('newPassword'), ''], 'Passwords must match'),
 })
+const inputStyles = {
+    borderRadius: 0,
+};
+
+const labelStyles = {
+    flexShrink: 0,
+    width: 120,
+};
+
+const buttonStyles = {
+    mt: 2,
+    color: 'white',
+    borderRadius: 0,
+};
 
 const UserInfo: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -121,7 +135,6 @@ const UserInfo: React.FC = (): JSX.Element => {
             fileType = selectedImage.type;
         };
         dispatch(requestUpdateUser({ userName, fileName, fileType, userPicture, otherUserData }));
-        
     };
 
     const {
@@ -143,18 +156,12 @@ const UserInfo: React.FC = (): JSX.Element => {
         <Stack
             sx={{
                 display: 'flex',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                borderRadius: 0
             }}
         >
             {(!isLoaded && userInfo.sub) && (
-                <Card>
-                    <Box sx={{ mb: 1 }}>
-                        <Typography level="title-md">Personal info</Typography>
-                        <Typography level="body-sm">
-                            Customize how your profile information will appear to the networks.
-                        </Typography>
-                    </Box>
-                    <Divider />
+                <Card sx={{borderRadius: 0}}>
                     <Stack
                         direction="row"
                         spacing={3}
@@ -191,7 +198,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                     zIndex: 2,
                                     borderRadius: '50%',
                                     left: 100,
-                                    top: 170,
+                                    top: 110,
                                     boxShadow: 'sm',
                                 }}
                             ><VisuallyHiddenInput
@@ -213,6 +220,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                     <form onSubmit={handleSubmit(handleUpdateUser)}>
                                         <FormLabel>First name</FormLabel>
                                         <Input
+                                            sx={inputStyles}
                                             size="sm"
                                             placeholder="First name"
                                             {...register('firstname')}
@@ -225,7 +233,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             placeholder="Last name"
                                             defaultValue={userInfo.lastname}
                                             {...register('lastname')}
-                                            sx={{ flexGrow: 1 }}
+                                            sx={{ flexGrow: 1, ...inputStyles }}
                                         />
                                         {errors.lastname && <p>{errors.lastname.message}</p>}
                                         <FormLabel sx={{ mt: 2 }}>Email</FormLabel>
@@ -237,7 +245,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             readOnly
                                             defaultValue={userInfo.email}
                                             {...register('email')}
-                                            sx={{ flexGrow: 1 }}
+                                            sx={{ flexGrow: 1,...inputStyles }}
                                         />
                                         {errors.email && <p>{errors.email.message}</p>}
                                         <FormLabel sx={{ mt: 2 }}>Phone</FormLabel>
@@ -246,7 +254,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             placeholder="Phone"
                                             {...register('phone')}
                                             defaultValue={userInfo.phone}
-                                            sx={{ flexGrow: 1 }}
+                                            sx={{ flexGrow: 1,...inputStyles }}
                                         />
                                         {errors.phone && <p>{errors.phone.message}</p>}
                                         <FormLabel sx={{ mt: 2 }}>Address</FormLabel>
@@ -255,7 +263,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             placeholder="Address"
                                             {...register('address')}
                                             defaultValue={userInfo.address}
-                                            sx={{ flexGrow: 1 }}
+                                            sx={{ flexGrow: 1,...inputStyles }}
                                         />
                                         {errors.address && <p>{errors.address.message}</p>}
                                         <Box sx={{ display: 'flex', gap: 5 }}>
@@ -265,7 +273,6 @@ const UserInfo: React.FC = (): JSX.Element => {
                                                     width: '120px',
                                                     padding: '9px',
                                                     border: '1px solid #ccc',
-                                                    borderRadius: '5px',
                                                     transition: 'border-color 0.3s',
                                                     outline: 'none',
                                                     boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)'
@@ -278,7 +285,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             </div>
                                             <div>
                                                 <FormLabel sx={{ mt: 2 }}>Gender</FormLabel>
-                                                <Select sx={{ width: "120px" }} {...register('gender')} defaultValue={userInfo?.gender}>
+                                                <Select sx={{ width: "120px",flexGrow: 1,...inputStyles }}  {...register('gender')} defaultValue={userInfo?.gender}>
                                                     <Option value="">None</Option>
                                                     <Option value="0">Male</Option>
                                                     <Option value="1">Female</Option>
@@ -289,12 +296,12 @@ const UserInfo: React.FC = (): JSX.Element => {
 
                                         <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider', mt: 2 }}>
                                             <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-                                                <Button size="sm" variant="outlined" color="neutral">
+                                                <Button size="sm" variant="outlined" color="neutral" sx={{ ...buttonStyles, backgroundColor: "#9e777c" }}>
                                                     Cancel
                                                 </Button>
-                                                {uploading ? (<Button loading size="sm" variant="solid" type='submit'>
+                                                {uploading ? (<Button loading size="sm" variant="solid" type='submit' sx={{ ...buttonStyles, backgroundColor: "#9e777c" }}>
                                                     Save
-                                                </Button>) : <Button size="sm" variant="solid" type='submit'>
+                                                </Button>) : <Button size="sm" variant="solid" type='submit' sx={{ ...buttonStyles, backgroundColor: "#ed2d4d" }}>
                                                     Save
                                                 </Button>}
                                             </CardActions>
