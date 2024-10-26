@@ -2,6 +2,9 @@ export const endpoint = {
   // fengshui element endpoint
   GET_FENGSHUI_ELEMENT: "/fengshui-element/get-list",
 
+  // fengshui element endpoint
+  GET_FENGSHUI_DIRECTION: "/fengshui-direction/get-list",
+
   //App user
   GET_APP_USER_GROUP: "/app-user/get-user-group",
   UPDATE_APP_USER_INFO: "/app-user/update-user-info",

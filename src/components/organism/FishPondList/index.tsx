@@ -11,7 +11,7 @@ interface FishPondListProps {
 const FishPondList: React.FC<FishPondListProps> = ({ fishPondData }) => {
     return (
         <Grid container spacing={3}>
-            {fishPondData.map((fishPond) => (
+            {fishPondData?.map((fishPond) => (
                 <Grid xs={12} sm={6} md={4} lg={3} key={fishPond.pondId}>
                     <FishPondPreviewCard fishPond={fishPond} />
                 </Grid>
