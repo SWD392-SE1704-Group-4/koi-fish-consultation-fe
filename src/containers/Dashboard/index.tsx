@@ -42,8 +42,8 @@ const Dashboard: React.FC = (): JSX.Element => {
                     setCollapsed={setCollapsed}
                     listItem={
                         userInfo?.groups?.includes(USER_GROUP.STAFF) ? staffDashboardSubRoutes :
-                            userInfo?.groups?.includes(USER_GROUP.ADMIN) ? adminDashboardSubRoutes :
-                                userInfo?.groups?.includes(USER_GROUP.ADMIN) ? memberDashboardSubRoutes : null
+                            (userInfo?.groups?.includes(USER_GROUP.ADMIN) ? adminDashboardSubRoutes :
+                                (userInfo?.groups?.includes(USER_GROUP.MEMBER) ? memberDashboardSubRoutes : null))
                     }
                 />
             </Grid>
