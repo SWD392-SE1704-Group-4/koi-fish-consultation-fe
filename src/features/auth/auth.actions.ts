@@ -62,6 +62,7 @@ export const requestSignUp = ({ email, password, firstName, lastName, phoneNumbe
                 dispatch(setSignUpStatusAction("SignUp successfully, waiting for confirmation"))
             }
         } catch (error) {
+            console.log(error)
             dispatch(setAuthErrorAction(error.message));
         }
     };

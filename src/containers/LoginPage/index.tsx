@@ -115,7 +115,7 @@ const Login: React.FC = () => {
 
         {/* Sign Up and Back to Home Links */}
         <p className="signup">
-          <span>Don't have an account?</span> <Link to="/sign-up">Sign Up</Link>
+          <span>Don't have an account?</span> <Link to="/register">Sign Up</Link>
         </p>
         <p className="back-to-home">
           <Link to="/">Back to Home Page</Link>

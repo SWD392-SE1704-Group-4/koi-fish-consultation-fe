@@ -2,6 +2,8 @@ export const endpoint = {
   // fengshui element endpoint
   GET_FENGSHUI_ELEMENT: "/fengshui-element/get-list",
 
+  // fengshui element endpoint
+  GET_FENGSHUI_DIRECTION: "/fengshui-direction/get-list",
 
   //Heaven earth endpoint
   GET_HEAVEN_EARTH: "/heavenly-earthly-elements/get-list",

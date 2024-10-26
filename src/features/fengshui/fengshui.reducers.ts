@@ -50,6 +50,13 @@ export const setStatus = (state: TFengshuiState, action: PayloadAction<any>) => 
     state.status = action.payload;
 }
 
+export const setCreateKoiPondModalOpen = (state: TFengshuiState, action: PayloadAction<any>) => {
+    state.createKoiPondModalOpen = action.payload;
+}
+
+export const setFengshuiDirectionList = (state: TFengshuiState, action: PayloadAction<any>) => {
+    state.fengshuiDirectionList = action.payload;
+}
 export const setHeavenEarth = (
   state: TFengshuiState,
   action: PayloadAction<any>

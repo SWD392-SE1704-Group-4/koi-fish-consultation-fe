@@ -13,9 +13,11 @@ import {
   setDeleteKoiFishModalOpen,
   setHeavenEarth,
   setFishPondList,
-    setFishPond,
-    setFishPondDetailModalOpen
-
+  setFishPond,
+  setFishPondDetailModalOpen,
+  setCreateKoiPondModalOpen,
+  setFengshuiDirectionList,
+  setFishPondDetailModalOpen
 } from "./fengshui.reducers";
 
 const fengshui = createSlice({
@@ -35,7 +37,9 @@ const fengshui = createSlice({
         setFishPondListAction: setFishPondList,
         setFishPondAction: setFishPond,
         setFishPondDetailModalOpenAction: setFishPondDetailModalOpen,
-  setHeaveEarthAction: setHeavenEarth,
+        setCreateKoiPondModalOpenAction: setCreateKoiPondModalOpen,
+        setFengshuiDirectionListAction: setFengshuiDirectionList,
+        setHeaveEarthAction: setHeavenEarth,
     }
 })
 
@@ -52,8 +56,9 @@ export const {
     setFishPondListAction,
     setFishPondAction,
     setFishPondDetailModalOpenAction,
-   setHeaveEarthAction,
-
+    setCreateKoiPondModalOpenAction,
+    setFengshuiDirectionListAction,
+    setHeaveEarthAction,
 } = fengshui.actions;
 
 export default fengshui.reducer;

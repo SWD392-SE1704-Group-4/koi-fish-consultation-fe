@@ -37,6 +37,7 @@ import CastleIcon from '@mui/icons-material/Castle';
 import AdvertisementDetail from "../containers/AdvertisementDetail";
 import ManageTransaction from "../containers/Dashboard/ManageBlog";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import MyFishPond from "../containers/Dashboard/MyFishPond";
 
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
@@ -76,32 +77,25 @@ export const memberDashboardSubRoutes = [
     href: "/me/profile",
   },
   {
-    path: "/fengshui-consultation",
-    title: "Consultation",
-    icon: CalculateIcon,
-    container: Consultation,
-    href: "/me/fengshui-consultation",
+    path: "/my-fish-pond",
+    title: "My fish pond",
+    icon: AutoAwesomeIcon,
+    container: MyFishPond,
+    href: "/me/my-fish-pond",
   },
   {
-    path: "/manage-blog",
-    title: "Manage blog",
-    icon: BookIcon,
-    container: ManageBlog,
-    href: "/me/manage-blog",
-  },
-  {
-    path: "/manage-advertisement",
-    title: "Manage advertisement",
+    path: "/my-advertisement",
+    title: "My advertisement",
     icon: AutoAwesomeIcon,
     container: ManageAdvertisement,
-    href: "/me/manage-advertisement",
+    href: "/me/my-advertisement",
   },
   {
-    path: "/favourite",
-    title: "Favourite",
+    path: "/my-favourite",
+    title: "My favourite",
     icon: FavoriteIcon,
     container: Favourite,
-    href: "/me/favourite",
+    href: "/me/my-favourite",
   },
 ];
 
@@ -168,3 +162,21 @@ export const staffDashboardSubRoutes = [
     href: "/me/manage-transaction",
   },
 ];
+
+
+export const adminDashboardSubRoutes = [
+  {
+    path: "/profile",
+    title: "My profile",
+    container: UserSettingDashboard,
+    icon: AccountCircleIcon,
+    href: "/me/profile",
+  },
+  {
+    path: "/manage/account",
+    title: "Manage account",
+    container: UserSettingDashboard,
+    icon: AccountCircleIcon,
+    href: "/manage/account",
+  }
+]
