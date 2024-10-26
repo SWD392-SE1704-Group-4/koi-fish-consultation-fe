@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Comic, Category, TFengshuiState } from "AppModels";
 
+
 export const setfengshuiElementList = (state: TFengshuiState, action: PayloadAction<any>) => {
     state.fengshuiElementList = action.payload;
 }
@@ -56,3 +57,10 @@ export const setCreateKoiPondModalOpen = (state: TFengshuiState, action: Payload
 export const setFengshuiDirectionList = (state: TFengshuiState, action: PayloadAction<any>) => {
     state.fengshuiDirectionList = action.payload;
 }
+export const setHeavenEarth = (
+  state: TFengshuiState,
+  action: PayloadAction<any>
+) => {
+  state.heavenEarth = action.payload;
+};
+

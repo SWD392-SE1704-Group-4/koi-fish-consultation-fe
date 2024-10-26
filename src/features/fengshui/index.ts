@@ -1,23 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 import fengshuiInitialState from "./fengshui.initialState";
 import {
-    setKoiFishList,
-    setfengshuiElementList,
-    setIsFetching,
-    setKoiFish,
-    setUpdateKoiFishModalOpen,
-    setFengshuiError,
-    setStatus,
-    setCreateKoiFishModalOpen,
-    setDeleteKoiFishModalOpen,
-    setFishPondList,
-    setFishPond,
-    setFishPondDetailModalOpen,
-    setCreateKoiPondModalOpen,
-    setFengshuiDirectionList
+
+  setKoiFishList,
+  setfengshuiElementList,
+  setIsFetching,
+  setKoiFish,
+  setUpdateKoiFishModalOpen,
+  setFengshuiError,
+  setStatus,
+  setCreateKoiFishModalOpen,
+  setDeleteKoiFishModalOpen,
+  setHeavenEarth,
+  setFishPondList,
+  setFishPond,
+  setFishPondDetailModalOpen,
+  setCreateKoiPondModalOpen,
+  setFengshuiDirectionList,
+  setFishPondDetailModalOpen
 } from "./fengshui.reducers";
 
 const fengshui = createSlice({
+
     name: "fengshui",
     initialState: fengshuiInitialState,
     reducers: {
@@ -34,7 +38,8 @@ const fengshui = createSlice({
         setFishPondAction: setFishPond,
         setFishPondDetailModalOpenAction: setFishPondDetailModalOpen,
         setCreateKoiPondModalOpenAction: setCreateKoiPondModalOpen,
-        setFengshuiDirectionListAction: setFengshuiDirectionList
+        setFengshuiDirectionListAction: setFengshuiDirectionList,
+        setHeaveEarthAction: setHeavenEarth,
     }
 })
 
@@ -52,7 +57,8 @@ export const {
     setFishPondAction,
     setFishPondDetailModalOpenAction,
     setCreateKoiPondModalOpenAction,
-    setFengshuiDirectionListAction
+    setFengshuiDirectionListAction,
+    setHeaveEarthAction,
 } = fengshui.actions;
 
 export default fengshui.reducer;

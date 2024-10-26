@@ -1,4 +1,4 @@
-import { TAppState, TFengshuiState } from "AppModels"
+import { TAppState, TFengshuiState } from "AppModels";
 
 const fengshuiInitialState: TFengshuiState = {
     isFetching: null,
@@ -13,8 +13,10 @@ const fengshuiInitialState: TFengshuiState = {
     fishPondDetailModalOpen: null,
     createKoiPondModalOpen: null,
     fengshuiDirectionList: null,
+    heavenEarth: null,
     status: null,
     error: null,
-}
+};
+
 
 export default fengshuiInitialState;
