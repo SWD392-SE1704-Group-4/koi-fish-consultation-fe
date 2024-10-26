@@ -1,7 +1,8 @@
 import React from 'react';
 import KoiFishCard from '../../molecule/KoiFishCard';
 import { Grid } from '@mui/joy';
-// Define the type for koiFishData
+import KoiFishPreviewCard from '../KoiFishPreviewCard';
+
 interface KoiFish {
     id: string;
     koiFishName: string;
@@ -9,7 +10,7 @@ interface KoiFish {
     koiFishSize: number;
     koiFishAge: number;
     koiFishPictures: string[];
-    fengshuiElement: any; // Add the correct type for FengshuiElement if needed
+    fengshuiElement: any; 
     symbolicMeaning: string;
     energyType: string;
     favorableNumber: number;
@@ -20,17 +21,15 @@ interface KoiFish {
 }
 
 interface KoiFishListProps {
-    koiFishData: KoiFish[]; // Expect koiFishData to be an array of KoiFish objects
+    koiFishData: KoiFish[]; 
 }
 
 const KoiFishList: React.FC<KoiFishListProps> = ({ koiFishData }) => {
-
-
     return (
-        <Grid container spacing={3}> {/* Grid container with spacing */}
+        <Grid container spacing={3}> 
             {koiFishData.map((koiFish) => (
-                <Grid xs={12} sm={6} md={4} lg={3} key={koiFish.id}> {/* Each item takes up space depending on screen size */}
-                    <KoiFishCard {...koiFish} /> {/* Spread KoiFishDTO properties to the card */}
+                <Grid xs={12} sm={6} md={4} lg={3} key={koiFish.id}>
+                    <KoiFishPreviewCard koiFish={koiFish} />
                 </Grid>
             ))}
         </Grid>

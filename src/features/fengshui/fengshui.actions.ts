@@ -1,6 +1,7 @@
 import { KoiFish, TAppThunk } from "AppModels";
 import { GetFengshuiElement } from "../../services/FengshuiElement";
 import {
+
   setFengshuiErrorAction,
   setFengshuiElementListAction,
   setIsFetchingAction,
@@ -19,6 +20,7 @@ import {
   GetKoiFish,
   UpdateKoiFish,
 } from "../../services/koifish";
+
 
 export const requestGetFengshuiElement = ({
   request,
@@ -114,6 +116,7 @@ export const requestUpdateKoiFish = ({
   };
 };
 
+
 export const requestDeleteKoiFish = ({
   request,
 }: {
@@ -134,3 +137,19 @@ export const requestDeleteKoiFish = ({
     }
   };
 };
+
+export const requestGetFishPondList = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        dispatch(setIsFetchingAction(true))
+        try {
+            const response = await GetFishPond(request);
+            const fishPondList: any = response?.data?.payload;
+            dispatch(setFishPondListAction(fishPondList));
+        } catch (error) {
+            dispatch(setFengshuiErrorAction("Error:" + error.message));
+        } finally {
+            dispatch(setIsFetchingAction(false))
+        }
+    };
+};
+

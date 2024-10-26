@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Header from "../../components/organism/Header";
+import { Box, Typography } from "@mui/joy";
+import KoiFishList from "../../components/organism/KoiFishList";
+import { useDispatch, useSelector } from "react-redux";
+import { selectKoiFishList } from "../../features/fengshui/fengshui.selectors";
+import { requestGetKoiFish } from "../../features/fengshui/fengshui.actions";
+import { selectAdvertisementList } from "../../features/advertisement/advertisement.selectors";
+import { requestGetListAdvertisement } from "../../features/advertisement/advertisement.actions";
+import AdvertisementCard from "../../components/organism/AdvertisementCard";
+
 
 const FengShuiForm: React.FC = () => {
   const [year, setYear] = useState<number | "">("");
   const [gender, setGender] = useState<string>("");
+
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string>("");
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +34,7 @@ const FengShuiForm: React.FC = () => {
       return;
     }
 
+
     try {
       const response = await axios.post(
         "http://localhost:8080/api/fengshui/calculate",
@@ -36,6 +48,7 @@ const FengShuiForm: React.FC = () => {
     } catch (err) {
       setError("Error when calling API");
     }
+
   };
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -192,6 +205,7 @@ const FengShuiForm: React.FC = () => {
                 backgroundColor: "#e6ffe6",
               }}
             >
+
               <h3 style={{ color: "#28a745" }}>Your Destiny Result</h3>
               <p>Heavenly Stem: {result.heavenlyStem}</p>
               <p>Earthly Branch: {result.earthlyBranch}</p>
@@ -199,6 +213,7 @@ const FengShuiForm: React.FC = () => {
             </div>
           )}
         </div>
+
       </div>
 
       {/* Separate section for fishRecommendation and tankDirection */}

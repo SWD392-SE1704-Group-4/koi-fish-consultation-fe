@@ -2,14 +2,11 @@ import { GridActionsCellItem, GridColDef } from '@mui/x-data-grid';
 import { format } from 'date-fns';
 import { useDispatch } from 'react-redux';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { setAdvertisementAction, setAdvertisementDetailModalOpenAction } from '../../../../features/advertisement';
-import GppGoodIcon from '@mui/icons-material/GppGood';
-import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
-export const useAdvertisementColumns = () => {
+export const useAdsPackageColumns = () => {
     const dispatch = useDispatch();
 
-    const advertisementColumns: GridColDef<(any)[number]>[] = [
+    const adsPackageColumns: GridColDef<(any)[number]>[] = [
         {
             field: 'title',
             headerName: 'Title',
@@ -65,7 +62,7 @@ export const useAdvertisementColumns = () => {
             field: 'adminVerified',
             headerName: 'Verified',
             width: 120,
-            renderCell: (params: any) => (params.row.adminVerified ? <GppGoodIcon sx={{color: 'green'}}/> : <DoDisturbIcon sx={{color: 'red'}}/>),
+            renderCell: (params: any) => (params.row.adminVerified ? 'Yes' : 'No'),
         },
         {
             field: 'actions',
@@ -79,8 +76,8 @@ export const useAdvertisementColumns = () => {
                     label="Edit"
                     className="textPrimary"
                     onClick={() => {
-                        dispatch(setAdvertisementAction(row));
-                        dispatch(setAdvertisementDetailModalOpenAction(true));
+                        // dispatch(setAdvertisementAction(row));
+                        // dispatch(setUpdateAdvertisementModalOpenAction(true));
                     }}
                     color="inherit"
                 />,
@@ -88,5 +85,5 @@ export const useAdvertisementColumns = () => {
         },
     ];
 
-    return advertisementColumns;
+    return adsPackageColumns;
 };

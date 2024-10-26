@@ -1,6 +1,7 @@
 import { TAppState, TFengshuiState } from "AppModels";
 
 const fengshuiInitialState: TFengshuiState = {
+
   isFetching: null,
   fengshuiElementList: null,
   koifishList: null,
@@ -13,5 +14,6 @@ const fengshuiInitialState: TFengshuiState = {
   status: null,
   error: null,
 };
+
 
 export default fengshuiInitialState;

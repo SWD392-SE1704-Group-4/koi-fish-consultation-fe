@@ -21,6 +21,7 @@ export function UpdateKoiFish(
   return api.post(endpoint.UPDATE_KOI_FISH, requestBody);
 }
 
+
 export function DeleteKoiFish(
   requestBody: any
 ): AxiosResponse<BaseResponse<any>, any> {
@@ -32,3 +33,4 @@ export function GetHeavenEarth(
 ): AxiosResponse<BaseResponse<any>, any> {
   return api.post(endpoint.GET_HEAVEN_EARTH, requestBody);
 }
+

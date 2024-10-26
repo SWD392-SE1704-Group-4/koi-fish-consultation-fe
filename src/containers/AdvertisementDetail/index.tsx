@@ -1,107 +1,162 @@
 import React from 'react';
-import { Box, Typography, Grid, Button, Chip, Divider } from '@mui/joy';
+import { Box, Typography, Grid, Button, Chip, Divider, Avatar } from '@mui/joy';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Advertisement } from 'AppModels';
 import ImageGallery from 'react-image-gallery';
+import Footer from '../../components/organism/Footer';
+import Header from '../../components/organism/Header';
+import { selectAdvertisement, selectAdvertisementInfo } from '../../features/advertisement/advertisement.selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestGetAdvertisementById } from '../../features/advertisement/advertisement.actions';
+
+const cloudfrontUrl = process.env.REACT_APP_AWS_CLOUDFRONT_URL;
 
 const AdvertisementDetail: React.FC = () => {
     const { advertisementId } = useParams<{ advertisementId: string }>();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const advertisement = useSelector(selectAdvertisement);
 
-    // Mock data to illustrate. Replace with actual API call logic.
-    const advertisement: Advertisement | null = {
-        advertisementId: '1',
-        title: 'Beautiful Red Koi Fish for Sale',
-        description: 'This beautiful red koi fish is perfect for any pond...',
-        location: '123 Koi Lane, City',
-        contactInfo: 'Contact at +123-456-7890 or email@example.com',
-        advertisementType: 'Sale',
-        quantity: 10,
-        viewsCount: 150,
-        status: 'Active',
-        adminVerified: true,
-        expirationDate: '2024-12-31T23:59:59',
-        koiFishId: 'koi1',
-        // koiFishName: 'Red Koi',
-        postedBy: 'user123',
-        additionalImages: [
-            'https://example.com/koi1.jpg',
-            'https://example.com/koi2.jpg',
-        ],
-        tags: ['red', 'pond', 'sale'],
-        createdAt: '2024-01-01T00:00:00',
-        updatedAt: '2024-01-02T00:00:00',
+    const buttonStyles = {
+        mt: 2,
+        width: '20%',
+        borderRadius: 0,
+        color: 'white',
+        '&:hover': {
+            backgroundColor: '#cc0000',
+        },
     };
 
     const handleBackClick = () => {
-        navigate('/advertisements');
+        navigate('/information/advertisement');
     };
+
+    React.useEffect(() => {
+        const request = {
+            advertisementId: advertisementId
+        }
+        dispatch(requestGetAdvertisementById({ request }));
+    }, [dispatch, advertisementId]);
 
     if (!advertisement) {
         return <Typography>Advertisement not found.</Typography>;
     }
 
     return (
-        <Box sx={{ p: 3 }}>
-            {/* Header Section */}
-            <Box sx={{ mb: 4 }}>
-                <Typography level="h2">{advertisement.title}</Typography>
-                <Chip variant="solid" color={advertisement.status === 'Active' ? 'success' : 'warning'} sx={{ mt: 1 }}>
-                    {advertisement.status}
-                </Chip>
-            </Box>
+        <React.Fragment>
+            <Header />
+            <Box sx={{ px: '80px', py: '20px', backgroundColor: '#f9f9f9', minHeight: '100vh' }}>
 
-            <Divider />
+                {/* Header Section */}
+                <Box sx={{ mb: 4 }}>
+                    <Chip
+                        variant="solid"
+                        color={advertisement.status === 'Active' ? 'success' : 'warning'}
+                        sx={{ mt: 1, fontSize: '1rem', px: '12px' }}
+                    >
+                        {advertisement.advertisementType.typeName}
+                    </Chip>
+                </Box>
 
-            {/* Main Content */}
-            <Grid container spacing={3} sx={{ mt: 3 }}>
-                {/* Image Gallery */}
-                <Grid xs={12} md={6}>
-                    <ImageGallery
-                        items={advertisement.additionalImages.map((url) => ({ original: url, thumbnail: url }))}
-                        showPlayButton={false}
-                    />
+                <Divider sx={{ mb: 3 }} />
+
+                {/* Main Content */}
+                <Grid container spacing={3}>
+                    {/* Image Gallery */}
+                    <Grid xs={12} md={6}>
+                        <ImageGallery
+                            items={advertisement.additionalImages.map((url) => ({ original: cloudfrontUrl + url, thumbnail: cloudfrontUrl + url }))}
+                            showPlayButton={false}
+                        />
+                    </Grid>
+
+                    {/* Advertisement Information */}
+                    <Grid xs={12} md={6}>
+                        {/* Header Section */}
+                        <Box sx={{ mb: 4 }}>
+                            <Typography level="h2" sx={{ fontWeight: 'bold', color: '#333' }}>{advertisement.title}</Typography>
+                            <Chip
+                                variant="solid"
+                                color={advertisement.status === 'Active' ? 'success' : 'warning'}
+                                sx={{ mt: 1, fontSize: '1rem', px: '12px' }}
+                            >
+                                {advertisement.status}
+                            </Chip>
+                        </Box>
+                        <Box sx={{ mb: 3 }}>
+                            <Typography sx={{ color: '#666', lineHeight: 1.5 }}>{advertisement.description}</Typography>
+                        </Box>
+                        <Box sx={{ mb: 2 }}>
+                            <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Location</Typography>
+                            <Typography>{advertisement.location}</Typography>
+                        </Box>
+                        <Box sx={{ mb: 2 }}>
+                            <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Contact Information</Typography>
+                            <Typography>{advertisement.contactInfo}</Typography>
+                        </Box>
+                        {/* User Information */}
+                        <Box sx={{ mb: 3 }}>
+                            <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Posted By</Typography>
+                            <Avatar
+                                variant="outlined"
+                                size="sm"
+                                src={cloudfrontUrl + advertisement?.userInfo?.picture}
+                            />
+                            <Typography>Name: {advertisement.userInfo.given_name} {advertisement.userInfo.family_name}</Typography>
+                            <Typography>Email: {advertisement.userInfo.email}</Typography>
+                            <Typography>Phone: {advertisement.userInfo.phone_number}</Typography>
+                            <Typography>Address: {advertisement.userInfo.address}</Typography>
+                        </Box>
+                    </Grid>
                 </Grid>
-
-                {/* Advertisement Information */}
                 <Grid xs={12} md={6}>
-                    <Box sx={{ mb: 2 }}>
-                        <Typography>{advertisement.description}</Typography>
+                    <Box sx={{ mb: 3 }}>
+
                     </Box>
                     <Box sx={{ mb: 2 }}>
-                        <Typography>Koi Fish Details</Typography>
-                        <Typography>Quantity: {advertisement.quantity}</Typography>
+                        <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Koi Fish Details</Typography>
+                        <Typography>Name: {advertisement.koiFish.koiFishName}</Typography>
+                        <Typography>Color: {advertisement.koiFish.koiFishColor}</Typography>
+                        <Typography>Size: {advertisement.koiFish.koiFishSize} cm</Typography>
+                        <Typography>Age: {advertisement.koiFish.koiFishAge} years</Typography>
+                        <Typography>Origin: {advertisement.koiFish.koiFishOrigin}</Typography>
+                        <Typography>Symbolic Meaning: {advertisement.koiFish.symbolicMeaning}</Typography>
+                        <Typography>Price: ${advertisement.koiFish.koiFishPrice}</Typography>
                     </Box>
                     <Box sx={{ mb: 2 }}>
-                        <Typography>Contact Information</Typography>
-                        <Typography>{advertisement.contactInfo}</Typography>
+                        <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Feng Shui Information</Typography>
+                        <Typography>Element: {advertisement.koiFish.fengshuiElement.elementName}</Typography>
+                        <Typography>Color: {advertisement.koiFish.fengshuiElement.elementColor}</Typography>
+                        <Typography>Direction: {advertisement.koiFish.fengshuiElement.elementDirection}</Typography>
+                        <Typography>Season: {advertisement.koiFish.fengshuiElement.elementSeason}</Typography>
+                        <Typography>Yin/Yang: {advertisement.koiFish.fengshuiElement.elementYinYang}</Typography>
                     </Box>
                 </Grid>
-            </Grid>
+                <Divider sx={{ my: 3 }} />
 
-            <Divider sx={{ my: 3 }} />
+                {/* Advertisement Details */}
+                <Box sx={{ mb: 3 }}>
+                    <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Additional Information</Typography>
+                    <Typography>Location: {advertisement.location}</Typography>
+                    <Typography>Type: {advertisement.advertisementType.typeName}</Typography>
+                    <Typography>Views: {advertisement.viewsCount}</Typography>
+                    <Typography>Expires on: {new Date(advertisement.expirationDate).toLocaleDateString()}</Typography>
+                </Box>
 
-            {/* Advertisement Details */}
-            <Box sx={{ mb: 2 }}>
-                <Typography>Additional Information</Typography>
-                <Typography>Location: {advertisement.location}</Typography>
-                <Typography>Type: {advertisement.advertisementType}</Typography>
-                <Typography>Views: {advertisement.viewsCount}</Typography>
-                <Typography>Expires on: {new Date(advertisement.expirationDate).toLocaleDateString()}</Typography>
+                <Divider sx={{ my: 3 }} />
+
+                {/* Footer Section */}
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+                    <Button onClick={handleBackClick} sx={{ ...buttonStyles, backgroundColor: "#9e777c" }}>
+                        Back to Listings
+                    </Button>
+                    <Button variant="solid" sx={{ ...buttonStyles, backgroundColor: "#ed2d4d" }}>
+                        Contact Seller
+                    </Button>
+                </Box>
             </Box>
-
-            <Divider sx={{ my: 3 }} />
-
-            {/* Footer Section */}
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
-                <Button onClick={handleBackClick} variant="outlined" color="neutral">
-                    Back to Listings
-                </Button>
-                <Button variant="solid" color="primary">
-                    Contact Seller
-                </Button>
-            </Box>
-        </Box>
+            <Footer />
+        </React.Fragment>
     );
 };
 

@@ -27,6 +27,7 @@ declare module "AppModels" {
     koiFishPrice: number;
   };
 
+
   export type TFengshuiState = {
     isFetching: boolean;
     fengshuiElementList: FengshuiElement[];
@@ -40,4 +41,26 @@ declare module "AppModels" {
     status: string;
     error: string;
   };
+
+
+    
+
+    export type FishPond = {
+        pondId: string;
+        pondName: string;
+        pondShape: string;
+        pondSize: number;
+        pondDepth: number;
+        pondMaterial: string;
+        hasWaterfall: boolean;
+        hasPlants: boolean;
+        hasRocks: boolean;
+        isSaltwater: boolean;
+        numKoiFish: number;
+        waterCapacity: number;
+        pondElement: string | null;
+        pondLocation: string;
+        pondOrientation: string;
+    };
 }
+

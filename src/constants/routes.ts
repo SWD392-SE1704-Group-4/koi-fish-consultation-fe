@@ -3,7 +3,7 @@ import CalculateIcon from "@mui/icons-material/Calculate";
 import BookIcon from "@mui/icons-material/Book";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import UserSettingDashboard from "../containers/Dashboard/UserSetting";
 import Home from "../containers/Home";
 import Dashboard from "../containers/Dashboard";
@@ -33,6 +33,12 @@ import PostAdvertisement from "../containers/PostAdvertisement";
 import AdvertisementList from "../containers/Dashboard/ManageAdvertisement/AdvertisementList";
 import AdvertisementPage from "../containers/AdvertisementList";
 
+import CastleIcon from '@mui/icons-material/Castle';
+import AdvertisementDetail from "../containers/AdvertisementDetail";
+import ManageTransaction from "../containers/Dashboard/ManageBlog";
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+
+
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
 
 export const publicRoutes = [
@@ -43,6 +49,7 @@ export const publicRoutes = [
   { path: "/post/advertisement", container: PostAdvertisement },
   { path: "/information/koi-fish", container: KoiFishPage },
   { path: "/information/advertisement", container: AdvertisementPage },
+  { path: "/information/advertisement/:advertisementId", container: AdvertisementDetail},
   { path: "/annual-feng-shui", container: Annual },
   { path: "/about-us", container: AboutUsSection },
   { path: "/blog/koi-color-meaning", container: ColorMeaning },
@@ -98,6 +105,38 @@ export const memberDashboardSubRoutes = [
   },
 ];
 
+//Route for advertisement
+export const advertisementDashboardSubRoutes = [
+  {
+    path: "/profile",
+    title: "My profile",
+    icon: AccountCircleIcon,
+    container: UserSettingDashboard,
+    href: "/me/profile",
+  },
+  {
+    path: "/manage-fish-pond",
+    title: "Manage fish pond",
+    container: ManageFengshuiDataDashboard,
+    icon: CastleIcon,
+    href: "/me/manage-fish-pond",
+  },
+  {
+    path: "/manage-advertisement",
+    title: "Manage advertisement",
+    icon: AutoAwesomeIcon,
+    container: ManageAdvertisement,
+    href: "/me/manage-advertisement",
+  },
+  {
+    path: "/manage-transaction",
+    title: "Manage transaction",
+    icon: AutoAwesomeIcon,
+    container: ManageAdvertisement,
+    href: "/me/manage-transaction",
+  }
+];
+
 //Route for staff
 export const staffDashboardSubRoutes = [
   {
@@ -111,15 +150,8 @@ export const staffDashboardSubRoutes = [
     path: "/manage-fengshui-data",
     title: "Manage fengshui data",
     container: ManageFengshuiDataDashboard,
-    icon: AutoAwesomeIcon,
+    icon: LocalFireDepartmentIcon,
     href: "/me/manage-fengshui-data",
-  },
-  {
-    path: "/manage-blog",
-    title: "Manage blog",
-    container: ManageBlog,
-    icon: BookIcon,
-    href: "/me/manage-blog",
   },
   {
     path: "/manage-advertisement",
@@ -127,5 +159,12 @@ export const staffDashboardSubRoutes = [
     container: ManageAdvertisement,
     icon: AutoAwesomeIcon,
     href: "/me/manage-advertisement",
+  },
+  {
+    path: "/manage-transaction",
+    title: "Manage transaction",
+    container: ManageTransaction,
+    icon: AccountBalanceIcon,
+    href: "/me/manage-transaction",
   },
 ];

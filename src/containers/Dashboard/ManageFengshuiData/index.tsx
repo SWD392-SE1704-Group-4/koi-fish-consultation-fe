@@ -3,6 +3,7 @@ import DashboardBoard from "../../../components/organism/BoardLayout";
 import Element from "./Element";
 import { Box } from "@mui/joy";
 import KoiFish from "./KoiFish";
+import FishPond from "./FishPond";
 
 const ManageFengshuiDataDashboard: React.FC = (): JSX.Element => {
   const [collapsed, setCollapsed] = React.useState(false);
@@ -18,9 +19,9 @@ const ManageFengshuiDataDashboard: React.FC = (): JSX.Element => {
     },
     {
       id: "2",
-      rowSpan: 3,
-      columnSpan: 1,
-      data: { title: "Fish pond", content: <></> }
+      rowSpan: 5,
+      columnSpan: 4,
+      data: { title: "Fish pond", content: <FishPond /> }
     },
     {
       id: "3",

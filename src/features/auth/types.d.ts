@@ -25,6 +25,7 @@ declare module 'AppModels' {
             phone: string,
             picture: string,
             role: string,
+            groups: string[]
         }
     }
 }
