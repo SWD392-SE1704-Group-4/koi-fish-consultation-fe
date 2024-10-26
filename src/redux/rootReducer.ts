@@ -3,13 +3,11 @@ import fengshui from "../features/fengshui";
 import auth from "../features/auth";
 
 import advertisement from "../features/advertisement";
-import blog from "../features/blog";
 
 const combineReducer = combineReducers({    
     auth: auth,
     fengshui: fengshui,
     advertisement: advertisement,
-    blog: blog,
 });
 
 export type RootState = ReturnType<typeof combineReducer>;

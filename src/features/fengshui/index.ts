@@ -14,7 +14,6 @@ import {
   setHeavenEarth,
   setFishPondList,
   setFishPond,
-  setFishPondDetailModalOpen,
   setCreateKoiPondModalOpen,
   setFengshuiDirectionList,
   setFishPondDetailModalOpen

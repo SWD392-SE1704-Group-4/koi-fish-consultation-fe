@@ -27,21 +27,6 @@ declare module "AppModels" {
     koiFishPrice: number;
   };
 
-
-  export type TFengshuiState = {
-    isFetching: boolean;
-    fengshuiElementList: FengshuiElement[];
-    koiFish: KoiFish;
-    updateKoiFishModalOpen: false;
-    createKoiFishModalOpen: false;
-    deleteKoiFishModalOpen: false;
-    heavenEarth: [];
-    koifishList: [];
-    fishpondList: [];
-    status: string;
-    error: string;
-  };
-
     interface FengshuiDirection {
         directionId: string;
         directionName: string;
@@ -108,6 +93,7 @@ declare module "AppModels" {
         fengshuiDirectionList: FengshuiDirection[],
         status: string;
         error: string,
+        heavenEarth: null,
     }
 }
 
