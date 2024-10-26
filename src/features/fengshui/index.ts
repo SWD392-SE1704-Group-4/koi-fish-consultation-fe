@@ -1,21 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
 import fengshuiInitialState from "./fengshui.initialState";
 import {
-    setKoiFishList,
-    setfengshuiElementList,
-    setIsFetching,
-    setKoiFish,
-    setUpdateKoiFishModalOpen,
-    setFengshuiError,
-    setStatus,
-    setCreateKoiFishModalOpen,
-    setDeleteKoiFishModalOpen,
-    setFishPondList,
+
+  setKoiFishList,
+  setfengshuiElementList,
+  setIsFetching,
+  setKoiFish,
+  setUpdateKoiFishModalOpen,
+  setFengshuiError,
+  setStatus,
+  setCreateKoiFishModalOpen,
+  setDeleteKoiFishModalOpen,
+  setHeavenEarth,
+  setFishPondList,
     setFishPond,
     setFishPondDetailModalOpen
+
 } from "./fengshui.reducers";
 
 const fengshui = createSlice({
+
     name: "fengshui",
     initialState: fengshuiInitialState,
     reducers: {
@@ -31,6 +35,7 @@ const fengshui = createSlice({
         setFishPondListAction: setFishPondList,
         setFishPondAction: setFishPond,
         setFishPondDetailModalOpenAction: setFishPondDetailModalOpen,
+  setHeaveEarthAction: setHeavenEarth,
     }
 })
 
@@ -46,7 +51,9 @@ export const {
     setDeleteKoiFishModalOpenAction,
     setFishPondListAction,
     setFishPondAction,
-    setFishPondDetailModalOpenAction
+    setFishPondDetailModalOpenAction,
+   setHeaveEarthAction,
+
 } = fengshui.actions;
 
 export default fengshui.reducer;

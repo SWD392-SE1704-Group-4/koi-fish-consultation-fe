@@ -2,9 +2,14 @@ export const endpoint = {
   // fengshui element endpoint
   GET_FENGSHUI_ELEMENT: "/fengshui-element/get-list",
 
+
+  //Heaven earth endpoint
+  GET_HEAVEN_EARTH: "/heavenly-earthly-elements/get-list",
+
   //App user
   GET_APP_USER_GROUP: "/app-user/get-user-group",
   UPDATE_APP_USER_INFO: "/app-user/update-user-info",
+
 
   //blog category endpoint
   GET_BLOG_CATEGORY: "/blog-category/get-list",
@@ -14,6 +19,7 @@ export const endpoint = {
   CREATE_CATEGORY: "/category/create",
 
   //koi fish
+
   CREATE_KOI_FISH: '/koi-fish/create',
   GET_KOI_FISH: '/koi-fish/get-list',
   UPDATE_KOI_FISH: '/koi-fish/update',

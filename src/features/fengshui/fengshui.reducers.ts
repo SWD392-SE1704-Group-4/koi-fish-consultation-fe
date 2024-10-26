@@ -1,6 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { Comic, Category, TFengshuiState } from "AppModels";
 
+
 export const setfengshuiElementList = (state: TFengshuiState, action: PayloadAction<any>) => {
     state.fengshuiElementList = action.payload;
 }
@@ -48,3 +49,11 @@ export const setFengshuiError = (state: TFengshuiState, action: PayloadAction<an
 export const setStatus = (state: TFengshuiState, action: PayloadAction<any>) => {
     state.status = action.payload;
 }
+
+export const setHeavenEarth = (
+  state: TFengshuiState,
+  action: PayloadAction<any>
+) => {
+  state.heavenEarth = action.payload;
+};
+
