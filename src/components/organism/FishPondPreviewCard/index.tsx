@@ -28,6 +28,7 @@ const FishPondPreviewCard: React.FC<FishPondProps> = (props): JSX.Element => {
         numKoiFish,
         waterCapacity,
         pondLocation,
+        pondPictures,
         pondOrientation
     } = props.fishPond;
 
@@ -37,7 +38,7 @@ const FishPondPreviewCard: React.FC<FishPondProps> = (props): JSX.Element => {
                 <CardOverflow>
                     <AspectRatio ratio="2">
                         <img
-                            src={`${cloudfrontUrl}/default-pond-image.jpg`} // Replace with a default image or pond-specific image if available
+                            src={`${cloudfrontUrl + pondPictures[0]}`} // Replace with a default image or pond-specific image if available
                             loading="lazy"
                             alt={pondName}
                         />
