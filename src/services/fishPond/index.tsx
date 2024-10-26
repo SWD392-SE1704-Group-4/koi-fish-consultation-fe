@@ -3,6 +3,10 @@ import { api } from "../../api/api";
 import { endpoint } from "../../constants/endpoint";
 import { BaseResponse } from "AppModels";
 
+export function CreateFishPond(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
+    return api.post(endpoint.CREATE_FISH_POND, requestBody);
+}
+
 export function GetFishPond(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
     return api.post(endpoint.GET_FISH_POND, requestBody);
 }

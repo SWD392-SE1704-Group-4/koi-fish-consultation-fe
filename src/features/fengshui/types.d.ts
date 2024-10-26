@@ -59,6 +59,7 @@ declare module 'AppModels' {
         pondElement: string | null;
         pondLocation: string;
         pondOrientation: string;
+        pondPictures: string[]
     };
     
     export type TFengshuiState = {

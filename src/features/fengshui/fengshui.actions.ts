@@ -11,10 +11,11 @@ import {
     setCreateKoiFishModalOpenAction,
     setDeleteKoiFishModalOpenAction,
     setFishPondListAction,
-    setFengshuiDirectionListAction
+    setFengshuiDirectionListAction,
+    setCreateKoiPondModalOpenAction
 } from "./index";
 import { CreateKoiFish, DeleteKoiFish, GetKoiFish, UpdateKoiFish } from "../../services/koifish";
-import { GetFengshuiDirection, GetFishPond } from "../../services/fishPond";
+import { CreateFishPond, GetFengshuiDirection, GetFishPond } from "../../services/fishPond";
 
 export const requestGetFengshuiElement = ({ request }: { request: any }): TAppThunk => {
     return async (dispatch: any) => {
@@ -131,9 +132,14 @@ export const requestCreateFishPond = ({ request }: { request: any }): TAppThunk 
     return async (dispatch: any) => {
         dispatch(setIsFetchingAction(true))
         try {
-            const response = await GetFengshuiDirection(request);
-            const fengshuiDirectionList: any = response?.data?.payload;
-            dispatch(setFengshuiDirectionListAction(fengshuiDirectionList));
+            const response = await CreateFishPond(request);
+            const newFishPond: any = response?.data?.payload;
+            if (newFishPond) {
+                dispatch(setFengshuiStatusAction("Create fish pond successfully"));
+                dispatch(requestGetFishPondList({ request: {} }));
+                dispatch(setCreateKoiPondModalOpenAction(false));
+            }
+
         } catch (error) {
             dispatch(setFengshuiErrorAction("Error:" + error.message));
         } finally {
