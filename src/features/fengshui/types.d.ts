@@ -11,6 +11,21 @@ declare module 'AppModels' {
         elementStrength: string;
     };
 
+    interface FengshuiDirection {
+        directionId: string;
+        directionName: string;
+        description: string;
+        elementAssociation: string;
+        yinYangBalance: string;
+        favorableAttributes: string;
+        unfavorableAttributes: string;
+        secondaryDirection: string | null;
+        fengshuiTips: string;
+        associatedColor: string;
+        associatedShape: string;
+        fengshuiElement: FengshuiElement;
+    }
+    
     export type KoiFish = {
         id: string;
         koiFishName: string;
@@ -57,6 +72,8 @@ declare module 'AppModels' {
         koifishList: [],
         fishPondList: FishPond[],
         fishPondDetailModalOpen: boolean,
+        createKoiPondModalOpen: boolean,
+        fengshuiDirectionList: FengshuiDirection[],
         status: string;
         error: string,
     }

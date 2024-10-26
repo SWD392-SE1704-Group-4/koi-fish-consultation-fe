@@ -10,10 +10,11 @@ import {
     setUpdateKoiFishModalOpenAction,
     setCreateKoiFishModalOpenAction,
     setDeleteKoiFishModalOpenAction,
-    setFishPondListAction
+    setFishPondListAction,
+    setFengshuiDirectionListAction
 } from "./index";
 import { CreateKoiFish, DeleteKoiFish, GetKoiFish, UpdateKoiFish } from "../../services/koifish";
-import { GetFishPond } from "../../services/fishPond";
+import { GetFengshuiDirection, GetFishPond } from "../../services/fishPond";
 
 export const requestGetFengshuiElement = ({ request }: { request: any }): TAppThunk => {
     return async (dispatch: any) => {
@@ -103,6 +104,36 @@ export const requestGetFishPondList = ({ request }: { request: any }): TAppThunk
             const response = await GetFishPond(request);
             const fishPondList: any = response?.data?.payload;
             dispatch(setFishPondListAction(fishPondList));
+        } catch (error) {
+            dispatch(setFengshuiErrorAction("Error:" + error.message));
+        } finally {
+            dispatch(setIsFetchingAction(false))
+        }
+    };
+};
+
+export const requestGetFengshuiDirectionList = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        dispatch(setIsFetchingAction(true))
+        try {
+            const response = await GetFengshuiDirection(request);
+            const fengshuiDirectionList: any = response?.data?.payload;
+            dispatch(setFengshuiDirectionListAction(fengshuiDirectionList));
+        } catch (error) {
+            dispatch(setFengshuiErrorAction("Error:" + error.message));
+        } finally {
+            dispatch(setIsFetchingAction(false))
+        }
+    };
+};
+
+export const requestCreateFishPond = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        dispatch(setIsFetchingAction(true))
+        try {
+            const response = await GetFengshuiDirection(request);
+            const fengshuiDirectionList: any = response?.data?.payload;
+            dispatch(setFengshuiDirectionListAction(fengshuiDirectionList));
         } catch (error) {
             dispatch(setFengshuiErrorAction("Error:" + error.message));
         } finally {

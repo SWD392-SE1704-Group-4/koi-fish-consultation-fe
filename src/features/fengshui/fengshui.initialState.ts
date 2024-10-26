@@ -11,6 +11,8 @@ const fengshuiInitialState: TFengshuiState = {
     createKoiFishModalOpen: null,
     deleteKoiFishModalOpen: null,
     fishPondDetailModalOpen: null,
+    createKoiPondModalOpen: null,
+    fengshuiDirectionList: null,
     status: null,
     error: null,
 }

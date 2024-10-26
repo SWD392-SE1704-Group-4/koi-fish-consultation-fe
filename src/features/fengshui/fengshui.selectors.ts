@@ -23,3 +23,7 @@ export const selectFishPondList = (state: RootState) => state.fengshui.fishPondL
 export const selectFengshuiInfo = (state: RootState) => state.fengshui;
 
 export const selectStatus = (state: RootState) => state.fengshui.status;
+
+export const selectCreateKoiPondModalOpen = (state: RootState) => state.fengshui.createKoiPondModalOpen;
+
+export const selectFengshuiDirectionList = (state: RootState) => state.fengshui.fengshuiDirectionList;
