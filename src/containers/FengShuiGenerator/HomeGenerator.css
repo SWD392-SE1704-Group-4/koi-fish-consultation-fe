@@ -84,3 +84,90 @@
   font-size: 50px;
   margin-top: 20px;
 }
+
+.about-us-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.about-us-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.about-us-text h1 {
+  font-size: 2rem;
+  margin: 20px 0;
+}
+
+.form-container {
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.form-title {
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.form-element {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input-field {
+  padding: 10px;
+  width: 95%;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.submit-button {
+  padding: 15px 30px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 4px;
+  background-color: #ffe6e6;
+}
+
+.result-message {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #28a745;
+  border-radius: 4px;
+  background-color: #e6ffe6;
+}
+
+.koi-fish-list-container {
+  padding: 0 80px;
+}
+
+.koi-fish-title {
+  font-size: 50px;
+  margin-top: 20px;
+}
