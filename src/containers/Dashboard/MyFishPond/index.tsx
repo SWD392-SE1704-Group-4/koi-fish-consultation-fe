@@ -13,11 +13,20 @@ import FishPondList from "../../../components/organism/FishPondList";
 import { selectFishPond, selectFishPondList } from "../../../features/fengshui/fengshui.selectors";
 import CreateKoiPondModal from "./CreateKoiPondModal";
 import { setCreateKoiFishModalOpenAction, setCreateKoiPondModalOpenAction } from "../../../features/fengshui";
+import { selectUserInfo } from "../../../features/auth/auth.selectors";
+import { requestGetMyFishPond } from "../../../features/fengshui/fengshui.actions";
 
 const MyFishPond: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
+    const userInfo = useSelector(selectUserInfo);
     const myFishPondList = useSelector(selectFishPondList);
-
+    
+    React.useEffect(() => {
+        const request = {
+            appUserId: userInfo.sub
+        };
+        dispatch(requestGetMyFishPond({request}));
+    },[])
 
     return (
         <React.Fragment>
