@@ -41,7 +41,6 @@ const AdvertisementDetailModal: React.FC<any> = (): JSX.Element => {
           {[
             { label: "Title", value: advertisement?.title },
             { label: "Description", value: advertisement?.description },
-            { label: "Quantity", value: advertisement?.quantity },
             { label: "Contact Information", value: advertisement?.contactInfo },
             { label: "Location", value: advertisement?.location },
             { label: "Type", value: advertisement?.advertisementType?.typeName },
@@ -79,12 +78,12 @@ const AdvertisementDetailModal: React.FC<any> = (): JSX.Element => {
             <Avatar
               variant="outlined"
               size="sm"
-              src={cloudfrontUrl + advertisement?.userInfo?.picture}
+              src={cloudfrontUrl + advertisement?.postedBy?.picture}
             />
-            <Typography>Name: {advertisement?.userInfo.given_name} {advertisement?.userInfo.family_name}</Typography>
-            <Typography>Email: {advertisement?.userInfo.email}</Typography>
-            <Typography>Phone: {advertisement?.userInfo.phone_number}</Typography>
-            <Typography>Address: {advertisement?.userInfo.address}</Typography>
+            <Typography>Name: {advertisement?.postedBy.given_name} {advertisement?.postedBy.family_name}</Typography>
+            <Typography>Email: {advertisement?.postedBy.email}</Typography>
+            <Typography>Phone: {advertisement?.postedBy.phone_number}</Typography>
+            <Typography>Address: {advertisement?.postedBy.address}</Typography>
           </Box>
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'right', gap: 1, mt: 3 }}>
