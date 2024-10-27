@@ -11,6 +11,10 @@ export function GetFishPond(requestBody: any): AxiosResponse<BaseResponse<any>, 
     return api.post(endpoint.GET_FISH_POND, requestBody);
 }
 
+export function GetMyFishPond(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
+    return api.post(endpoint.GET_FISH_POND_BY_CREATOR, requestBody);
+}
+
 export function GetFengshuiDirection(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
     return api.post(endpoint.GET_FENGSHUI_DIRECTION, requestBody);
 }
