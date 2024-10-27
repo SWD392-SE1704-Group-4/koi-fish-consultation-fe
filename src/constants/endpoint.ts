@@ -30,6 +30,7 @@ export const endpoint = {
   //fish pond
   CREATE_FISH_POND: '/fish-pond/create',
   GET_FISH_POND: '/fish-pond/get-list',
+  GET_FISH_POND_BY_CREATOR: '/fish-pond/get-list-by-creator',
   UPDATE_FISH_POND: '/fish-pond/update',
   DELETE_FISH_POND: '/fish-pond/delete',
 
