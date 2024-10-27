@@ -16,7 +16,7 @@ import {
     setHeaveEarthAction,
 } from "./index";
 import { CreateKoiFish, DeleteKoiFish, GetKoiFish, UpdateKoiFish, GetHeavenEarth } from "../../services/koifish";
-import { CreateFishPond, GetFengshuiDirection, GetFishPond } from "../../services/fishPond";
+import { CreateFishPond, GetFengshuiDirection, GetFishPond, GetMyFishPond } from "../../services/fishPond";
 
 
 export const requestGetFengshuiElement = ({
@@ -177,6 +177,23 @@ export const requestCreateFishPond = ({ request }: { request: any }): TAppThunk 
                 dispatch(setCreateKoiPondModalOpenAction(false));
             }
 
+        } catch (error) {
+            dispatch(setFengshuiErrorAction("Error:" + error.message));
+        } finally {
+            dispatch(setIsFetchingAction(false))
+        }
+    };
+};
+
+export const requestGetMyFishPond = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        dispatch(setIsFetchingAction(true))
+        try {
+            const response = await GetMyFishPond(request);
+            const fishPond: any = response?.data?.payload;
+            if (fishPond) {
+                dispatch(setFishPondListAction(fishPond));
+            }
         } catch (error) {
             dispatch(setFengshuiErrorAction("Error:" + error.message));
         } finally {
