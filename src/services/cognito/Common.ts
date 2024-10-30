@@ -1,10 +1,7 @@
 import {
     CognitoIdentityProviderClient,
     GetUserCommand,
-    GetGroupCommand,
-    AdminListGroupsForUserCommand
 } from '@aws-sdk/client-cognito-identity-provider';
-import CryptoJS from "crypto-js";
 import { api, apiGateway } from '../../api/api';
 import { AxiosResponse } from 'axios';
 import { endpoint } from '../../constants/endpoint';
@@ -24,9 +21,12 @@ export async function getUserInfo(accessToken) {
     }
 }
 
+// export function getAppUserGroup(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
+//     return api.post(endpoint.GET_APP_USER_GROUP, requestBody);
+// }
 
-export function getAppUserGroup(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
-    return api.post(endpoint.GET_APP_USER_GROUP, requestBody);
+export function getAppUserRole(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
+    return api.post(endpoint.GET_APP_USER_ROLE, requestBody);
 }
 
 

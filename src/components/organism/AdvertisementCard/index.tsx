@@ -26,7 +26,6 @@ const AdvertisementCard: React.FC<any> = ({ advertisement }) => {
         viewsCount,
         koiFishName,
         postedBy,
-        userInfo,
         additionalImages,
     } = advertisement;
 
@@ -51,15 +50,15 @@ const AdvertisementCard: React.FC<any> = ({ advertisement }) => {
                     <Grid container spacing={1} alignItems="center">
                         <Grid>
                             <Avatar
-                                src={userInfo?.picture ? `${cloudfrontUrl + userInfo.picture}` : '/default-avatar.png'}
+                                src={postedBy?.profile_picture_url ? `${cloudfrontUrl + postedBy.profile_picture_url}` : '/default-avatar.png'}
                                 alt={postedBy}
                                 sx={{ width: 40, height: 40 }}
                             />
                         </Grid>
                         <Grid>
-                            <Typography level="body-md">{`${userInfo?.given_name} ${userInfo?.family_name}`}</Typography>
+                            <Typography level="body-md">{`${postedBy?.firstName} ${postedBy?.lastName}`}</Typography>
                             <Typography level="body-sm" color="neutral">
-                                {postedBy}
+                                {postedBy.username}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -98,7 +97,7 @@ const AdvertisementCard: React.FC<any> = ({ advertisement }) => {
                     <Button
                         variant="outlined"
                         size="sm"
-                        sx={{ ...buttonStyles }}
+                        sx={{ ...buttonStyles, px: 1  }}
                         onClick={() => { 
                             dispatch(setAdvertisementAction(advertisement))
                             navigate(`/information/advertisement/${advertisementId}`) }}>
@@ -106,7 +105,7 @@ const AdvertisementCard: React.FC<any> = ({ advertisement }) => {
                     </Button>
                     <Button
                         size="sm"
-                        sx={{ ...buttonStyles, backgroundColor: "#ed2d4d" }}>
+                        sx={{ ...buttonStyles, backgroundColor: "#ed2d4d", px: 1 }}>
                         Contact
                     </Button>
                 </Box>
