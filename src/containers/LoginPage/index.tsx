@@ -16,7 +16,7 @@ import { setAuthErrorAction } from "../../features/auth";
 
 // Define the validation schema using yup
 const schema = yup.object().shape({
-  username: yup.string().required("Username is required"),
+  email: yup.string().required("Email is required").email("Invalid email format"),
   password: yup.string().min(6, "Password must be at least 6 characters").required("Password is required"),
 });
 
@@ -39,19 +39,19 @@ const Login: React.FC = () => {
     resolver: yupResolver(schema),
   });
   useEffect(() => {
-    if(authInfo.error){
-      enqueueSnackbar({message:authInfo.error, variant:"error", autoHideDuration: 2000})
+    if (authInfo.error) {
+      enqueueSnackbar({ message: authInfo.error, variant: "error", autoHideDuration: 2000 })
     }
-     dispatch(setAuthErrorAction(null))
+    dispatch(setAuthErrorAction(null))
   }, [authInfo?.error]);
 
   // Handle form submission
   const onSubmit = async (data: any) => {
-      const username = data.username;
-      const password = data.password;
-      dispatch(requestAuth({ username, password }));
+    const email = data.email;
+    const password = data.password;
+    dispatch(requestAuth({ email, password }));
   };
-  
+
   useEffect(() => {
     if (isLoggedIn) {
       navigate('/');
@@ -67,13 +67,13 @@ const Login: React.FC = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
 
           {/* Email Input */}
-          <label>Username *</label>
+          <label>Email *</label>
           <input
             type="text"
-            placeholder="Username"
-            {...register("username")}
+            placeholder="Email"
+            {...register("email")}
           />
-          {errors.username && <p className="error-message">{errors.username.message}</p>}
+          {errors.email && <p className="error-message">{errors.email.message}</p>}
 
           {/* Password Input */}
           <div className="password-container">
