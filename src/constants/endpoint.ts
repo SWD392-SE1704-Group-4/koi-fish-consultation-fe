@@ -10,6 +10,7 @@ export const endpoint = {
 
   //App user
   GET_APP_USER_GROUP: "/app-user/get-user-group",
+  GET_APP_USER_ROLE: "/app-user/get-user-role",
   UPDATE_APP_USER_INFO: "/app-user/update-user-info",
 
 
@@ -37,12 +38,14 @@ export const endpoint = {
   //advertisement
   CREATE_ADVERTISEMENT: '/advertisement/create',
   GET_ADVERTISEMENT: '/advertisement/get-list',
+  GET_ADVERTISEMENT_BY_CREATOR: '/advertisement/get-list-by-creator',
   GET_ADVERTISEMENT_BY_ID: '/advertisement/get-by-id',
   GET_ADVERTISEMENT_TYPE: '/advertisement/get-list-advertisement-type',
   UPDATE_ADVERTISEMENT: '/advertisement/update',
   DELETE_ADVERTISEMENT: '/advertisement/delete',
   APPROVE_ADVERTISEMENT: '/advertisement/approve',
   DENY_ADVERTISEMENT: '/advertisement/deny',
+  GET_ADVERTISEMENT_BY_STAFF: '/advertisement/get-list-by-staff',
 
   //blog
   CREATE_BLOG: '/blog/create',

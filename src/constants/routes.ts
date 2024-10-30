@@ -38,6 +38,7 @@ import AdvertisementDetail from "../containers/AdvertisementDetail";
 import ManageTransaction from "../containers/Dashboard/ManageBlog";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import MyFishPond from "../containers/Dashboard/MyFishPond";
+import MyAdvertisement from "../containers/Dashboard/MyAdvertisement";
 
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
@@ -87,7 +88,7 @@ export const memberDashboardSubRoutes = [
     path: "/my-advertisement",
     title: "My advertisement",
     icon: AutoAwesomeIcon,
-    container: ManageAdvertisement,
+    container: MyAdvertisement,
     href: "/me/my-advertisement",
   },
   {
