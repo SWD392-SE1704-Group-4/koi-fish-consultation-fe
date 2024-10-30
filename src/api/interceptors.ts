@@ -14,7 +14,7 @@ let failedRequestQueue: [] = [];
 
 function setAuthorizationHeader(params: any) {
     const {request, token} = params;
-    request.headers['Authorization'] = token;
+    request.headers['Authorization'] = `Bearer ${token}`;
 }
 
 function handleRefreshToken(refreshToken: string | undefined) {
@@ -49,6 +49,7 @@ function handleRefreshToken(refreshToken: string | undefined) {
 
 function onRequest(config: any) {
     const token = GetAccessToken();
+    console.log(token)
     if (token) {
         setAuthorizationHeader({request: config, token});
     }
