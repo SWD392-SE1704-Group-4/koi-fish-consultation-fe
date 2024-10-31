@@ -7,7 +7,7 @@ import {
 } from "@mui/joy";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useSnackbar } from "notistack";
 import { selectKoiFishList } from "../../../features/fengshui/fengshui.selectors";
@@ -16,17 +16,54 @@ import { FieldNumberOutlined } from "@ant-design/icons";
 import { setKoiFishAction } from "../../../features/fengshui";
 import { requestCreateAdvertisement, requestGetListAdvertisementType } from "../../../features/advertisement/advertisement.actions";
 import { selectUserInfo } from "../../../features/auth/auth.selectors";
-import { selectAdvertisementType, selectAdvertisementTypeList } from "../../../features/advertisement/advertisement.selectors";
+import { selectAdvertisementType, selectAdvertisementTypeList, selectIsPosting } from "../../../features/advertisement/advertisement.selectors";
 
 // Validation schema using Yup
 const AdvertisementSchema = Yup.object().shape({
-    title: Yup.string().required("Required"),
-    description: Yup.string().required("Required"),
-    phone: Yup.string().required("Required"),
-    address: Yup.string().required("Required"),
-    location: Yup.string().required("Required"),
-    contactInfo: Yup.string().required("Required"),
-    koiFishId: Yup.string().required("Required"),
+    title: Yup.string()
+        .trim()
+        .matches(/^[\p{L}\p{N} ,().]+$/u, "No special characters allowed except commas, periods, and parentheses")
+        .min(25, "Title must be at least 25 words")
+        .max(50, "Title cannot exceed 50 words")
+        .required("Required"),
+
+    description: Yup.string()
+        .trim()
+        .min(50, "Description must be at least 50 words")
+        .max(255, "Description cannot exceed 255 words")
+        .required("Required"), // Allows all characters
+
+    phone: Yup.string()
+        .matches(/^\+\d{2}\d{9,10}$/, "Phone number must start with '+xx' and contain 9 or 10 additional digits")
+        .required("Required"),
+
+    address: Yup.string()
+        .trim()
+        .matches(/^[\p{L}\p{N} ,().]+$/u, "No special characters allowed except commas, periods, and parentheses")
+        .required("Required"),
+
+    location: Yup.string()
+        .trim()
+        .matches(/^[\p{L}\p{N} ,().]+$/u, "No special characters allowed except commas, periods, and parentheses")
+        .max(50, "Location cannot exceed 50 characters")
+        .required("Required"),
+
+    contactInfo: Yup.string()
+        .trim()
+        .matches(/^[\p{L}\p{N} ,().]+$/u, "No special characters allowed except commas, periods, and parentheses")
+        .max(50, "Contact Info cannot exceed 50 characters")
+        .required("Required"),
+
+    koiFishId: Yup.string()
+        .required("Required"),
+
+    price: Yup.number()
+        .typeError("Price must be a number")
+        .positive("Price must be a positive number")
+        .required("Required"),
+
+    additionalImages: Yup.array()
+        .min(1, "At least 1 image is required")
 });
 
 const cloudfrontUrl = process.env.REACT_APP_AWS_CLOUDFRONT_URL;
@@ -51,6 +88,8 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
     const { enqueueSnackbar } = useSnackbar();
 
     const userInfo = useSelector(selectUserInfo);
+
+    const isPosting = useSelector(selectIsPosting);
 
     const koiFishList = useSelector(selectKoiFishList);
     const advertisementType = useSelector(selectAdvertisementType);
@@ -84,17 +123,26 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
         }
         dispatch(requestGetKoiFish({ request }));
         dispatch(requestGetListAdvertisementType({ request }));
+
+        return () => {
+            dispatch(setKoiFishAction(null));
+        }
     }, [])
 
     const handleSubmit = (values: any) => {
-        console.log(values);
+        var error = false;
+
+        if (imageFiles.length == 0 || imageFiles.length >= 5) {
+            error = true;
+        }
+
         const additionalImage = imageFiles
             .filter((file: any) => file instanceof File)
             .map((file: any) => file);
 
         const formData = new FormData();
 
-        formData.append("postedBy", userInfo.username);
+        formData.append("postedBy", userInfo.sub);
         formData.append("advertisementType", advertisementType.id);
 
         Object.keys(values).forEach((key) => {
@@ -105,7 +153,9 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
             formData.append("additionalImages", picture);
         });
 
-        dispatch(requestCreateAdvertisement({ request: formData }));
+        if (!error) {
+            dispatch(requestCreateAdvertisement({ request: formData }));
+        }
     };
 
     return (
@@ -146,6 +196,13 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                         )}
                                     </Field>
                                 </Box>
+                                {/* Error */}
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <FormLabel sx={labelStyles}></FormLabel>
+                                    <ErrorMessage name="title">
+                                        {msg => <p style={{ color: 'red' }}>{msg}</p>}
+                                    </ErrorMessage>
+                                </Box>
                             </Grid>
 
                             {/* Description Field */}
@@ -165,6 +222,13 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                         )}
                                     </Field>
                                 </Box>
+                                {/* Error */}
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <FormLabel sx={labelStyles}></FormLabel>
+                                    <ErrorMessage name="description">
+                                        {msg => <p style={{ color: 'red' }}>{msg}</p>}
+                                    </ErrorMessage>
+                                </Box>
                             </Grid>
 
                             {/* Koi fish Field, quantity */}
@@ -176,7 +240,7 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                             <Select
                                                 {...field}
                                                 fullWidth
-                                                sx={{ ...inputStyles, width: '200px' }}
+                                                sx={{ ...inputStyles, width: '250px' }}
                                                 onChange={(event, newValue) => {
                                                     form.setFieldValue(field.name, newValue);
                                                     const currentKoiFish = koiFishList.find((fish: any) => fish.id === newValue);
@@ -192,7 +256,42 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                         )}
                                     </Field>
                                 </Box>
-
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <FormLabel sx={labelStyles}>Price ($)</FormLabel>
+                                    <Field name="price">
+                                        {({ field }: any) => (
+                                            <Input
+                                                {...field}
+                                                type="number"
+                                                placeholder="Price"
+                                                error={touched.price && Boolean(errors.price)}
+                                                fullWidth
+                                                sx={inputStyles}
+                                            />
+                                        )}
+                                    </Field>
+                                </Box>
+                            </Grid>
+                            {/* Koi fish and price error */}
+                            <Grid xs={12} sx={{ display: 'flex', gap: 5 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                        <FormLabel sx={labelStyles}></FormLabel>
+                                        <Box sx={{ width: '250px' }}>
+                                            <ErrorMessage name="koiFishId">
+                                                {msg => <p style={{ color: 'red' }}>{msg}</p>}
+                                            </ErrorMessage>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: 1 }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                        <FormLabel sx={labelStyles}></FormLabel>
+                                        <ErrorMessage name="price">
+                                            {msg => <p style={{ color: 'red' }}>{msg}</p>}
+                                        </ErrorMessage>
+                                    </Box>
+                                </Box>
                             </Grid>
 
                             {/* Advertisement additional picture */}
@@ -251,6 +350,11 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                         </Box>
                                     )}
                                 </Box>
+                                {/* Error */}
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <FormLabel sx={labelStyles}></FormLabel>
+                                    {imageFiles.length == 0 && <p style={{ color: 'red' }}>{"At least 1 image file is required"}</p>}
+                                </Box>
                             </Grid>
 
                             {/* Location and Contact info Field */}
@@ -286,6 +390,27 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                     </Field>
                                 </Box>
                             </Grid>
+                            {/* Location and contact info error*/}
+                            <Grid xs={12} sx={{ display: 'flex', gap: 5 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                        <FormLabel sx={labelStyles}></FormLabel>
+                                        <Box sx={{ width: '250px' }}>
+                                            <ErrorMessage name="location">
+                                                {msg => <p style={{ color: 'red' }}>{msg}</p>}
+                                            </ErrorMessage>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: 1 }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                        <FormLabel sx={labelStyles}></FormLabel>
+                                        <ErrorMessage name="contactInfo">
+                                            {msg => <p style={{ color: 'red' }}>{msg}</p>}
+                                        </ErrorMessage>
+                                    </Box>
+                                </Box>
+                            </Grid>
                             {/* Phone and address */}
                             <Grid xs={12} sx={{ display: 'flex', gap: 5 }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -309,7 +434,7 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                             <Input
                                                 {...field}
                                                 placeholder="Address"
-                                                error={touched.quantity && Boolean(errors.quantity)}
+                                                error={touched.address && Boolean(errors.address)}
                                                 fullWidth
                                                 sx={inputStyles}
                                             />
@@ -317,9 +442,28 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                                     </Field>
                                 </Box>
                             </Grid>
-
+                            {/* Phone and address error*/}
+                            <Grid xs={12} sx={{ display: 'flex', gap: 5 }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                        <FormLabel sx={labelStyles}></FormLabel>
+                                        <Box sx={{ width: '250px' }}>
+                                            <ErrorMessage name="phone">
+                                                {msg => <p style={{ color: 'red' }}>{msg}</p>}
+                                            </ErrorMessage>
+                                        </Box>
+                                    </Box>
+                                </Box>
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                        <FormLabel sx={labelStyles}></FormLabel>
+                                        <ErrorMessage name="address">
+                                            {msg => <p style={{ color: 'red' }}>{msg}</p>}
+                                        </ErrorMessage>
+                                    </Box>
+                                </Box>
+                            </Grid>
                         </Grid>
-
                         <Divider sx={{ mt: 2, mb: 2 }} />
 
                         {/* Buttons */}
@@ -332,6 +476,7 @@ const AdvertisementForm: React.FC<any> = (): JSX.Element => {
                             </Button>
                             <Button
                                 type="submit"
+                                loading={isPosting}
                                 sx={{ ...buttonStyles, backgroundColor: "#ed2d4d" }}
                             >
                                 Post Advertisement
