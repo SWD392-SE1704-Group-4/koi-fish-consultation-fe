@@ -5,7 +5,7 @@ import { Box, Grid } from "@mui/joy";
 import PostAdvertisementForm from "./KoiAdvertisementForm";
 import KoiFishPreviewCard from "../../components/organism/KoiFishPreviewCard";
 import { useDispatch, useSelector } from "react-redux";
-import { selectKoiFish } from "../../features/fengshui/fengshui.selectors";
+import { selectFishPond, selectKoiFish } from "../../features/fengshui/fengshui.selectors";
 import Footer from "../../components/organism/Footer";
 import { selectAuthInfo, selectIsLoggedIn } from "../../features/auth/auth.selectors";
 import { useNavigate } from "react-router-dom";
@@ -16,11 +16,16 @@ import AdvertisementType from "./AdvertisementType";
 import KoiAdvertisementForm from "./KoiAdvertisementForm";
 import FishPondAdvertisementForm from "./FishPondAdvertisementForm";
 import ItemAdvertisementForm from "./ItemAdvertisementForm";
+import FishPondPreviewCard from "../../components/organism/FishPondPreviewCard";
+import PostSuccessModal from "./PostSuccessModal";
 
 const PostAdvertisement: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
     const advertisementType = useSelector(selectAdvertisementType);
+
     const currentKoiFish = useSelector(selectKoiFish);
+    const currentFishPond = useSelector(selectFishPond);
+    
     const advertisementInfo = useSelector(selectAdvertisementInfo);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const authInfo = useSelector(selectAuthInfo);
@@ -48,6 +53,7 @@ const PostAdvertisement: React.FC = (): JSX.Element => {
 
     return (
         <React.Fragment>
+            <PostSuccessModal />
             <Header></Header>
             <div className="about-us-container">
                 <div className="about-us-image">
@@ -73,7 +79,7 @@ const PostAdvertisement: React.FC = (): JSX.Element => {
                     margin: 1,
                 }}
             >
-                <Grid xs={12} md={currentKoiFish ? 8 : 12}>
+                <Grid xs={12} md={(currentKoiFish || currentFishPond) ? 8 : 12}>
                     <AdvertisementType />
                     {advertisementType?.typeName === 'Koi fish' && <KoiAdvertisementForm />}
                     {advertisementType?.typeName === 'Feng shui item' && <ItemAdvertisementForm />}
@@ -83,6 +89,11 @@ const PostAdvertisement: React.FC = (): JSX.Element => {
                 {currentKoiFish && (
                     <Grid xs={12} md={4}>
                         <KoiFishPreviewCard koiFish={currentKoiFish} />
+                    </Grid>
+                )}
+                {currentFishPond && (
+                    <Grid xs={12} md={4}>
+                        <FishPondPreviewCard fishPond={currentFishPond} />
                     </Grid>
                 )}
             </Grid>
