@@ -8,7 +8,7 @@ import {
     setSignUpStatus,
     setUpdateUserStatus,
     setIsLoaded,
-    setUserGroups
+    setUserRole
 } from "./auth.reducers";
 
 
@@ -23,7 +23,7 @@ const auth = createSlice({
         setSignUpStatusAction: setSignUpStatus,
         setUpdateUserStatusAction: setUpdateUserStatus,
         setIsLoadedAction: setIsLoaded,
-        setUserGroupsAction: setUserGroups,
+        setUserRoleAction: setUserRole,
     }
 })
 
@@ -35,7 +35,7 @@ export const {
     setSignUpStatusAction,
     setUpdateUserStatusAction,
     setIsLoadedAction,
-    setUserGroupsAction
+    setUserRoleAction
 } = auth.actions;
 
 export default auth.reducer;

@@ -6,16 +6,16 @@ declare module 'AppModels' {
         description: string;
         location: string;
         contactInfo: string;
+        phone: string;
+        address: string;
         advertisementType: AdvertisementType;
-        quantity: number;
         viewsCount: number;
         status: string;
-        adminVerified: boolean;
+        verified: boolean;
         expirationDate: string; 
         koiFish: KoiFish;
-        koiFishId: string;
-        userInfo: any;
-        postedBy: string;
+        fishPond: FishPond;
+        postedBy: any;
         additionalImages: string[];
         tags: string[];
         createdAt: string;
@@ -30,6 +30,8 @@ declare module 'AppModels' {
 
     export type TAdvertisementState = {
         isFetching: boolean;
+        isPosting: boolean,
+        postingSuccessModalOpen: boolean,
         updateAdvertisementModalOpen: false,
         deleteAdvertisementModalOpen: false,
         advertisementList: Advertisement[],

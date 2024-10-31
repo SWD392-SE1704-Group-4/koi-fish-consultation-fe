@@ -1,15 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {appInitialState} from "./app.initialState";
 import {
-
+    setCurrentDashboardTab
 } from "./app.reducers";
 
-const comic = createSlice({
-    name: "comic",
+const app = createSlice({
+    name: "app",
     initialState: appInitialState,
     reducers: {
-
+        setCurrentDashboardTabAction: setCurrentDashboardTab   
     }
 })
 
-export default comic.reducer;
+export const {
+    setCurrentDashboardTabAction
+} = app.actions;
+
+export default app.reducer;

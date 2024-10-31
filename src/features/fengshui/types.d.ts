@@ -74,7 +74,7 @@ declare module "AppModels" {
         waterCapacity: number;
         pondElement: string | null;
         pondLocation: string;
-        pondOrientation: string;
+        pondOrientation: any;
         pondPictures: string[]
     };
     
