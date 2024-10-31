@@ -60,6 +60,7 @@ const DashboardHeader: React.FC<any> = (props): JSX.Element => {
             className={styles.header}
         >
             <Typography
+                fontWeight={600}
                 sx={{ color: 'black' }}
             >
                 {title}
