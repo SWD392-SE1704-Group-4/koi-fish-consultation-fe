@@ -3,6 +3,7 @@ import React from "react";
 import ZodiacCard from "../../components/molecule/ZodiacCard/ZodiacCard";
 import "./Annual.css";
 import Header from "../../components/organism/Header";
+import Footer from "../../components/organism/Footer";
 import { Typography, Box } from "@mui/material";
 
 const Annual: React.FC = () => {
@@ -321,6 +322,7 @@ const Annual: React.FC = () => {
           of this ancient art
         </Typography>
       </Box>
+        <Footer></Footer>
     </React.Fragment>
   );
 };

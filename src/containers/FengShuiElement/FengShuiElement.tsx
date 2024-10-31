@@ -4,6 +4,7 @@ import { fengShuiElementLogos } from "../../constants/Fengshui/Logo"; // Import 
 import Header from "../../components/organism/Header";
 import ZodiacCard from "../../components/molecule/ZodiacCard/ZodiacCard";
 import { Typography, Box } from "@mui/material";
+import Footer from "../../components/organism/Footer";
 
 const elementsData = [
   {
@@ -62,6 +63,19 @@ const FengShuiElement: React.FC = () => {
   return (
     <React.Fragment>
       <Header></Header>
+      {/* <div className="about-us-container">
+        <div className="about-us-image">
+          <img
+            src="https://www.tallengestore.com/cdn/shop/files/KoiFish_JapaneseCarp_InAPond-FengShuiPainting_d2320422-7ad3-4d93-8471-8f60d5c23b0d.jpg?v=1721249681"
+            alt="About Us"
+            className="about-us-img"
+          />
+        </div>
+        <div className="about-us-text">
+          <h1>Fengshui Element</h1>
+        </div>
+        <div className="additional-content"></div>
+      </div> */}
       {/* <div className="about-us-container">
         <div className="about-us-image">
           <img
@@ -205,6 +219,7 @@ const FengShuiElement: React.FC = () => {
           readTime="6 min read"
         />
       </div>
+      <Footer></Footer>
     </React.Fragment>
   );
 };
