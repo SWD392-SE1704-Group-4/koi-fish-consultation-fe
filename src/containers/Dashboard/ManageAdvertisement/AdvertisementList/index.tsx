@@ -8,7 +8,7 @@ import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import BaseTable from "../../../../components/organism/BaseTable";
 import { selectAdvertisementList } from "../../../../features/advertisement/advertisement.selectors";
 import { setAdvertisementErrorAction, setAdvertisementListAction } from "../../../../features/advertisement";
-import { requestGetListAdvertisement } from "../../../../features/advertisement/advertisement.actions";
+import { requestGetListAdvertisement, requestGetListAdvertisementByStaff } from "../../../../features/advertisement/advertisement.actions";
 import AdsDetailModal from "./AdsDetailModal";
 
 const AdvertisementList: React.FC = (): JSX.Element => {
@@ -31,7 +31,7 @@ const AdvertisementList: React.FC = (): JSX.Element => {
         }
     }
     useEffect(() => {
-        dispatch(requestGetListAdvertisement({ request }));
+        dispatch(requestGetListAdvertisementByStaff({ request }));
     }, []);
     return (
         <Box sx={{ overflow: "hidden", width: "100%" }}>

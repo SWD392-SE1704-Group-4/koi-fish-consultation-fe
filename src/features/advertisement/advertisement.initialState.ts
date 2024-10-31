@@ -2,6 +2,8 @@ import { TAdvertisementState, TAppState,  } from "AppModels"
 
 const advertisementInitialState: TAdvertisementState = {
     isFetching: null,
+    isPosting: null,
+    postingSuccessModalOpen: null,
     updateAdvertisementModalOpen: null,
     deleteAdvertisementModalOpen: null,
     advertisementList: null,
