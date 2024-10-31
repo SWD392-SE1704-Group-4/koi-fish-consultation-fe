@@ -19,8 +19,8 @@ export const setSignUpStatus = (state: TAuthState, action: PayloadAction<any>) =
 export const setUpdateUserStatus = (state: TAuthState, action: PayloadAction<any>) => {
     state.auth.updateUserStatus = action.payload;
 }
-export const setUserGroups = (state: TAuthState, action: PayloadAction<any>) => {
-    state.user.groups = action.payload;
+export const setUserRole = (state: TAuthState, action: PayloadAction<any>) => {
+    state.user.role = action.payload;
 }
 export const setIsLoaded = (state: TAuthState, action: PayloadAction<any>) => {
     state.auth.isLoaded = action.payload;

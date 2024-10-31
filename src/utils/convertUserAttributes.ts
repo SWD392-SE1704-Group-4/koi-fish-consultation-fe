@@ -10,7 +10,8 @@ export function convertUserAttributes(attributes) {
         birthday: '',
         gender: '',
         phone: '',
-        picture: ''
+        picture: '',
+        emailVerified: null,
     };
 
     attributes.forEach(attr => {
@@ -41,6 +42,9 @@ export function convertUserAttributes(attributes) {
                 break;
             case 'family_name':
                 user.firstname = attr.Value;
+                break;
+            case 'email_verified':
+                user.emailVerified = attr.Value;
                 break;
             default:
                 break;

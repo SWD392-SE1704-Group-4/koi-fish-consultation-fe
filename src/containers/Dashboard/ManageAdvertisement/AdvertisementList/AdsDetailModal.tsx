@@ -24,7 +24,7 @@ const AdvertisementDetailModal: React.FC<any> = (): JSX.Element => {
     >
       <Sheet
         variant="outlined"
-        sx={{ maxWidth: 800, borderRadius: 'md', p: 3, boxShadow: 'lg' }}
+        sx={{ maxWidth: 800, borderRadius: 'md', p: 3, boxShadow: 'lg', maxHeight: 0.9, overflowY: 'scroll' }}
       >
         <ModalClose variant="plain" sx={{ m: 1 }} />
         <Typography
@@ -49,9 +49,9 @@ const AdvertisementDetailModal: React.FC<any> = (): JSX.Element => {
             { label: "Expires on", value: new Date(advertisement?.expirationDate).toLocaleDateString() },
           ].map((fieldData, index) => (
             <Grid xs={6} key={index}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <FormLabel sx={{ color: "text.secondary" }}>{fieldData.label}:</FormLabel>
-                <Typography sx={{ color: "text.primary" }}>{fieldData.value || "N/A"}</Typography>
+              <Box sx={{ display: 'inline-flex', alignItems: 'start', gap: 1 }}>
+                <Typography sx={{ color: "text.secondary", fontWeight: "600" }}>{fieldData.label}:</Typography>
+                <Typography sx={{ color: "text.primary" }}>{fieldData.value}</Typography>
               </Box>
             </Grid>
           ))}
@@ -59,7 +59,7 @@ const AdvertisementDetailModal: React.FC<any> = (): JSX.Element => {
           {/* Display Advertisement Pictures */}
           {advertisement?.additionalImages?.length !== 0 && (
             <Grid xs={12}>
-              <FormLabel sx={{ mb: 1, color: "text.secondary" }}>Pictures:</FormLabel>
+              <Typography sx={{ color: "text.secondary", fontWeight: "600" }}>Pictures:</Typography>
               <Box sx={{ display: 'flex', width: 1, flexWrap: 'wrap', mt: 2 }}>
                 {advertisement?.additionalImages?.map((url: string, index: number) => (
                   <img
@@ -73,18 +73,30 @@ const AdvertisementDetailModal: React.FC<any> = (): JSX.Element => {
               </Box>
             </Grid>
           )}
-          <Box sx={{ mb: 3 }}>
+          <Grid xs={4}>
             <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Posted By</Typography>
             <Avatar
               variant="outlined"
               size="sm"
-              src={cloudfrontUrl + advertisement?.postedBy?.picture}
+              src={cloudfrontUrl + advertisement?.postedBy?.profilePictureUrl}
             />
-            <Typography>Name: {advertisement?.postedBy.given_name} {advertisement?.postedBy.family_name}</Typography>
-            <Typography>Email: {advertisement?.postedBy.email}</Typography>
-            <Typography>Phone: {advertisement?.postedBy.phone_number}</Typography>
-            <Typography>Address: {advertisement?.postedBy.address}</Typography>
-          </Box>
+            <Box sx={{ display: 'inline-flex', alignItems: 'start', gap: 1 }}>
+              <Typography sx={{ color: "text.secondary", fontWeight: "600" }}>Name:</Typography>
+              <Typography sx={{ color: "text.primary" }}>{advertisement?.postedBy.firstName} {advertisement?.postedBy.lastName}</Typography>
+            </Box>
+            <Box sx={{ display: 'inline-flex', alignItems: 'start', gap: 1 }}>
+              <Typography sx={{ color: "text.secondary", fontWeight: "600" }}>Email:</Typography>
+              <Typography sx={{ color: "text.primary" }}>{advertisement?.postedBy.email}</Typography>
+            </Box>
+            <Box sx={{ display: 'inline-flex', alignItems: 'start', gap: 1 }}>
+              <Typography sx={{ color: "text.secondary", fontWeight: "600" }}>Phone:</Typography>
+              <Typography sx={{ color: "text.primary" }}>{advertisement?.postedBy.phoneNumber}</Typography>
+            </Box>
+            <Box sx={{ display: 'inline-flex', alignItems: 'start', gap: 1 }}>
+              <Typography sx={{ color: "text.secondary", fontWeight: "600" }}>Address:</Typography>
+              <Typography sx={{ color: "text.primary" }}>{advertisement?.postedBy.address}</Typography>
+            </Box>
+          </Grid>
         </Grid>
         <Box sx={{ display: 'flex', justifyContent: 'right', gap: 1, mt: 3 }}>
           <Button

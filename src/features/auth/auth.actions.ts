@@ -1,27 +1,28 @@
 import { TAppThunk } from "AppModels";
 import { getToken, getUserInfo, signUpUser } from "../../services/cognito/Authenticate";
-import { getAppUserGroup, updateUser } from "../../services/cognito/Common";
+import { getAppUserRole, updateUser } from "../../services/cognito/Common";
 import { SetAccessToken, SetRefreshToken, GetAccessToken } from "../../utils/tokens";
 import { convertUserAttributes } from "../../utils/convertUserAttributes";
-import { setUserInfoAction, setIsLoggedInAction, setAuthErrorAction, setSignUpStatusAction, setUpdateUserStatusAction, setIsLoadedAction, setUserGroupsAction } from ".";
+import { setUserInfoAction, setIsLoggedInAction, setAuthErrorAction, setSignUpStatusAction, setUpdateUserStatusAction, setIsLoadedAction, setUserRoleAction } from ".";
 
-export const requestAuth = ({ username, password }: { username: string, password: string }): TAppThunk => {
+export const requestAuth = ({ email, password }: { email: string, password: string }): TAppThunk => {
     return async (dispatch: any) => {
         dispatch(setIsLoadedAction(false))
         try {
-            const response = await getToken(username, password, '');
+            const response = await getToken(email, password, '');
             if (response) {
                 SetAccessToken(response.AccessToken);
                 SetRefreshToken(response.RefreshToken);
                 dispatch(setIsLoggedInAction(true));
             };
             const userInfo = await getUserInfo(GetAccessToken());
-            const userGroups = await getAppUserGroup({ userName: username });
             if (!!userInfo?.UserAttributes) {
-                dispatch(setUserInfoAction(convertUserAttributes(userInfo.UserAttributes)));
-            }
-            if (userGroups) {
-                dispatch(setUserGroupsAction(userGroups.data.payload));
+                const userAttributes = convertUserAttributes(userInfo.UserAttributes);
+                dispatch(setUserInfoAction(userAttributes));
+                const userRole = await getAppUserRole({ appUserId: userAttributes.sub });
+                if (userRole) {
+                    dispatch(setUserRoleAction(userRole.data.payload));
+                }
             }
         } catch (error) {
             dispatch(setAuthErrorAction(error.message));
@@ -38,12 +39,12 @@ export const requestUserInfo = (): TAppThunk => {
         try {
             const userInfo = await getUserInfo(GetAccessToken());
             if (!!userInfo?.UserAttributes) {
-                const user = convertUserAttributes(userInfo.UserAttributes);
-                const userGroups = await getAppUserGroup({ userName: user.username });
-                if (userGroups && user) {
-                    dispatch(setUserInfoAction(user));
+                const userAttributes = convertUserAttributes(userInfo.UserAttributes);
+                const userRole = await getAppUserRole({ appUserId: userAttributes.sub });
+                if (userRole && userAttributes) {
+                    dispatch(setUserInfoAction(userAttributes));
                     dispatch(setIsLoggedInAction(true));
-                    dispatch(setUserGroupsAction(userGroups.data.payload));
+                    dispatch(setUserRoleAction(userRole.data.payload));
                 }
             }
         } catch (error) {
@@ -59,7 +60,7 @@ export const requestSignUp = ({ email, password, firstName, lastName, phoneNumbe
             const username = email.split('@')[0];
             const signUpResponse = await signUpUser(username, password, email, phoneNumber, firstName, lastName);
             if (signUpResponse) {
-                dispatch(setSignUpStatusAction("SignUp successfully, waiting for confirmation"))
+                dispatch(setSignUpStatusAction("Sign up successfully, check your email to verify account"))
             }
         } catch (error) {
             console.log(error)

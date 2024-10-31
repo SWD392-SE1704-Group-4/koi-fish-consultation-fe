@@ -5,7 +5,7 @@ import { Advertisement } from 'AppModels';
 import ImageGallery from 'react-image-gallery';
 import Footer from '../../components/organism/Footer';
 import Header from '../../components/organism/Header';
-import { selectAdvertisement, selectAdvertisementInfo } from '../../features/advertisement/advertisement.selectors';
+import { selectAdvertisement } from '../../features/advertisement/advertisement.selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestGetAdvertisementById } from '../../features/advertisement/advertisement.actions';
 
@@ -34,7 +34,7 @@ const AdvertisementDetail: React.FC = () => {
     React.useEffect(() => {
         const request = {
             advertisementId: advertisementId
-        }
+        };
         dispatch(requestGetAdvertisementById({ request }));
     }, [dispatch, advertisementId]);
 
@@ -42,12 +42,13 @@ const AdvertisementDetail: React.FC = () => {
         return <Typography>Advertisement not found.</Typography>;
     }
 
+    const isFishPond = advertisement.advertisementType.typeName === 'Fish pond';
+    const isKoiFish = advertisement.advertisementType.typeName === 'Koi fish';
+
     return (
         <React.Fragment>
             <Header />
             <Box sx={{ px: '80px', py: '20px', backgroundColor: '#f9f9f9', minHeight: '100vh' }}>
-
-                {/* Header Section */}
                 <Box sx={{ mb: 4 }}>
                     <Chip
                         variant="solid"
@@ -57,24 +58,24 @@ const AdvertisementDetail: React.FC = () => {
                         {advertisement.advertisementType.typeName}
                     </Chip>
                 </Box>
-
                 <Divider sx={{ mb: 3 }} />
 
-                {/* Main Content */}
                 <Grid container spacing={3}>
-                    {/* Image Gallery */}
                     <Grid xs={12} md={6}>
                         <ImageGallery
-                            items={advertisement.additionalImages.map((url) => ({ original: cloudfrontUrl + url, thumbnail: cloudfrontUrl + url }))}
+                            items={advertisement.additionalImages.map((url) => ({
+                                original: cloudfrontUrl + url,
+                                thumbnail: cloudfrontUrl + url,
+                            }))}
                             showPlayButton={false}
                         />
                     </Grid>
 
-                    {/* Advertisement Information */}
                     <Grid xs={12} md={6}>
-                        {/* Header Section */}
                         <Box sx={{ mb: 4 }}>
-                            <Typography level="h2" sx={{ fontWeight: 'bold', color: '#333' }}>{advertisement.title}</Typography>
+                            <Typography level="h2" sx={{ fontWeight: 'bold', color: '#333' }}>
+                                {advertisement.title}
+                            </Typography>
                             <Chip
                                 variant="solid"
                                 color={advertisement.status === 'Active' ? 'success' : 'warning'}
@@ -84,57 +85,64 @@ const AdvertisementDetail: React.FC = () => {
                             </Chip>
                         </Box>
                         <Box sx={{ mb: 3 }}>
-                            <Typography sx={{ color: '#666', lineHeight: 1.5 }}>{advertisement.description}</Typography>
+                            <Typography sx={{ color: '#666', lineHeight: 1.5 }}>
+                                {advertisement.description}
+                            </Typography>
                         </Box>
+
                         <Box sx={{ mb: 2 }}>
                             <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Location</Typography>
                             <Typography>{advertisement.location}</Typography>
                         </Box>
+
                         <Box sx={{ mb: 2 }}>
                             <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Contact Information</Typography>
                             <Typography>{advertisement.contactInfo}</Typography>
                         </Box>
-                        {/* User Information */}
+
                         <Box sx={{ mb: 3 }}>
                             <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Posted By</Typography>
                             <Avatar
                                 variant="outlined"
                                 size="sm"
-                                src={cloudfrontUrl + advertisement?.userInfo?.picture}
+                                src={cloudfrontUrl + advertisement?.postedBy?.picture}
                             />
-                            <Typography>Name: {advertisement.userInfo.given_name} {advertisement.userInfo.family_name}</Typography>
-                            <Typography>Email: {advertisement.userInfo.email}</Typography>
-                            <Typography>Phone: {advertisement.userInfo.phone_number}</Typography>
-                            <Typography>Address: {advertisement.userInfo.address}</Typography>
+                            <Typography>Name: {advertisement.postedBy.lastName} {advertisement.postedBy.firstName}</Typography>
+                            <Typography>Email: {advertisement.postedBy.email}</Typography>
+                            <Typography>Phone: {advertisement.postedBy.phone_number}</Typography>
+                            <Typography>Address: {advertisement.postedBy.address}</Typography>
                         </Box>
+
+                        {isFishPond && (
+                            <Box sx={{ mb: 2 }}>
+                                <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Fish Pond Details</Typography>
+                                <Typography>Size: {advertisement.fishPond.pondSize} m²</Typography>
+                                <Typography>Depth: {advertisement.fishPond.pondDepth} m</Typography>
+                                <Typography>Is salt water: {advertisement.fishPond.isSaltwater}</Typography>
+                                <Typography>Has Waterfall: {advertisement.fishPond.hasWaterfall ? 'Yes' : 'No'}</Typography>
+                                <Typography>Has Plants: {advertisement.fishPond.hasPlants ? 'Yes' : 'No'}</Typography>
+                                <Typography>Has Rocks: {advertisement.fishPond.hasRocks ? 'Yes' : 'No'}</Typography>
+                                <Typography>Is Saltwater: {advertisement.fishPond.isSaltwater ? 'Yes' : 'No'}</Typography>
+                            </Box>
+                        )}
+
+                        {isKoiFish && (
+                            <Box sx={{ mb: 2 }}>
+                                <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Koi Fish Details</Typography>
+                                <Typography>Name: {advertisement.koiFish.koiFishName}</Typography>
+                                <Typography>Color: {advertisement.koiFish.koiFishColor}</Typography>
+                                <Typography>Size: {advertisement.koiFish.koiFishSize} cm</Typography>
+                                <Typography>Age: {advertisement.koiFish.koiFishAge} years</Typography>
+                                <Typography>Origin: {advertisement.koiFish.koiFishOrigin}</Typography>
+                                <Typography>Symbolic Meaning: {advertisement.koiFish.symbolicMeaning}</Typography>
+                                <Typography>Price: ${advertisement.koiFish.koiFishPrice}</Typography>
+                            </Box>
+                        )}
                     </Grid>
                 </Grid>
-                <Grid xs={12} md={6}>
-                    <Box sx={{ mb: 3 }}>
 
-                    </Box>
-                    <Box sx={{ mb: 2 }}>
-                        <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Koi Fish Details</Typography>
-                        <Typography>Name: {advertisement.koiFish.koiFishName}</Typography>
-                        <Typography>Color: {advertisement.koiFish.koiFishColor}</Typography>
-                        <Typography>Size: {advertisement.koiFish.koiFishSize} cm</Typography>
-                        <Typography>Age: {advertisement.koiFish.koiFishAge} years</Typography>
-                        <Typography>Origin: {advertisement.koiFish.koiFishOrigin}</Typography>
-                        <Typography>Symbolic Meaning: {advertisement.koiFish.symbolicMeaning}</Typography>
-                        <Typography>Price: ${advertisement.koiFish.koiFishPrice}</Typography>
-                    </Box>
-                    <Box sx={{ mb: 2 }}>
-                        <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Feng Shui Information</Typography>
-                        <Typography>Element: {advertisement.koiFish.fengshuiElement.elementName}</Typography>
-                        <Typography>Color: {advertisement.koiFish.fengshuiElement.elementColor}</Typography>
-                        <Typography>Direction: {advertisement.koiFish.fengshuiElement.elementDirection}</Typography>
-                        <Typography>Season: {advertisement.koiFish.fengshuiElement.elementSeason}</Typography>
-                        <Typography>Yin/Yang: {advertisement.koiFish.fengshuiElement.elementYinYang}</Typography>
-                    </Box>
-                </Grid>
                 <Divider sx={{ my: 3 }} />
 
-                {/* Advertisement Details */}
                 <Box sx={{ mb: 3 }}>
                     <Typography sx={{ fontWeight: 'bold', mb: 1 }}>Additional Information</Typography>
                     <Typography>Location: {advertisement.location}</Typography>
@@ -145,7 +153,6 @@ const AdvertisementDetail: React.FC = () => {
 
                 <Divider sx={{ my: 3 }} />
 
-                {/* Footer Section */}
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
                     <Button onClick={handleBackClick} sx={{ ...buttonStyles, backgroundColor: "#9e777c" }}>
                         Back to Listings

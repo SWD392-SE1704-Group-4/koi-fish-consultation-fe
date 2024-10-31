@@ -25,7 +25,7 @@ const authInitialState: TAuthState = {
         phone: '',
         picture: '',
         role: '',
-        groups: null,
+        emailVerified: null
     }
 }
 

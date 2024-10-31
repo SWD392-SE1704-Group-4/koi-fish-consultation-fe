@@ -5,7 +5,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { setAdvertisementAction, setAdvertisementDetailModalOpenAction } from '../../../../features/advertisement';
 import GppGoodIcon from '@mui/icons-material/GppGood';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
-
+import { Avatar, Box, Typography } from '@mui/joy';
+import React from 'react';
+const cloudfrontUrl = process.env.REACT_APP_AWS_CLOUDFRONT_URL;
 export const useAdvertisementColumns = () => {
     const dispatch = useDispatch();
 
@@ -26,16 +28,28 @@ export const useAdvertisementColumns = () => {
             width: 150,
         },
         {
-            field: 'quantity',
-            headerName: 'Quantity',
+            field: 'price',
+            headerName: 'Price ($)',
             type: 'number',
             width: 100,
         },
         {
             field: 'postedBy',
             headerName: 'Posted By',
-            width: 150,
-            valueGetter: (params: any) => params.row.postedBy ?? 'Unknown',
+            width: 200,
+            renderCell: (params: any) => (params.row.postedBy &&
+                <React.Fragment>
+                    <Box sx={{display: 'inline-flex', alignItems: 'center', gap: 1 }}>
+                        <Avatar
+                            sx={{ width: '25px', height: '25px' }}
+                            variant="outlined"
+                            src={cloudfrontUrl + params.row.postedBy?.profilePictureUrl}
+                        />
+                        <Typography> {params.row.postedBy?.username}</Typography>
+                    </Box>
+
+                </React.Fragment>
+            ),
         },
         {
             field: 'createdAt',
@@ -46,15 +60,6 @@ export const useAdvertisementColumns = () => {
                     ? format(new Date(params.row.createdAt), 'yyyy-MM-dd')
                     : '',
         },
-        // {
-        //     field: 'expirationDate',
-        //     headerName: 'Expiration Date',
-        //     width: 150,
-        //     valueGetter: (params: any) =>
-        //         params.row.expirationDate
-        //             ? format(new Date(params.row.expirationDate), 'yyyy-MM-dd')
-        //             : '',
-        // },
         {
             field: 'viewsCount',
             headerName: 'Views',
@@ -62,10 +67,10 @@ export const useAdvertisementColumns = () => {
             width: 100,
         },
         {
-            field: 'adminVerified',
+            field: 'verified',
             headerName: 'Verified',
             width: 120,
-            renderCell: (params: any) => (params.row.adminVerified ? <GppGoodIcon sx={{color: 'green'}}/> : <DoDisturbIcon sx={{color: 'red'}}/>),
+            renderCell: (params: any) => (params.row.verified ? <GppGoodIcon sx={{ color: 'green' }} /> : <DoDisturbIcon sx={{ color: 'red' }} />),
         },
         {
             field: 'actions',

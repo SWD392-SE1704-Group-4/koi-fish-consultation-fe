@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Divider } from "antd";
 import { GoogleOutlined, EyeTwoTone, EyeInvisibleOutlined } from "@ant-design/icons";
 import { useForm } from "react-hook-form";
@@ -24,8 +24,14 @@ const schema = yup.object().shape({
     .string()
     .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
     .required("Phone number is required"),
-  firstName: yup.string().required("First Name is required"),
-  lastName: yup.string().required("Last Name is required"),
+  firstName: yup
+    .string()
+    .required("First Name is required")
+    .matches(/^[A-Za-z]+$/, "First Name should only contain letters"),
+  lastName: yup
+    .string()
+    .required("Last Name is required")
+    .matches(/^[A-Za-z]+$/, "Last Name should only contain letters"),
 });
 
 const SignUp: React.FC = () => {
@@ -33,7 +39,8 @@ const SignUp: React.FC = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  
   const {
     register,
     handleSubmit,
@@ -43,17 +50,18 @@ const SignUp: React.FC = () => {
   });
 
   useEffect(() => {
-    if(authInfo.error){
-      enqueueSnackbar({message:authInfo.error, variant:"error", autoHideDuration: 2000})
+    if (authInfo.error) {
+      enqueueSnackbar({ message: authInfo.error, variant: "error", autoHideDuration: 2000 })
     }
-     dispatch(setAuthErrorAction(null))
+    dispatch(setAuthErrorAction(null))
   }, [authInfo?.error]);
 
   useEffect(() => {
-    if(authInfo.signUpStatus){
-      enqueueSnackbar({message:authInfo.signUpStatus, variant:"success", autoHideDuration: 2000})
+    if (authInfo.signUpStatus) {
+      enqueueSnackbar({ message: authInfo.signUpStatus, variant: "success", autoHideDuration: 2000 })
+      navigate('/login')
     }
-     dispatch(setSignUpStatusAction(null))
+    dispatch(setSignUpStatusAction(null))
   }, [authInfo?.signUpStatus]);
 
   const onSubmit = (data: any) => {
@@ -159,6 +167,10 @@ const SignUp: React.FC = () => {
         {/* Back to Home Page */}
         <p className="back-to-home">
           <Link to="/">Back to Home Page</Link>
+        </p>
+        {/* Back to Home Page */}
+        <p className="back-to-home">
+          <Link to="/login">Back to login</Link>
         </p>
       </div>
     </div>

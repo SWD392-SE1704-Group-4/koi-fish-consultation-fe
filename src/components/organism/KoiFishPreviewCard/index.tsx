@@ -79,7 +79,7 @@ const KoiFishPreviewCard: React.FC<KoiFishProps> = (props): JSX.Element => {
                         <strong>Symbolic Meaning:</strong> {symbolicMeaning}
                     </Typography>
                     <Divider sx={{ my: 1 }} />
-                    <Typography level="body-sm" mt={1}>
+                    <Typography level="body-sm" mt={1} sx={{display: 'inline-flex', alignItems:'center', gap:1}}>
                         <strong>Feng Shui Element:</strong> {fengshuiElement.elementName} {fengShuiElementLogos[fengshuiElement.elementName]}
                     </Typography>
                     <Typography level="body-xs" textColor="text.secondary">

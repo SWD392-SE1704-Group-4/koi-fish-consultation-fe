@@ -6,27 +6,39 @@ import React from "react";
 import DashboardHeader from "../../components/organism/DashboardHeader";
 import UserSettingDashboard from "./UserSetting";
 import { adminDashboardSubRoutes, memberDashboardSubRoutes, staffDashboardSubRoutes } from "../../constants/routes";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAuthInfo, selectIsLoggedIn, selectUserInfo } from "../../features/auth/auth.selectors";
 import { useNavigate } from 'react-router-dom';
 import { USER_GROUP } from "../../constants/Cognito";
+import { GetAccessToken } from "../../utils/tokens";
+import { setCurrentDashboardTabAction } from "../../features/app";
+import { selectCurrentDashboardTab } from "../../features/app/app.selectors";
 
 const Dashboard: React.FC = (): JSX.Element => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const location = useLocation();
 
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const userInfo = useSelector(selectUserInfo);
     const authInfo = useSelector(selectAuthInfo);
 
+    const currentTab = useSelector(selectCurrentDashboardTab);
+
     const [collapsed, setCollapsed] = React.useState(false);
-    const [currentRoute, setCurrentRoute] = React.useState(memberDashboardSubRoutes[0]);
+
 
     React.useEffect(() => {
         if (authInfo.isLoaded && !isLoggedIn) {
             navigate('/login');
         }
-    }, [isLoggedIn, navigate, authInfo.isLoaded]);
+        const matchedRoute = [...staffDashboardSubRoutes, ...adminDashboardSubRoutes, ...memberDashboardSubRoutes]
+            .find(route => route.href === location.pathname);
+        if (matchedRoute) {
+            dispatch(setCurrentDashboardTabAction(matchedRoute.title));
+        }
+    }, [isLoggedIn, navigate, authInfo.isLoaded, location.pathname]);
 
     return (
         <Grid container sx={{ flexGrow: 1, flexWrap: 'nowrap' }}>
@@ -41,9 +53,9 @@ const Dashboard: React.FC = (): JSX.Element => {
                     collapsed={collapsed}
                     setCollapsed={setCollapsed}
                     listItem={
-                        userInfo?.groups?.includes(USER_GROUP.STAFF) ? staffDashboardSubRoutes :
-                            (userInfo?.groups?.includes(USER_GROUP.ADMIN) ? adminDashboardSubRoutes :
-                                (userInfo?.groups?.includes(USER_GROUP.MEMBER) ? memberDashboardSubRoutes : null))
+                        userInfo?.role === USER_GROUP.STAFF ? staffDashboardSubRoutes :
+                            (userInfo?.role === USER_GROUP.ADMIN ? adminDashboardSubRoutes :
+                                (userInfo?.role === USER_GROUP.USER ? memberDashboardSubRoutes : null))
                     }
                 />
             </Grid>
@@ -54,23 +66,23 @@ const Dashboard: React.FC = (): JSX.Element => {
                     transition: 'margin-left 0.3s',
                 }}
             >
-                <DashboardHeader title={currentRoute?.title} />
+                <DashboardHeader title={currentTab} />
                 <Box sx={{
                     height: "100vh",
                     padding: 2
                 }}>
                     <Routes>
-                        {userInfo?.groups?.includes(USER_GROUP.STAFF) &&
+                        {userInfo?.role == USER_GROUP.STAFF &&
                             staffDashboardSubRoutes.map((r, index) => {
                                 return <Route path={r.path} element={<r.container />} key={index} />
                             })
                         }
-                        {userInfo?.groups?.includes(USER_GROUP.ADMIN) &&
+                        {userInfo?.role == USER_GROUP.ADMIN &&
                             adminDashboardSubRoutes.map((r, index) => {
                                 return <Route path={r.path} element={<r.container />} key={index} />
                             })
                         }
-                        {userInfo?.groups?.includes(USER_GROUP.MEMBER) &&
+                        {userInfo?.role == USER_GROUP.USER &&
                             memberDashboardSubRoutes.map((r, index) => {
                                 return <Route path={r.path} element={<r.container />} key={index} />
                             })

@@ -11,3 +11,7 @@ export const selectAdvertisementType = (state: RootState) => state.advertisement
 export const selectAdvertisement = (state: RootState) => state.advertisement.advertisement;
 
 export const selectAdvertisementDetailModalOpen = (state: RootState) => state.advertisement.advertisementDetailModalOpen;
+
+export const selectIsPosting = (state: RootState) => state.advertisement.isPosting;
+
+export const selectPostingSuccessModalOpen = (state: RootState) => state.advertisement.postingSuccessModalOpen;

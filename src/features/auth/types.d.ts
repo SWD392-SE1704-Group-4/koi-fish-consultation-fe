@@ -24,8 +24,8 @@ declare module 'AppModels' {
             gender: string,
             phone: string,
             picture: string,
+            emailVerified: boolean,
             role: string,
-            groups: string[]
         }
     }
 }

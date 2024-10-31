@@ -29,3 +29,11 @@ export const setAdvertisement = (state: TAdvertisementState, action: PayloadActi
 export const setAdvertisementDetailModalOpen = (state: TAdvertisementState, action: PayloadAction<any>) => {
     state.advertisementDetailModalOpen = action.payload;
 }
+
+export const setIsPosting = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.isPosting = action.payload;
+}
+
+export const setPostingSuccessModalOpen = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.postingSuccessModalOpen = action.payload;
+}

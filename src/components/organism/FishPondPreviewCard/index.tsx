@@ -78,7 +78,6 @@ const FishPondPreviewCard: React.FC<FishPondProps> = (props): JSX.Element => {
                         {hasPlants ? ' Plants,' : ''} 
                         {hasRocks ? ' Rocks' : ''}
                     </Typography>
-                    <Divider sx={{ my: 1 }} />
                 </CardContent>
             </Card>
         </React.Fragment>

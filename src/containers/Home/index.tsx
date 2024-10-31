@@ -8,6 +8,7 @@ import Header from "../../components/organism/Header";
 import { selectUserInfo } from "../../features/auth/auth.selectors";
 import "./Home.css";
 import Footer from "../../components/organism/Footer";
+import { useNavigate } from "react-router-dom";
 
 const Model = forwardRef(({ path }: { path: string }, ref: any) => {
   const { scene } = useGLTF(path);
@@ -24,7 +25,7 @@ const Model = forwardRef(({ path }: { path: string }, ref: any) => {
 
 const Home: React.FC = (): JSX.Element => {
   const meshRef = React.useRef();
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (meshRef.current) {
       console.log("Mesh reference:", meshRef.current);
@@ -54,7 +55,7 @@ const Home: React.FC = (): JSX.Element => {
                 variant="outlined"
               >
                 Welcome to Feng Shui world
-                <Button color="danger" variant="outlined">
+                <Button color="danger" variant="outlined" onClick={()=>{navigate('/annual-feng-shui')}}>
                   Explore
                 </Button>
               </Typography>

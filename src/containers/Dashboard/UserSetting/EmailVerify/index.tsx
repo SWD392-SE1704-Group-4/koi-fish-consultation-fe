@@ -14,6 +14,9 @@ import { requestUpdateUser, requestUserInfo } from "../../../../features/auth/au
 import { setAuthErrorAction, setUpdateUserStatusAction } from "../../../../features/auth";
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import DoNotDisturbOnIcon from '@mui/icons-material/DoNotDisturbOn';
+
 
 const inputStyles = {
     borderRadius: 0,
@@ -32,7 +35,7 @@ const buttonStyles = {
 
 const EmailVerify: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
-
+    const userInfo = useSelector(selectUserInfo);
     React.useEffect(() => {
         dispatch(requestUserInfo());
     }, [])
@@ -41,7 +44,8 @@ const EmailVerify: React.FC = (): JSX.Element => {
 
     return (
         <React.Fragment>
-            Verify email
+            {userInfo?.emailVerified && <>Email Verified <VerifiedUserIcon sx={{color: 'green'}}/></>}
+            {!userInfo?.emailVerified && <>Email Verified <DoNotDisturbOnIcon sx={{color: 'red'}}/></>}
         </React.Fragment>
     );
 }

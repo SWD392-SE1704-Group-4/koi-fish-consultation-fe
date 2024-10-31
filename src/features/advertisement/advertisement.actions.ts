@@ -1,18 +1,22 @@
 import { KoiFish, TAppThunk } from "AppModels";
 import { GetFengshuiElement } from "../../services/FengshuiElement";
-import { setAdvertisementAction, setAdvertisementErrorAction, setAdvertisementListAction, setAdvertisementStatusAction, setAdvertisementTypeListAction } from "./index";
-import { ApproveAdvertisement, CreateAdvertisement, DenyAdvertisement, GetAdvertisementById, GetListAdvertisement, GetListAdvertisementType } from "../../services/advertisement";
+import { setAdvertisementAction, setAdvertisementErrorAction, setAdvertisementListAction, setAdvertisementStatusAction, setAdvertisementTypeListAction, setIsPostingAction, setPostingSuccessModalOpenAction } from "./index";
+import { ApproveAdvertisement, CreateAdvertisement, DenyAdvertisement, GetAdvertisementById, GetListAdvertisement, GetListAdvertisementByCreator, GetListAdvertisementByStaff, GetListAdvertisementType } from "../../services/advertisement";
+import { setIsPosting } from "./advertisement.reducers";
 
 export const requestCreateAdvertisement = ({ request }: { request: FormData }): TAppThunk => {
     return async (dispatch: any) => {
         try {
+            dispatch(setIsPostingAction(true));
             const response = await CreateAdvertisement(request);
             if (response?.data?.payload) {
-                dispatch(setAdvertisementStatusAction("Create koi fish successfully"));
+                dispatch(setAdvertisementStatusAction("Create advertisement successfully"));
+                dispatch(setPostingSuccessModalOpenAction(true));
             }
         } catch (error) {
             dispatch(setAdvertisementErrorAction("Error:" + error));
         } finally {
+            dispatch(setIsPostingAction(false));
         }
     };
 };
@@ -21,6 +25,21 @@ export const requestGetListAdvertisement = ({ request }: { request: any }): TApp
     return async (dispatch: any) => {
         try {
             const response = await GetListAdvertisement(request);
+            if (response?.data?.payload) {
+                const advertisementList: any = response?.data?.payload;
+                dispatch(setAdvertisementListAction(advertisementList));
+            }
+        } catch (error) {
+            dispatch(setAdvertisementErrorAction("Error:" + error));
+        } finally {
+        }
+    };
+};
+
+export const requestGetListAdvertisementByStaff = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        try {
+            const response = await GetListAdvertisementByStaff(request);
             if (response?.data?.payload) {
                 const advertisementList: any = response?.data?.payload;
                 dispatch(setAdvertisementListAction(advertisementList));
@@ -69,6 +88,7 @@ export const requestApproveAdvertisement = ({ request }: { request: any }): TApp
             if (response?.data?.payload) {
                 const payload: any = response?.data?.payload;
                 dispatch(setAdvertisementStatusAction("Approve advertisement"));
+                dispatch(requestGetListAdvertisementByStaff({ request }));
             }
         } catch (error) {
             dispatch(setAdvertisementErrorAction("Error:" + error));
@@ -83,6 +103,7 @@ export const requestDenyAdvertisement = ({ request }: { request: any }): TAppThu
             if (response?.data?.payload) {
                 const payload: any = response?.data?.payload;
                 dispatch(setAdvertisementStatusAction("Deny advertisement"));
+                dispatch(requestGetListAdvertisementByStaff({ request }));
             }
         } catch (error) {
             dispatch(setAdvertisementErrorAction("Error:" + error));
@@ -91,4 +112,18 @@ export const requestDenyAdvertisement = ({ request }: { request: any }): TAppThu
     };
 };
 
+export const requestGetMyAdvertisement = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        try {
+            const response = await GetListAdvertisementByCreator(request);
+            if (response?.data?.payload) {
+                const advertisementList: any = response?.data?.payload;
+                dispatch(setAdvertisementListAction(advertisementList));
+            }
+        } catch (error) {
+            dispatch(setAdvertisementErrorAction("Error:" + error));
+        } finally {
+        }
+    };
+};
 

@@ -15,6 +15,8 @@ import { useEffect, useState } from 'react';
 import { requestUserInfo } from '../../../features/auth/auth.actions';
 import { selectUserInfo, selectIsLoggedIn } from '../../../features/auth/auth.selectors';
 import { setIsLoggedInAction } from '../../../features/auth';
+import { USER_GROUP } from '../../../constants/Cognito';
+import { adminDashboardSubRoutes, memberDashboardSubRoutes, staffDashboardSubRoutes } from '../../../constants/routes';
 
 const DashboardHeader: React.FC<any> = (props): JSX.Element => {
     const title = props.title;
@@ -58,6 +60,7 @@ const DashboardHeader: React.FC<any> = (props): JSX.Element => {
             className={styles.header}
         >
             <Typography
+                fontWeight={600}
                 sx={{ color: 'black' }}
             >
                 {title}
@@ -77,13 +80,13 @@ const DashboardHeader: React.FC<any> = (props): JSX.Element => {
                         alignItems: 'center',
                         gap: 4
                     }}
-                >            
-                    {userInfo && isLoggedIn ? (
+                >
+                    {(userInfo && isLoggedIn) ? (
                         <>
                             <Dropdown>
                                 <MenuButton
                                     slots={{ root: IconButton }}
-                                    slotProps={{ root: { variant: 'plain', color: 'neutral' } }}
+                                    slotProps={{ root: { variant: "plain", color: "neutral" } }}
                                     sx={{ gap: 2 }}
                                 >
                                     <Typography>{userInfo?.email}</Typography>
@@ -94,40 +97,63 @@ const DashboardHeader: React.FC<any> = (props): JSX.Element => {
                                     />
                                 </MenuButton>
                                 <Menu sx={{}}>
-                                    <MenuItem onClick={() => navigate('/me')}>
-                                        <ListItemDecorator><PersonIcon /></ListItemDecorator>
-                                        Dashboard
-                                    </MenuItem>
-                                    {userInfo?.role === 'admin' ? (
-                                        <MenuItem onClick={() => navigate('/me/dashboard')}>
-                                            <ListItemDecorator><DashboardIcon /></ListItemDecorator>
-                                            Dashboard
-                                        </MenuItem>
-                                    ) : (
-                                        <>
-                                            <MenuItem onClick={() => navigate('/me/dashboard')}>
-                                                <ListItemDecorator><DeckIcon /></ListItemDecorator>
-                                                My profile
+                                    {userInfo?.role === USER_GROUP.USER && memberDashboardSubRoutes.map((route) => {
+                                        return (
+                                            <MenuItem onClick={() => navigate(route.href)}>
+                                                <ListItemDecorator>
+                                                    {<route.icon />}
+                                                </ListItemDecorator>
+                                                {route.title}
                                             </MenuItem>
-                                            <MenuItem onClick={() => navigate('/me/dashboard')}>
-                                                <ListItemDecorator><ConfirmationNumberIcon /></ListItemDecorator>
-                                                My consultation
+                                        )
+                                    })}
+                                    {userInfo?.role === USER_GROUP.STAFF && staffDashboardSubRoutes.map((route) => {
+                                        return (
+                                            <MenuItem onClick={() => navigate(route.href)}>
+                                                <ListItemDecorator>
+                                                    {<route.icon />}
+                                                </ListItemDecorator>
+                                                {route.title}
                                             </MenuItem>
-                                        </>
-                                    )}
+                                        )
+                                    })}
+                                    {userInfo?.role === USER_GROUP.ADMIN && adminDashboardSubRoutes.map((route) => {
+                                        return (
+                                            <MenuItem onClick={() => navigate(route.href)}>
+                                                <ListItemDecorator>
+                                                    {<route.icon />}
+                                                </ListItemDecorator>
+                                                {route.title}
+                                            </MenuItem>
+                                        )
+                                    })}
                                     <MenuItem onClick={logout}>
-                                        <ListItemDecorator><LogoutIcon /></ListItemDecorator>
+                                        <ListItemDecorator>
+                                            <LogoutIcon />
+                                        </ListItemDecorator>
                                         Logout
                                     </MenuItem>
+                                    <MenuItem>
+                                        <Typography sx={{ fontWeight: 'bold' }}>Role: </Typography>
+                                        {userInfo?.role}
+                                    </MenuItem>
                                 </Menu>
+
+
                             </Dropdown>
                         </>
                     ) : (
                         <>
-                            <Button sx={{ backgroundColor: '#e6eced' }} onClick={() => navigate('/login')}>
+                            <Button
+                                sx={{ backgroundColor: "#e6eced" }}
+                                onClick={() => navigate("/login")}
+                            >
                                 <Typography>Login</Typography>
                             </Button>
-                            <Button sx={{ backgroundColor: '#e6eced' }} onClick={() => navigate('/register')}>
+                            <Button
+                                sx={{ backgroundColor: "#e6eced" }}
+                                onClick={() => navigate("/register")}
+                            >
                                 <Typography>Register</Typography>
                             </Button>
                         </>
