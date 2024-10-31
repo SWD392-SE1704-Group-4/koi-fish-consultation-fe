@@ -56,7 +56,7 @@ const FishPondDetailModal: React.FC<any> = (): JSX.Element => {
             { label: "Water Capacity (m³)", value: fishPond?.waterCapacity },
             { label: "Element", value: fishPond?.pondElement || "N/A" },
             { label: "Location", value: fishPond?.pondLocation },
-            { label: "Orientation", value: fishPond?.pondOrientation },
+            { label: "Orientation", value: fishPond?.pondOrientation?.directionName },
           ].map((fieldData, index) => (
             <Grid xs={6} key={index}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
