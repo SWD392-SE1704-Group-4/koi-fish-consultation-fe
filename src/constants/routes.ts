@@ -32,7 +32,7 @@ import FengShuiElement from "../containers/FengShuiElement/FengShuiElement";
 import PostAdvertisement from "../containers/PostAdvertisement";
 import AdvertisementList from "../containers/Dashboard/ManageAdvertisement/AdvertisementList";
 import AdvertisementPage from "../containers/AdvertisementList";
-
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import CastleIcon from '@mui/icons-material/Castle';
 import AdvertisementDetail from "../containers/AdvertisementDetail";
 import ManageTransaction from "../containers/Dashboard/ManageBlog";
@@ -87,7 +87,7 @@ export const memberDashboardSubRoutes = [
   {
     path: "/my-advertisement",
     title: "My advertisement",
-    icon: AutoAwesomeIcon,
+    icon: PostAddIcon,
     container: MyAdvertisement,
     href: "/me/my-advertisement",
   },
@@ -119,7 +119,7 @@ export const advertisementDashboardSubRoutes = [
   {
     path: "/manage-advertisement",
     title: "Manage advertisement",
-    icon: AutoAwesomeIcon,
+    icon: PostAddIcon,
     container: ManageAdvertisement,
     href: "/me/manage-advertisement",
   },
@@ -178,6 +178,6 @@ export const adminDashboardSubRoutes = [
     title: "Manage account",
     container: UserSettingDashboard,
     icon: AccountCircleIcon,
-    href: "/manage/account",
+    href: "/me/manage/account",
   }
 ]
