@@ -60,6 +60,17 @@ const AboutUsSection = () => {
           targeted to the correct <em>bản mệnh</em> profiles of our users.
         </p>
 
+        {/* <p>
+          <strong>Feng Shui Koi</strong> is not just a space for koi
+          enthusiasts; it’s also an ideal platform for advertisers in the koi
+          industry. Our platform offers advertisers the opportunity to promote
+          their koi fish based on categories curated by our staff. These
+          categories are thoughtfully designed to ensure that the right ads
+          reach the right audience. Whether you’re advertising rare breeds or
+          koi maintenance services, we make sure your products or services are
+          targeted to the correct <em>bản mệnh</em> profiles of our users.
+        </p> */}
+
         <h2>Our Vision</h2>
         <p>
           Our vision is to make the process of choosing koi fish through Feng
