@@ -114,6 +114,10 @@
   font-size: 15px;
   cursor: pointer;
   color: rgb(107, 107, 107);
+  cursor: pointer;
+  color: rgb(107, 107, 107);
+  cursor: pointer;
+  color: rgb(107, 107, 107);
 }
 
 .login-form button:hover {
