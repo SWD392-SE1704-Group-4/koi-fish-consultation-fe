@@ -39,6 +39,7 @@ import ManageTransaction from "../containers/Dashboard/ManageBlog";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import MyFishPond from "../containers/Dashboard/MyFishPond";
 import MyAdvertisement from "../containers/Dashboard/MyAdvertisement";
+import SuccessPopup from "../containers/EmailVerification/SuccessPopup";
 
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
@@ -62,6 +63,7 @@ export const publicRoutes = [
   { path: "/blog/koi-care-for-feng-shui", container: KoiCareForGoodFengShui },
   { path: "/information/fengshui-consultation", container: FengShuiForm },
   { path: "/information/fengshui-element", container: FengShuiElement },
+  { path: "/success-popup", container: SuccessPopup },
 
   // test
   { path: "/blog-posting", container: BlogPosting },
