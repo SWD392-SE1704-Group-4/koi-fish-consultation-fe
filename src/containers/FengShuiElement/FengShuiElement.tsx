@@ -4,6 +4,7 @@ import { fengShuiElementLogos } from "../../constants/Fengshui/Logo"; // Import 
 import Header from "../../components/organism/Header";
 import ZodiacCard from "../../components/molecule/ZodiacCard/ZodiacCard";
 import { Typography, Box } from "@mui/material";
+import Footer from "../../components/organism/Footer";
 
 const elementsData = [
   {
@@ -74,6 +75,7 @@ const FengShuiElement: React.FC = () => {
         </div>
         <div className="additional-content"></div>
       </div>
+
       <Box
         sx={{ textAlign: "center", marginTop: "40px", marginBottom: "40px" }}
       >
@@ -204,6 +206,7 @@ const FengShuiElement: React.FC = () => {
           readTime="6 min read"
         />
       </div>
+      <Footer></Footer>
     </React.Fragment>
   );
 };

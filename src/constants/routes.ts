@@ -41,6 +41,7 @@ import MyFishPond from "../containers/Dashboard/MyFishPond";
 import MyAdvertisement from "../containers/Dashboard/MyAdvertisement";
 import MainLayout from "../containers/MainLayout";
 import AdsPackage from "../containers/AdsPackage";
+import SuccessPopup from "../containers/EmailVerification/SuccessPopup";
 
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
@@ -68,6 +69,7 @@ export const mainLayoutSubRoutes = [
   { path: "/blog/koi-care-for-feng-shui", container: KoiCareForGoodFengShui },
   { path: "/information/fengshui-consultation", container: FengShuiForm },
   { path: "/information/fengshui-element", container: FengShuiElement },
+  { path: "/success-popup", container: SuccessPopup },
 
   // test
   { path: "/blog-posting", container: BlogPosting },
