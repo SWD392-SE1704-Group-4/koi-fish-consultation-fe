@@ -93,6 +93,8 @@
   display: flex;
   /* align-items: center; */
   /* align-items: center; */
+  align-items: center;
+  /* align-items: center; */
 }
 
 .remember-forgot a {
