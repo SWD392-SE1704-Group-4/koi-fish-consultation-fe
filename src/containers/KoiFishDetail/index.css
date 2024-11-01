@@ -15,10 +15,14 @@
   margin: 20px;
   padding: 20px;
   background-color: #f7f7f7;
+  background-color: #f7f7f7;
+  background-color: #f7f7f7;
 }
 
 .koi-fish-name {
   color: #2c3e50;
+  font-size: 24px;
+  margin-bottom: 10px;
   font-size: 24px;
   margin-bottom: 10px;
 }
@@ -33,6 +37,9 @@
 }
 
 .fengshui-title {
+  color: #27ae60;
+  margin-bottom: 10px;
+  font-size: 20px;
   color: #27ae60;
   margin-bottom: 10px;
   font-size: 20px;
