@@ -46,6 +46,7 @@ export const endpoint = {
   APPROVE_ADVERTISEMENT: '/advertisement/approve',
   DENY_ADVERTISEMENT: '/advertisement/deny',
   GET_ADVERTISEMENT_BY_STAFF: '/advertisement/get-list-by-staff',
+  GET_ADVERTISEMENT_PACKAGE: '/advertisement-package/get-list',
 
   //blog
   CREATE_BLOG: '/blog/create',
