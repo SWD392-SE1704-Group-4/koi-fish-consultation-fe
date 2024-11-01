@@ -7,6 +7,7 @@ const advertisementInitialState: TAdvertisementState = {
     updateAdvertisementModalOpen: null,
     deleteAdvertisementModalOpen: null,
     advertisementList: null,
+    advertisementPackageList: null,
     advertisementTypeList: null,
     advertisementType: null,
     advertisement: null,

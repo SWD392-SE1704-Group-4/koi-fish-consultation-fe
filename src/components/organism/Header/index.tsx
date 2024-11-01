@@ -83,7 +83,7 @@ const Header: React.FC<any> = (): JSX.Element => {
       className={styles.header}
     >
       <Typography sx={{ color: "black" }}>
-        <Link href="/home" sx={{ color: "black", textDecoration: "none" }}>
+        <Link onClick={()=>navigate("/home")} sx={{ color: "black", textDecoration: "none" }}>
           <img src={"/img/fengshui-logo.png"} width="100" height="60" />
         </Link>
       </Typography>
@@ -105,7 +105,7 @@ const Header: React.FC<any> = (): JSX.Element => {
         >
           {userInfo?.role === USER_GROUP.USER &&
             <Link
-              href="/post/advertisement"
+              onClick={()=>navigate("/post/advertisement")}
               sx={{ color: "black", textDecoration: "none", fontWeight: "bold" }}
             >
               Post advertisement
@@ -121,7 +121,7 @@ const Header: React.FC<any> = (): JSX.Element => {
             <Menu>
               <MenuItem>
                 <Link
-                  href="/information/koi-fish"
+                  onClick={()=>navigate("/information/koi-fish")}
                   sx={{ color: "black", textDecoration: "none" }}
                 >
                   All Koi fish
@@ -129,7 +129,7 @@ const Header: React.FC<any> = (): JSX.Element => {
               </MenuItem>
               <MenuItem>
                 <Link
-                  href="/information/fengshui-consultation"
+                  onClick={()=>navigate("/information/fengshui-consultation")}
                   sx={{ color: "black", textDecoration: "none" }}
                 >
                   Consultation
@@ -137,7 +137,7 @@ const Header: React.FC<any> = (): JSX.Element => {
               </MenuItem>
               <MenuItem>
                 <Link
-                  href="/information/fengshui-element"
+                  onClick={()=>navigate("/information/fengshui-element")}
                   sx={{ color: "black", textDecoration: "none" }}
                 >
                   Fengshui Element
@@ -145,23 +145,31 @@ const Header: React.FC<any> = (): JSX.Element => {
               </MenuItem>
               <MenuItem>
                 <Link
-                  href="/information/advertisement"
+                  onClick={()=>navigate("/information/advertisement")}
                   sx={{ color: "black", textDecoration: "none" }}
                 >
                   Advertisement
+                </Link>
+              </MenuItem>
+              <MenuItem>
+                <Link
+                  onClick={()=>navigate("/information/ads-package")}
+                  sx={{ color: "black", textDecoration: "none" }}
+                >
+                  Buy ads package
                 </Link>
               </MenuItem>
             </Menu>
           </Dropdown>
 
           <Link
-            href="/annual-feng-shui"
+            onClick={()=>navigate("/annual-feng-shui")}
             sx={{ color: "black", textDecoration: "none", fontWeight: "bold" }}
           >
             Annual feng shui
           </Link>
           <Link
-            href="/about-us"
+            onClick={()=>navigate("/about-us")}
             sx={{ color: "black", textDecoration: "none", fontWeight: "bold" }}
           >
             About us

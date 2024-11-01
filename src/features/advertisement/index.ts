@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import advertisementInitialState from "./advertisement.initialState";
-import { setAdvertisement, setAdvertisementDetailModalOpen, setAdvertisementError, setAdvertisementList, setAdvertisementStatus, setAdvertisementType, setAdvertisementTypeList, setIsPosting, setPostingSuccessModalOpen } from "./advertisement.reducers";
+import { setAdvertisement, setAdvertisementDetailModalOpen, setAdvertisementError, setAdvertisementList, setAdvertisementPackageList, setAdvertisementStatus, setAdvertisementType, setAdvertisementTypeList, setIsPosting, setPostingSuccessModalOpen } from "./advertisement.reducers";
 
 const advertisement = createSlice({
     name: "advertisement",
@@ -14,7 +14,8 @@ const advertisement = createSlice({
         setAdvertisementAction: setAdvertisement,
         setAdvertisementDetailModalOpenAction: setAdvertisementDetailModalOpen,
         setIsPostingAction: setIsPosting,
-        setPostingSuccessModalOpenAction: setPostingSuccessModalOpen
+        setPostingSuccessModalOpenAction: setPostingSuccessModalOpen,
+        setAdvertisementPackageListAction: setAdvertisementPackageList
     }
 })
 
@@ -27,7 +28,8 @@ export const {
     setAdvertisementAction,
     setAdvertisementDetailModalOpenAction,
     setIsPostingAction,
-    setPostingSuccessModalOpenAction
+    setPostingSuccessModalOpenAction,
+    setAdvertisementPackageListAction
 } = advertisement.actions;
 
 export default advertisement.reducer;
