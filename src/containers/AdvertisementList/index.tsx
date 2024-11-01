@@ -55,7 +55,6 @@ const AdvertisementPage: React.FC<any> = (): JSX.Element => {
 
     return (
         <React.Fragment>
-            <Header />
             <Box sx={{ px: '80px', py: '20px', backgroundColor: '#f9f9f9', minHeight: '100vh' }}>
                 <Grid container spacing={4}>
                     <Grid xs={12} md={2} p={0}>
@@ -136,7 +135,6 @@ const AdvertisementPage: React.FC<any> = (): JSX.Element => {
                     </Grid>
                 </Grid>
             </Box>
-            <Footer />
         </React.Fragment>
     );
 };

@@ -5,7 +5,6 @@ import Header from "../../components/organism/Header";
 const Symbolism: React.FC = () => {
   return (
     <React.Fragment>
-      <Header></Header>
       <div style={styles.container}>
         <h1 style={styles.title}>Symbolism of Koi Fish in Feng Shui</h1>
         <p style={styles.intro}>

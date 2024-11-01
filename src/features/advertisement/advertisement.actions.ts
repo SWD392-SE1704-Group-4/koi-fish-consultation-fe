@@ -1,7 +1,7 @@
 import { KoiFish, TAppThunk } from "AppModels";
 import { GetFengshuiElement } from "../../services/FengshuiElement";
-import { setAdvertisementAction, setAdvertisementErrorAction, setAdvertisementListAction, setAdvertisementStatusAction, setAdvertisementTypeListAction, setIsPostingAction, setPostingSuccessModalOpenAction } from "./index";
-import { ApproveAdvertisement, CreateAdvertisement, DenyAdvertisement, GetAdvertisementById, GetListAdvertisement, GetListAdvertisementByCreator, GetListAdvertisementByStaff, GetListAdvertisementType } from "../../services/advertisement";
+import { setAdvertisementAction, setAdvertisementErrorAction, setAdvertisementListAction, setAdvertisementPackageListAction, setAdvertisementStatusAction, setAdvertisementTypeListAction, setIsPostingAction, setPostingSuccessModalOpenAction } from "./index";
+import { ApproveAdvertisement, CreateAdvertisement, DenyAdvertisement, GetAdvertisementById, GetListAdvertisement, GetListAdvertisementByCreator, GetListAdvertisementByStaff, GetListAdvertisementPackage, GetListAdvertisementType } from "../../services/advertisement";
 import { setIsPosting } from "./advertisement.reducers";
 
 export const requestCreateAdvertisement = ({ request }: { request: FormData }): TAppThunk => {
@@ -112,6 +112,21 @@ export const requestDenyAdvertisement = ({ request }: { request: any }): TAppThu
     };
 };
 
+export const requestGetListAdvertisementPackage = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        try {
+            const response = await GetListAdvertisementPackage(request);
+            if (response?.data?.payload) {
+                const advertisementList: any = response?.data?.payload;
+                dispatch(setAdvertisementPackageListAction(advertisementList));
+            }
+        } catch (error) {
+            dispatch(setAdvertisementErrorAction("Error:" + error));
+        } finally {
+        }
+    };
+};
+
 export const requestGetMyAdvertisement = ({ request }: { request: any }): TAppThunk => {
     return async (dispatch: any) => {
         try {
@@ -126,4 +141,3 @@ export const requestGetMyAdvertisement = ({ request }: { request: any }): TAppTh
         }
     };
 };
-

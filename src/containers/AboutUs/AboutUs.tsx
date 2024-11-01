@@ -5,7 +5,6 @@ import Header from "../../components/organism/Header";
 const AboutUsSection = () => {
   return (
     <React.Fragment>
-      <Header></Header>
       <div className="about-us-container">
         <div className="about-us-image">
           <img

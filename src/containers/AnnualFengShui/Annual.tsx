@@ -47,7 +47,6 @@ const Annual: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Header></Header>
       <Box
         sx={{ textAlign: "center", marginTop: "40px", marginBottom: "40px" }}
       >

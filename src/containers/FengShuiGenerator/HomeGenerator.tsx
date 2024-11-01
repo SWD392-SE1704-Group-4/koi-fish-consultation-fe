@@ -66,7 +66,6 @@ const FengShuiForm: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Header />
       <div className="about-us-container">
         <div className="about-us-image">
           <img

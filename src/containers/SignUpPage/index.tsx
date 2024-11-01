@@ -12,7 +12,7 @@ import { formatPhoneNumber } from "../../utils/formatPhoneNumber";
 import { useSnackbar } from "notistack";
 import { selectAuthInfo } from "../../features/auth/auth.selectors";
 import { setAuthErrorAction, setSignUpStatusAction } from "../../features/auth";
-
+const nameRegex = /^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹỲỴỶỸ\s]{1,20}$/;
 // Define the validation schema using yup
 const schema = yup.object().shape({
   email: yup
@@ -24,14 +24,12 @@ const schema = yup.object().shape({
     .string()
     .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
     .required("Phone number is required"),
-  firstName: yup
-    .string()
+  firstName: yup.string()
     .required("First Name is required")
-    .matches(/^[A-Za-z]+$/, "First Name should only contain letters"),
-  lastName: yup
-    .string()
+    .matches(nameRegex, "First Name should contain only Vietnamese letters, no special symbols, and be one word up to 20 characters"),
+  lastName: yup.string()
     .required("Last Name is required")
-    .matches(/^[A-Za-z]+$/, "Last Name should only contain letters"),
+    .matches(nameRegex, "Last Name should contain only Vietnamese letters, no special symbols, and be one word up to 20 characters"),
 });
 
 const SignUp: React.FC = () => {
@@ -40,7 +38,7 @@ const SignUp: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const {
     register,
     handleSubmit,

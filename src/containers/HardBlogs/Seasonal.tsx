@@ -5,7 +5,6 @@ import Header from "../../components/organism/Header";
 const SeasonalKoiPondCare: React.FC = () => {
   return (
     <React.Fragment>
-      <Header></Header>
       <div style={styles.container}>
         <h1 style={styles.title}>Seasonal Koi Pond Care Tips</h1>
         <p style={styles.intro}>

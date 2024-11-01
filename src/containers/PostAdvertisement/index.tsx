@@ -54,7 +54,6 @@ const PostAdvertisement: React.FC = (): JSX.Element => {
     return (
         <React.Fragment>
             <PostSuccessModal />
-            <Header></Header>
             <div className="about-us-container">
                 <div className="about-us-image">
                     <img
@@ -97,7 +96,6 @@ const PostAdvertisement: React.FC = (): JSX.Element => {
                     </Grid>
                 )}
             </Grid>
-            <Footer />
         </React.Fragment>
     );
 }
