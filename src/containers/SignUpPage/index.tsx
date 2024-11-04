@@ -59,7 +59,7 @@ const SignUp: React.FC = () => {
   useEffect(() => {
     if (authInfo.signUpStatus) {
       enqueueSnackbar({ message: authInfo.signUpStatus, variant: "success", autoHideDuration: 2000 })
-      // navigate('/login')
+      navigate('/login')
     }
     dispatch(setSignUpStatusAction(null))
   }, [authInfo?.signUpStatus]);
