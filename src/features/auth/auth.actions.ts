@@ -1,9 +1,12 @@
 import { TAppThunk } from "AppModels";
 import { getToken, getUserInfo, signUpUser } from "../../services/cognito/Authenticate";
-import { getAppUserRole, updateUser } from "../../services/cognito/Common";
+import { updateUser } from "../../services/cognito/Common";
 import { SetAccessToken, SetRefreshToken, GetAccessToken } from "../../utils/tokens";
 import { convertUserAttributes } from "../../utils/convertUserAttributes";
-import { setUserInfoAction, setIsLoggedInAction, setAuthErrorAction, setSignUpStatusAction, setUpdateUserStatusAction, setIsLoadedAction, setUserRoleAction } from ".";
+import { setUserInfoAction, setIsLoggedInAction, setAuthErrorAction, setSignUpStatusAction, setUpdateUserStatusAction, setIsLoadedAction, setUserRoleAction, setUserPackageInfoAction, setPersonalFengshuiAction } from ".";
+import { getAppUserById, getAppUserRole } from "../../services/appUser";
+import { setUserPackageInfo } from "./auth.reducers";
+import { GetConsultationResult } from "../../services/calculation";
 
 export const requestAuth = ({ email, password }: { email: string, password: string }): TAppThunk => {
     return async (dispatch: any) => {
@@ -41,10 +44,28 @@ export const requestUserInfo = (): TAppThunk => {
             if (!!userInfo?.UserAttributes) {
                 const userAttributes = convertUserAttributes(userInfo.UserAttributes);
                 const userRole = await getAppUserRole({ appUserId: userAttributes.sub });
+                const appUserResponse = await getAppUserById({ appUserId: userAttributes.sub });
+                const resultResponse = await GetConsultationResult({ appUserId: userAttributes.sub });
                 if (userRole && userAttributes) {
+                    const appUser = appUserResponse?.data?.payload;
                     dispatch(setUserInfoAction(userAttributes));
                     dispatch(setIsLoggedInAction(true));
-                    dispatch(setUserRoleAction(userRole.data.payload));
+                    dispatch(setUserRoleAction(userRole.data.payload))
+                    dispatch(setUserPackageInfoAction({
+                        currentPackage: appUser?.currentPackage,
+                        remainingAds: appUser?.remainingAds,
+                        packageExpiryDate: appUser?.packageExpiryDate,
+                    }))
+                    if (resultResponse.data.payload) {
+                        const pFengshui = resultResponse?.data?.payload;
+                        dispatch(setPersonalFengshuiAction({
+                            earthlyBranch: pFengshui?.earthlyBranch,
+                            element: pFengshui?.element,
+                            fishRecommendation: pFengshui?.fishRecommendation,
+                            heavenlyStem: pFengshui?.heavenlyStem,
+                            tankDirection: pFengshui?.tankDirection,
+                        }))
+                    }
                 }
             }
         } catch (error) {
@@ -82,6 +103,45 @@ export const requestUpdateUser = ({ userName, fileName, fileType, userPicture, o
             if (response && response.statusCode === 200) {
                 dispatch(setUpdateUserStatusAction("User updated successfully"))
                 await dispatch(requestUserInfo());
+            }
+        } catch (error) {
+            dispatch(setAuthErrorAction(error.message));
+        }
+    };
+};
+
+export const requestGetUserAdsPackage = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        try {
+            const response = await getAppUserById(request);
+            if (response?.data?.payload) {
+                const appUser = response?.data?.payload;
+                dispatch(setUserPackageInfoAction({
+                    currentPackage: appUser?.currentPackage,
+                    remainingAds: appUser?.remainingAds,
+                    packageExpiryDate: appUser?.packageExpiryDate,
+                }))
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch(setAuthErrorAction(error.message));
+        }
+    };
+};
+
+export const requestGetUserPersonalFengshui = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        try {
+            const response = await GetConsultationResult(request);
+            if (response?.data?.payload) {
+                const pFengshui = response?.data?.payload;
+                dispatch(setPersonalFengshuiAction({
+                    earthlyBranch: pFengshui?.earthlyBranch,
+                    element: pFengshui?.element,
+                    fishRecommendation: pFengshui?.fishRecommendation,
+                    heavenlyStem: pFengshui?.heavenlyStem,
+                    tankDirection: pFengshui?.tankDirection,
+                }))
             }
         } catch (error) {
             dispatch(setAuthErrorAction(error.message));
