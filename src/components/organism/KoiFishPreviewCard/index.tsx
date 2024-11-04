@@ -49,9 +49,9 @@ const KoiFishPreviewCard: React.FC<KoiFishProps> = (props): JSX.Element => {
                 elementName: pFengshui.element,
                 // branch: pFengshui.earthlyBranch
             },
-            targetCompareData: { fengshuiElement: {elementName: data?.fengshuiElement?.elementName} }
+            targetCompareData: { fengshuiElement: { elementName: data?.fengshuiElement?.elementName } }
         };
-        dispatch(requestGetAIConsultation({request}))
+        dispatch(requestGetAIConsultation({ request }))
 
         dispatch(setAICalculationModalOpenAction(true));
     }
@@ -92,7 +92,7 @@ const KoiFishPreviewCard: React.FC<KoiFishProps> = (props): JSX.Element => {
                     <Typography level="body-sm">
                         <strong>Color:</strong> {koiFishColor}
                     </Typography>
-                    <Typography level="body-sm">
+                    {/* <Typography level="body-sm">
                         <strong>Age:</strong> {koiFishAge} years
                     </Typography>
                     <Typography level="body-sm">
@@ -100,7 +100,7 @@ const KoiFishPreviewCard: React.FC<KoiFishProps> = (props): JSX.Element => {
                     </Typography>
                     <Typography level="body-sm">
                         <strong>Price:</strong> ${koiFishPrice}
-                    </Typography>
+                    </Typography> */}
                     <Divider sx={{ my: 1 }} />
                     <Typography level="body-sm">
                         <strong>Energy Type:</strong> {energyType}
