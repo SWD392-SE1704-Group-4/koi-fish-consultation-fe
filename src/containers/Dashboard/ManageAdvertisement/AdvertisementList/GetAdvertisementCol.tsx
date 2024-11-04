@@ -39,12 +39,14 @@ export const useAdvertisementColumns = () => {
             width: 200,
             renderCell: (params: any) => (params.row.postedBy &&
                 <React.Fragment>
-                    <Box sx={{display: 'inline-flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1 }}>
                         <Avatar
                             sx={{ width: '25px', height: '25px' }}
                             variant="outlined"
-                            src={cloudfrontUrl + params.row.postedBy?.profilePictureUrl}
-                        />
+                            src={cloudfrontUrl + params.row?.postedBy?.profilePictureUrl}
+                        >
+                            A
+                        </Avatar>
                         <Typography> {params.row.postedBy?.username}</Typography>
                     </Box>
 
