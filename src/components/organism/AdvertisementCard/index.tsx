@@ -79,9 +79,11 @@ const AdvertisementCard: React.FC<any> = ({ advertisement }) => {
                     <Typography level="body-sm" textColor="text.secondary" sx={{ fontStyle: 'italic', mt: 1 }}>
                         Posted: {timeAgo(createdAt)}
                     </Typography>
-                    <Typography level="body-sm" mt={1}>
+                    <Box height={"120px"}>
+                       <Typography level="body-sm" mt={1}>
                         {description}
-                    </Typography>
+                    </Typography> 
+                    </Box>
                     <Divider sx={{ my: 1 }} />
 
                     <Box sx={{ width: 1, display: 'flex', justifyContent: 'space-between' }}>
