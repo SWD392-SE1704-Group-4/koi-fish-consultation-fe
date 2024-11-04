@@ -1,13 +1,13 @@
 import React from "react";
 import "./Advertisement.css";
 import Header from "../../components/organism/Header";
-import { Box, Grid } from "@mui/joy";
+import { Box, Grid, Typography } from "@mui/joy";
 import PostAdvertisementForm from "./KoiAdvertisementForm";
 import KoiFishPreviewCard from "../../components/organism/KoiFishPreviewCard";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFishPond, selectKoiFish } from "../../features/fengshui/fengshui.selectors";
 import Footer from "../../components/organism/Footer";
-import { selectAuthInfo, selectIsLoggedIn } from "../../features/auth/auth.selectors";
+import { selectAuthInfo, selectIsLoggedIn, selectUserPackageInfo } from "../../features/auth/auth.selectors";
 import { useNavigate } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 import { setAdvertisementErrorAction, setAdvertisementStatusAction } from "../../features/advertisement";
@@ -19,16 +19,26 @@ import ItemAdvertisementForm from "./ItemAdvertisementForm";
 import FishPondPreviewCard from "../../components/organism/FishPondPreviewCard";
 import PostSuccessModal from "./PostSuccessModal";
 
+
 const PostAdvertisement: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
     const advertisementType = useSelector(selectAdvertisementType);
 
     const currentKoiFish = useSelector(selectKoiFish);
     const currentFishPond = useSelector(selectFishPond);
-    
+
     const advertisementInfo = useSelector(selectAdvertisementInfo);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const authInfo = useSelector(selectAuthInfo);
+    const userPackageInfo = useSelector(selectUserPackageInfo);
+
+    const canPostAds =
+        userPackageInfo.currentPackage !== undefined &&
+        userPackageInfo.remainingAds > 0 &&
+        userPackageInfo.packageExpiryDate &&
+        new Date(userPackageInfo.packageExpiryDate) > new Date();
+
+
     const navigate = useNavigate();
 
     React.useEffect(() => {
@@ -67,7 +77,7 @@ const PostAdvertisement: React.FC = (): JSX.Element => {
                 </div>
                 <div className="additional-content"></div>
             </div>
-            <Grid
+            {canPostAds ? <Grid
                 container
                 spacing={2}
                 sx={{
@@ -95,7 +105,12 @@ const PostAdvertisement: React.FC = (): JSX.Element => {
                         <FishPondPreviewCard fishPond={currentFishPond} />
                     </Grid>
                 )}
-            </Grid>
+            </Grid> :
+                <Box sx={{ width: '100%', textAlign: 'center', height: "200px" }}>
+                    <Typography fontSize="30px" >You don't have ads package to post advertisement</Typography>
+                </Box>
+            }
+
         </React.Fragment>
     );
 }

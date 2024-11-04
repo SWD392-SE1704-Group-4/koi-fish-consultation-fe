@@ -25,3 +25,11 @@ export const setUserRole = (state: TAuthState, action: PayloadAction<any>) => {
 export const setIsLoaded = (state: TAuthState, action: PayloadAction<any>) => {
     state.auth.isLoaded = action.payload;
 }
+
+export const setUserPackageInfo = (state: TAuthState, action: PayloadAction<any>) => {
+    state.userPackageInfo = action.payload;
+}
+
+export const setPersonalFengshui = (state: TAuthState, action: PayloadAction<any>) => {
+    state.personalFengshui = action.payload;
+}

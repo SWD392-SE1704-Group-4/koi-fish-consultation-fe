@@ -21,7 +21,19 @@ declare module 'AppModels' {
         createdAt: string;
         updatedAt: string;
     };
-
+    interface Payment {
+        id: string; 
+        user: any; 
+        note: string; 
+        orderCode: number; 
+        amount: number; 
+        currency: string; 
+        checkoutUrl: string; 
+        paymentLinkId: string;
+        createdAt: string; 
+        updatedAt: string; 
+        isDeleted: boolean; 
+    }
     export type AdvertisementType = {
         id: string;
         typeName: string;
@@ -41,6 +53,7 @@ declare module 'AppModels' {
         isFetching: boolean;
         isPosting: boolean,
         postingSuccessModalOpen: boolean,
+        paymentSuccessModalOpen: boolean,
         updateAdvertisementModalOpen: false,
         deleteAdvertisementModalOpen: false,
         advertisementList: Advertisement[],
@@ -49,6 +62,7 @@ declare module 'AppModels' {
         advertisementType: AdvertisementType,
         advertisement: Advertisement,
         advertisementDetailModalOpen: boolean,
+        payment: Payment,
         status: string;
         error: string,
     }

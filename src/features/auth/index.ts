@@ -8,7 +8,9 @@ import {
     setSignUpStatus,
     setUpdateUserStatus,
     setIsLoaded,
-    setUserRole
+    setUserRole,
+    setUserPackageInfo,
+    setPersonalFengshui
 } from "./auth.reducers";
 
 
@@ -24,6 +26,8 @@ const auth = createSlice({
         setUpdateUserStatusAction: setUpdateUserStatus,
         setIsLoadedAction: setIsLoaded,
         setUserRoleAction: setUserRole,
+        setUserPackageInfoAction: setUserPackageInfo,
+        setPersonalFengshuiAction: setPersonalFengshui
     }
 })
 
@@ -35,7 +39,9 @@ export const {
     setSignUpStatusAction,
     setUpdateUserStatusAction,
     setIsLoadedAction,
-    setUserRoleAction
+    setUserRoleAction,
+    setUserPackageInfoAction,
+    setPersonalFengshuiAction
 } = auth.actions;
 
 export default auth.reducer;

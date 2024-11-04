@@ -4,6 +4,7 @@ const advertisementInitialState: TAdvertisementState = {
     isFetching: null,
     isPosting: null,
     postingSuccessModalOpen: null,
+    paymentSuccessModalOpen: null,
     updateAdvertisementModalOpen: null,
     deleteAdvertisementModalOpen: null,
     advertisementList: null,
@@ -12,6 +13,7 @@ const advertisementInitialState: TAdvertisementState = {
     advertisementType: null,
     advertisement: null,
     advertisementDetailModalOpen: false,
+    payment: null,
     status: null,
     error: null,
 }

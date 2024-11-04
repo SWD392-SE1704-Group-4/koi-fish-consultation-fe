@@ -26,6 +26,18 @@ const authInitialState: TAuthState = {
         picture: '',
         role: '',
         emailVerified: null
+    },
+    userPackageInfo: {
+        currentPackage: null,
+        remainingAds: null,
+        packageExpiryDate: null,
+    },
+    personalFengshui: {
+        earthlyBranch: null,
+        element: null,
+        fishRecommendation: null,
+        heavenlyStem: null,
+        tankDirection: null,
     }
 }
 

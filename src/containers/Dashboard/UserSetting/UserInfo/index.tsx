@@ -44,8 +44,7 @@ const schema = yup.object().shape({
         .matches(/^\S[\s\S]{0,48}\S$/, "Invalid address"),
     gender: yup
         .string()
-        .matches(/^[01]$/, 'Gender must be either 0 (Male) or 1 (Female)') // Regex to match '0' or '1'
-        .required('Gender is required!'), // Ensure the field is not empty
+
 })
 const passwordSchema = yup.object().shape({
     currentPassword: yup.string()
@@ -288,7 +287,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                                     <Option value="0">Male</Option>
                                                     <Option value="1">Female</Option>
                                                 </Select>
-                                                {errors.gender && <p>{errors.gender.message}</p>}
+                                                {/* {errors.gender && <p>{errors.gender.message}</p>} */}
                                             </div>
                                         </Box>
 
