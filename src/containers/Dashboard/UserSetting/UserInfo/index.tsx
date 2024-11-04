@@ -14,7 +14,7 @@ import { requestUpdateUser, requestUserInfo } from "../../../../features/auth/au
 import { setAuthErrorAction, setUpdateUserStatusAction } from "../../../../features/auth";
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
-
+const nameRegex = /^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹỲỴỶỸ\s]{1,20}$/;
 const VisuallyHiddenInput = styled('input')`
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -27,13 +27,12 @@ const VisuallyHiddenInput = styled('input')`
   width: 1px;
 `;
 const schema = yup.object().shape({
-    firstname: yup
-        .string()
-        .required("First Name is required!")
-        .matches(/^[a-zA-Z\s]+$/, 'First Name cannot contain numeric or special characters'),
+    firstname: yup.string()
+        .required("First Name is required")
+        .matches(nameRegex, "First Name should contain only Vietnamese letters, no special symbols, and be one word up to 20 characters"),
     lastname: yup.string()
-        .required("Last Name is required!")
-        .matches(/^[a-zA-Z]+$/, 'Field cannot have numeric or special characters'),
+        .required("Last Name is required")
+        .matches(nameRegex, "Last Name should contain only Vietnamese letters, no special symbols, and be one word up to 20 characters"),
     email: yup.string()
         .required("Email is required!")
         .matches(/^[^\.\s][\w\-\.{2,}]+@([\w-]+\.)+[\w-]{2,}$/, "Email is invalid!"),
@@ -45,8 +44,7 @@ const schema = yup.object().shape({
         .matches(/^\S[\s\S]{0,48}\S$/, "Invalid address"),
     gender: yup
         .string()
-        .matches(/^[01]$/, 'Gender must be either 0 (Male) or 1 (Female)') // Regex to match '0' or '1'
-        .required('Gender is required!'), // Ensure the field is not empty
+
 })
 const passwordSchema = yup.object().shape({
     currentPassword: yup.string()
@@ -77,7 +75,6 @@ const buttonStyles = {
 
 const UserInfo: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
-
     const authInfo = useSelector(selectAuthInfo);
     const userInfo = useSelector(selectUserInfo);
     const [selectedImage, setSelectedImage] = React.useState<File | string | null>(null);
@@ -161,7 +158,7 @@ const UserInfo: React.FC = (): JSX.Element => {
             }}
         >
             {(!isLoaded && userInfo.sub) && (
-                <Card sx={{borderRadius: 0}}>
+                <Card sx={{ borderRadius: 0 }}>
                     <Stack
                         direction="row"
                         spacing={3}
@@ -245,7 +242,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             readOnly
                                             defaultValue={userInfo.email}
                                             {...register('email')}
-                                            sx={{ flexGrow: 1,...inputStyles }}
+                                            sx={{ flexGrow: 1, ...inputStyles }}
                                         />
                                         {errors.email && <p>{errors.email.message}</p>}
                                         <FormLabel sx={{ mt: 2 }}>Phone</FormLabel>
@@ -254,7 +251,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             placeholder="Phone"
                                             {...register('phone')}
                                             defaultValue={userInfo.phone}
-                                            sx={{ flexGrow: 1,...inputStyles }}
+                                            sx={{ flexGrow: 1, ...inputStyles }}
                                         />
                                         {errors.phone && <p>{errors.phone.message}</p>}
                                         <FormLabel sx={{ mt: 2 }}>Address</FormLabel>
@@ -263,7 +260,7 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             placeholder="Address"
                                             {...register('address')}
                                             defaultValue={userInfo.address}
-                                            sx={{ flexGrow: 1,...inputStyles }}
+                                            sx={{ flexGrow: 1, ...inputStyles }}
                                         />
                                         {errors.address && <p>{errors.address.message}</p>}
                                         <Box sx={{ display: 'flex', gap: 5 }}>
@@ -285,11 +282,12 @@ const UserInfo: React.FC = (): JSX.Element => {
                                             </div>
                                             <div>
                                                 <FormLabel sx={{ mt: 2 }}>Gender</FormLabel>
-                                                <Select sx={{ width: "120px",flexGrow: 1,...inputStyles }}  {...register('gender')} defaultValue={userInfo?.gender}>
+                                                <Select sx={{ width: "120px", flexGrow: 1, ...inputStyles }}  {...register('gender')} defaultValue={userInfo?.gender}>
                                                     <Option value="">None</Option>
                                                     <Option value="0">Male</Option>
                                                     <Option value="1">Female</Option>
                                                 </Select>
+                                                {/* {errors.gender && <p>{errors.gender.message}</p>} */}
                                             </div>
                                         </Box>
 

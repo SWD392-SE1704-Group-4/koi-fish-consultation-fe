@@ -5,7 +5,6 @@ import Header from "../../components/organism/Header";
 const ColorMeaning: React.FC = () => {
   return (
     <React.Fragment>
-      <Header></Header>
       <div style={styles.container}>
         <h1 style={styles.title}>
           The Meaning of Koi Fish Colors in Feng Shui

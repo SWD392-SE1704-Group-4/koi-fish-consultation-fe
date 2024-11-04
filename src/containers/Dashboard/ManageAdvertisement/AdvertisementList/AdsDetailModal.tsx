@@ -5,6 +5,7 @@ import { useSnackbar } from "notistack";
 import { selectAdvertisement, selectAdvertisementDetailModalOpen } from "../../../../features/advertisement/advertisement.selectors";
 import { setAdvertisementDetailModalOpenAction } from "../../../../features/advertisement";
 import { requestApproveAdvertisement, requestDenyAdvertisement } from "../../../../features/advertisement/advertisement.actions";
+import { AdvertisementStatus } from "../../../../constants/Advertisement";
 
 const cloudfrontUrl = process.env.REACT_APP_AWS_CLOUDFRONT_URL;
 
@@ -98,34 +99,37 @@ const AdvertisementDetailModal: React.FC<any> = (): JSX.Element => {
             </Box>
           </Grid>
         </Grid>
-        <Box sx={{ display: 'flex', justifyContent: 'right', gap: 1, mt: 3 }}>
-          <Button
-            type="button"
-            onClick={() => {
-              const request = {
-                advertisementId: advertisement.advertisementId
-              };
-              dispatch(requestDenyAdvertisement({ request }));
-              dispatch(setAdvertisementDetailModalOpenAction(false));
-            }}
-            sx={{ backgroundColor: "#ed2d4d", borderRadius: 0, width: '20%' }}
-          >
-            Deny
-          </Button>
-          <Button
-            type="button"
-            onClick={() => {
-              const request = {
-                advertisementId: advertisement.advertisementId
-              };
-              dispatch(requestApproveAdvertisement({ request }));
-              dispatch(setAdvertisementDetailModalOpenAction(false));
-            }}
-            sx={{ backgroundColor: "#1e7819", borderRadius: 0, width: '20%' }}
-          >
-            Approve
-          </Button>
-        </Box>
+        {advertisement?.status === AdvertisementStatus.WAITING_APPROVE && (
+          <Box sx={{ display: 'flex', justifyContent: 'right', gap: 1, mt: 3 }}>
+            <Button
+              type="button"
+              onClick={() => {
+                const request = {
+                  advertisementId: advertisement.advertisementId
+                };
+                dispatch(requestDenyAdvertisement({ request }));
+                dispatch(setAdvertisementDetailModalOpenAction(false));
+              }}
+              sx={{ backgroundColor: "#ed2d4d", borderRadius: 0, width: '20%' }}
+            >
+              Reject
+            </Button>
+            <Button
+              type="button"
+              onClick={() => {
+                const request = {
+                  advertisementId: advertisement.advertisementId
+                };
+                dispatch(requestApproveAdvertisement({ request }));
+                dispatch(setAdvertisementDetailModalOpenAction(false));
+              }}
+              sx={{ backgroundColor: "#1e7819", borderRadius: 0, width: '20%' }}
+            >
+              Approve
+            </Button>
+          </Box>
+        )}
+
       </Sheet>
     </Modal>
   );

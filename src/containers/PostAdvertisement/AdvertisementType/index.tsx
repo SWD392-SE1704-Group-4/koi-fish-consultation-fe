@@ -5,8 +5,6 @@ import { Box, FormControl, FormLabel, Radio, RadioGroup, Sheet } from "@mui/joy"
 import { setAdvertisementTypeAction } from "../../../features/advertisement";
 import { requestGetListAdvertisementType } from "../../../features/advertisement/advertisement.actions";
 
-
-
 const AdvertisementType: React.FC = (): JSX.Element => {
     const dispatch = useDispatch();
     const advertisementType = useSelector(selectAdvertisementTypeList);
@@ -68,7 +66,7 @@ const AdvertisementType: React.FC = (): JSX.Element => {
                                 p: 2,
                                 borderRadius: 'md',
                                 boxShadow: 'sm',
-                                flex: 1 // Make each item take equal space
+                                flex: 1 
                             }}
                         >
                             <Radio

@@ -47,7 +47,6 @@ const AdvertisementDetail: React.FC = () => {
 
     return (
         <React.Fragment>
-            <Header />
             <Box sx={{ px: '80px', py: '20px', backgroundColor: '#f9f9f9', minHeight: '100vh' }}>
                 <Box sx={{ mb: 4 }}>
                     <Chip
@@ -181,7 +180,6 @@ const AdvertisementDetail: React.FC = () => {
                     </Button>
                 </Box>
             </Box>
-            <Footer />
         </React.Fragment>
     );
 };

@@ -38,8 +38,10 @@ import AdvertisementDetail from "../containers/AdvertisementDetail";
 import ManageTransaction from "../containers/Dashboard/ManageBlog";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import MyFishPond from "../containers/Dashboard/MyFishPond";
-import MyAdvertisement from "../containers/Dashboard/MyAdvertisement";
+import AdsPackage from "../containers/AdsPackage";
 import SuccessPopup from "../containers/EmailVerification/SuccessPopup";
+import MainLayout from "../containers/MainLayout";
+import MyAdvertisement from "../containers/Dashboard/MyAdvertisement";
 
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
@@ -47,12 +49,16 @@ export const privateRoutes = [{ path: "/me/*", container: Dashboard }];
 export const publicRoutes = [
   { path: "/login", container: Login },
   { path: "/register", container: SignUp },
+  { path: "/*", container: MainLayout },
+];
+export const mainLayoutSubRoutes = [
   { path: "/", container: Home },
   { path: "/home", container: Home },
   { path: "/post/advertisement", container: PostAdvertisement },
   { path: "/information/koi-fish", container: KoiFishPage },
+  { path: "/information/ads-package", container: AdsPackage },
   { path: "/information/advertisement", container: AdvertisementPage },
-  { path: "/information/advertisement/:advertisementId", container: AdvertisementDetail},
+  { path: "/information/advertisement/:advertisementId", container: AdvertisementDetail },
   { path: "/annual-feng-shui", container: Annual },
   { path: "/about-us", container: AboutUsSection },
   { path: "/blog/koi-color-meaning", container: ColorMeaning },
@@ -68,7 +74,7 @@ export const publicRoutes = [
   // test
   { path: "/blog-posting", container: BlogPosting },
   { path: "/details", container: KoiFishDetail },
-];
+]
 
 //Route for member
 export const memberDashboardSubRoutes = [
