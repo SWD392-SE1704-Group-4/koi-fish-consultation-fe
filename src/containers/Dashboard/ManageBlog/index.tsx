@@ -2,7 +2,7 @@
 
 import { Box, Typography } from "@mui/joy";
 
-const ManageTransaction: React.FC = (): JSX.Element => {
+const ManageBlog: React.FC = (): JSX.Element => {
 
 
     return (
@@ -14,4 +14,4 @@ const ManageTransaction: React.FC = (): JSX.Element => {
     );
 }
 
-export default ManageTransaction;
+export default ManageBlog;

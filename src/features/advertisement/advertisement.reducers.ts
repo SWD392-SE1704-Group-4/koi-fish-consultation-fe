@@ -45,3 +45,6 @@ export const setPayment = (state: TAdvertisementState, action: PayloadAction<any
 export const setPaymentSuccessModalOpen = (state: TAdvertisementState, action: PayloadAction<any>) => {
     state.paymentSuccessModalOpen = action.payload;
 }
+export const setPaymentList = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.paymentList = action.payload;
+}

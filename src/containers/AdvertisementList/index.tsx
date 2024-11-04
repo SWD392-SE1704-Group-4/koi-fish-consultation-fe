@@ -10,6 +10,7 @@ import { FormControlLabel, FormGroup } from '@mui/material';
 import { requestGetFengshuiElement } from '../../features/fengshui/fengshui.actions';
 import { selectFenghsuiElementList } from '../../features/fengshui/fengshui.selectors';
 import { fengShuiElementLogos } from '../KoiFishDetail';
+import { setAdvertisementListAction } from '../../features/advertisement';
 
 const AdvertisementPage: React.FC<any> = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -23,6 +24,10 @@ const AdvertisementPage: React.FC<any> = (): JSX.Element => {
         dispatch(requestGetListAdvertisement({ request }));
         dispatch(requestGetFengshuiElement({ request }));
         dispatch(requestGetListAdvertisementType({ request }));
+
+        return ()=>{
+            dispatch(setAdvertisementListAction(null));
+        }
     }, [dispatch]);
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

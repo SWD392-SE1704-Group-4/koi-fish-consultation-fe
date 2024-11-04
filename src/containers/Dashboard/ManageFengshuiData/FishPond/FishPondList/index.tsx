@@ -39,7 +39,7 @@ const FishPondManageList: React.FC = (): JSX.Element => {
                 overflow: 'hidden',
             }}
         > 
-            <Button sx={{
+            {/* <Button sx={{
                 mt: 2,
                 mb: 2,
                 borderRadius: 0,
@@ -48,7 +48,7 @@ const FishPondManageList: React.FC = (): JSX.Element => {
                 // onClick={() => { dispatch(setCreateKoiFishModalOpenAction(true))}}
             >
                 Add
-            </Button>
+            </Button> */}
             <FishPondDetailModal/>
             {(!isFetching && fishPondList) && <BaseTable rowId={(r: any) => r.pondId} rows={fishPondList} columns={columns} />}
         </Box>

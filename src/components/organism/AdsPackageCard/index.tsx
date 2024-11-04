@@ -74,6 +74,9 @@ const AdvertisementPackageCard: React.FC<AdvertisementPackage> = ({
                 <Typography sx={{ mb: 2 }}>
                     {description}
                 </Typography>
+                <Typography sx={{ mb: 2 }}>
+                    GPT4 integration
+                </Typography>
                 <Typography sx={{ mb: 1 }}>
                     Duration: {durationInDays} days
                 </Typography>

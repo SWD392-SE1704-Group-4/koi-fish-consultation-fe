@@ -65,4 +65,5 @@ export const endpoint = {
   
 
   CREATE_PAYMENT: '/payos-payment/create',
+  GET_PAYMENT: '/payos-payment/get-list'
 }

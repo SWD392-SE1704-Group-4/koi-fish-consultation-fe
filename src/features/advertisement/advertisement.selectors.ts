@@ -20,4 +20,6 @@ export const selectAdvertisementPackageList = (state: RootState) => state.advert
 
 export const selectPayment = (state: RootState) => state.advertisement.payment;
 
+export const selectPaymentList = (state: RootState) => state.advertisement.paymentList;
+
 export const selectPaymentSuccessModalOpen = (state: RootState) => state.advertisement.paymentSuccessModalOpen;

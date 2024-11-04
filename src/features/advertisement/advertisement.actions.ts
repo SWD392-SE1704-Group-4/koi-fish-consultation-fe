@@ -1,9 +1,9 @@
 import { KoiFish, TAppThunk } from "AppModels";
 import { GetFengshuiElement } from "../../services/FengshuiElement";
-import { setAdvertisementAction, setAdvertisementErrorAction, setAdvertisementListAction, setAdvertisementPackageListAction, setAdvertisementStatusAction, setAdvertisementTypeListAction, setIsPostingAction, setPaymentAction, setPostingSuccessModalOpenAction } from "./index";
+import { setAdvertisementAction, setAdvertisementErrorAction, setAdvertisementListAction, setAdvertisementPackageListAction, setAdvertisementStatusAction, setAdvertisementTypeListAction, setIsPostingAction, setPaymentAction, setPaymentListAction, setPostingSuccessModalOpenAction } from "./index";
 import { ApproveAdvertisement, CreateAdvertisement, DenyAdvertisement, GetAdvertisementById, GetListAdvertisement, GetListAdvertisementByCreator, GetListAdvertisementByStaff, GetListAdvertisementPackage, GetListAdvertisementType } from "../../services/advertisement";
 import { setIsPosting } from "./advertisement.reducers";
-import { CreatePayment } from "../../services/payment";
+import { CreatePayment, GetPayment } from "../../services/payment";
 
 export const requestCreateAdvertisement = ({ request }: { request: FormData }): TAppThunk => {
     return async (dispatch: any) => {
@@ -150,6 +150,20 @@ export const requestCreatePayment = ({ request }: { request: any }): TAppThunk =
             if (response?.data?.payload) {
                 const payment: any = response?.data?.payload;
                 dispatch(setPaymentAction(payment));
+            }
+        } catch (error) {
+            dispatch(setAdvertisementErrorAction("Error:" + error));
+        } finally {
+        }
+    };
+};
+export const requestGetPayment = ({ request }: { request: any }): TAppThunk => {
+    return async (dispatch: any) => {
+        try {
+            const response = await GetPayment(request);
+            if (response?.data?.payload) {
+                const payment: any = response?.data?.payload;
+                dispatch(setPaymentListAction(payment));
             }
         } catch (error) {
             dispatch(setAdvertisementErrorAction("Error:" + error));

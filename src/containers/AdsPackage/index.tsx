@@ -38,7 +38,7 @@ const AdsPackage: React.FC = (): JSX.Element => {
                 {/* Display remaining ads and expiry date for the current package */}
                 {userPackageInfo?.currentPackage && (
                     <Box my={1}>
-                        <Typography sx={{ mt: 2 }}><b>Remaining Ads:</b> {userPackageInfo.remainingAds}</Typography>
+                        <Typography sx={{ mt: 2 }}><b>Remaining Ads:</b> {userPackageInfo?.remainingAds > 200 ? "Unlimited" : userPackageInfo.remainingAds}</Typography>
                         <Typography sx={{ mt: 1 }}><b>Expires on:</b> {new Date(userPackageInfo.packageExpiryDate).toLocaleDateString()}</Typography>
                     </Box>
                 )}

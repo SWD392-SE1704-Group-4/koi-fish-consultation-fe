@@ -191,9 +191,9 @@ const AdvertisementDetail: React.FC = () => {
                                 <Avatar
                                     variant="outlined"
                                     size="sm"
-                                    src={cloudfrontUrl + advertisement?.postedBy?.picture}
+                                    src={cloudfrontUrl + advertisement?.postedBy?.profilePictureUrl}
                                     sx={{ mb: 1 }}
-                                />
+                                >A</Avatar>
                                 <Typography>Name: {advertisement.postedBy.lastName} {advertisement.postedBy.firstName}</Typography>
                                 <Typography>Email: {advertisement.postedBy.email}</Typography>
                                 <Typography>Phone: {advertisement.postedBy.phone_number}</Typography>

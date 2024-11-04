@@ -6,3 +6,6 @@ import { BaseResponse } from "AppModels";
 export function CreatePayment(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
     return api.post(endpoint.CREATE_PAYMENT, requestBody);
 }
+export function GetPayment(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
+    return api.post(endpoint.GET_PAYMENT, requestBody);
+}

@@ -14,6 +14,7 @@ const advertisementInitialState: TAdvertisementState = {
     advertisement: null,
     advertisementDetailModalOpen: false,
     payment: null,
+    paymentList: null,
     status: null,
     error: null,
 }

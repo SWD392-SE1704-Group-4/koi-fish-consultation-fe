@@ -45,7 +45,7 @@ const Home: React.FC = (): JSX.Element => {
           <Suspense fallback={null}>
             <Model ref={meshRef} path="/glb/koifishbond.glb" />
           </Suspense>
-          <Html position={[-5, 1.5, 1]} distanceFactor={8}>
+          <Html position={[-5, 1.5, 0.5]} distanceFactor={8}>
             <Box sx={{ backgroundColor: "white", padding: 2 }}>
               <Typography
                 color="danger"
