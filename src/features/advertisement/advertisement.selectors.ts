@@ -17,3 +17,7 @@ export const selectIsPosting = (state: RootState) => state.advertisement.isPosti
 export const selectPostingSuccessModalOpen = (state: RootState) => state.advertisement.postingSuccessModalOpen;
 
 export const selectAdvertisementPackageList = (state: RootState) => state.advertisement.advertisementPackageList;
+
+export const selectPayment = (state: RootState) => state.advertisement.payment;
+
+export const selectPaymentSuccessModalOpen = (state: RootState) => state.advertisement.paymentSuccessModalOpen;

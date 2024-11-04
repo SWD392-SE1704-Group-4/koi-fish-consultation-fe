@@ -39,3 +39,9 @@ export const setAdvertisementPackageList = (state: TAdvertisementState, action: 
 export const setPostingSuccessModalOpen = (state: TAdvertisementState, action: PayloadAction<any>) => {
     state.postingSuccessModalOpen = action.payload;
 }
+export const setPayment = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.payment = action.payload;
+}
+export const setPaymentSuccessModalOpen = (state: TAdvertisementState, action: PayloadAction<any>) => {
+    state.paymentSuccessModalOpen = action.payload;
+}
