@@ -111,19 +111,19 @@ const AdvertisementDetail: React.FC = () => {
                     <Grid xs={12} md={6}>
                         <Box sx={{ mb: 4 }}>
                             <Typography level="h2" sx={{ fontWeight: 'bold', color: '#333' }}>
-                                {advertisement.title}
+                                {advertisement?.title}
                             </Typography>
                             {/* <Chip
                                 variant="solid"
-                                color={advertisement.status === 'Active' ? 'success' : 'warning'}
+                                color={advertisement?.status === 'Active' ? 'success' : 'warning'}
                                 sx={{ mt: 1, fontSize: '1rem', px: '12px' }}
                             >
-                                {advertisement.status}
+                                {advertisement?.status}
                             </Chip> */}
                             <Chip
                                 variant="solid"
                                 color={
-                                    advertisement.status === 'APPROVED'
+                                    advertisement?.status === 'APPROVED'
                                         ? 'success'
                                         : advertisement.status === 'REJECTED'
                                             ? 'danger'
