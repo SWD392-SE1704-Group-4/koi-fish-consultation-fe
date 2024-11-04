@@ -27,7 +27,16 @@ declare module 'AppModels' {
         typeName: string;
         description: string;
     }
-
+    export type AdvertisementPackage = {
+        packageId: string;
+        packageName: string;
+        description: string;
+        price: number;
+        durationInDays: number;
+        maxAds: number;
+        active: boolean;
+    };
+    
     export type TAdvertisementState = {
         isFetching: boolean;
         isPosting: boolean,
@@ -35,6 +44,7 @@ declare module 'AppModels' {
         updateAdvertisementModalOpen: false,
         deleteAdvertisementModalOpen: false,
         advertisementList: Advertisement[],
+        advertisementPackageList: AdvertisementPackage[],
         advertisementTypeList: AdvertisementType[],
         advertisementType: AdvertisementType,
         advertisement: Advertisement,

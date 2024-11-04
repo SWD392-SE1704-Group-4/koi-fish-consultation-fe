@@ -34,7 +34,6 @@ const Home: React.FC = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <Header></Header>
       <Box sx={{ height: 720, backgroundColor: "#e6eced" }}>
         <Canvas camera={{ position: [5, 2, 5], fov: 25 }} shadows>
           <directionalLight
@@ -131,8 +130,6 @@ const Home: React.FC = (): JSX.Element => {
           </Grid>
         </Grid>
       </Box>
-
-      <Footer />
     </React.Fragment>
   );
 };
