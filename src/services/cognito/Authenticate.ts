@@ -11,6 +11,7 @@ import {
     GetUserCommand
 } from '@aws-sdk/client-cognito-identity-provider';
 import CryptoJS from "crypto-js";
+import { RemoveAccessToken } from '../../utils/tokens';
 
 const userPoolId = process.env.REACT_APP_COGNITO_USER_POOL
 const clientSecret = process.env.REACT_APP_COGNITO_CLIENT_SECRET;
@@ -104,6 +105,7 @@ export async function getUserInfo(accessToken) {
         const response = await client.send(command);
         return response;
     } catch (error) {
+        RemoveAccessToken();
         console.error("Error fetching user info:", error);
     }
 }

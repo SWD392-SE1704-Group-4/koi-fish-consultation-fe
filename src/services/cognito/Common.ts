@@ -21,15 +21,6 @@ export async function getUserInfo(accessToken) {
     }
 }
 
-// export function getAppUserGroup(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
-//     return api.post(endpoint.GET_APP_USER_GROUP, requestBody);
-// }
-
-export function getAppUserRole(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
-    return api.post(endpoint.GET_APP_USER_ROLE, requestBody);
-}
-
-
 export async function updateUser(userData: any) {
     try {
         const event = {

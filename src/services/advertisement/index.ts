@@ -38,3 +38,8 @@ export function DenyAdvertisement(requestBody: any): AxiosResponse<BaseResponse<
 export function GetListAdvertisementPackage(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
     return api.post(endpoint.GET_ADVERTISEMENT_PACKAGE, requestBody);
 }
+
+export function GetListAdvertisementByElementOrDirection(requestBody: any): AxiosResponse<BaseResponse<any>, any> {
+    return api.post(endpoint.GET_ADS_BY_ELEMENT_OR_DIRECTION, requestBody);
+}
+
