@@ -63,6 +63,7 @@ declare module 'AppModels' {
         advertisement: Advertisement,
         advertisementDetailModalOpen: boolean,
         payment: Payment,
+        paymentList: Payment[],
         status: string;
         error: string,
     }
