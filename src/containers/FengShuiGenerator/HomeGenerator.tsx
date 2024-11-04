@@ -88,7 +88,7 @@
 //     <React.Fragment>
 //       <Header />
 
-      
+
 
 //       <div className="about-us-container">
 //         <div className="about-us-image">
@@ -183,7 +183,7 @@
 //                 <option value="female">Female</option>
 //               </select>
 //             </div>
-            
+
 //             <button
 //               type="submit"
 //               style={{
@@ -308,7 +308,7 @@ const FengShuiForm: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/fengshui/calculate",
+        "http://54.169.41.208:8080/api/fengshui/calculate",
         {
           year: Number(year),
           gender: gender,
