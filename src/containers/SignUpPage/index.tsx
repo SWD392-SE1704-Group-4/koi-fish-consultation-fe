@@ -12,6 +12,8 @@ import { formatPhoneNumber } from "../../utils/formatPhoneNumber";
 import { useSnackbar } from "notistack";
 import { selectAuthInfo } from "../../features/auth/auth.selectors";
 import { setAuthErrorAction, setSignUpStatusAction } from "../../features/auth";
+import { Button } from "@mui/joy";
+import { resendEmailVerification } from "../../services/cognito/Authenticate";
 const nameRegex = /^[A-Za-zÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹỲỴỶỸ\s]{1,20}$/;
 // Define the validation schema using yup
 const schema = yup.object().shape({
@@ -38,7 +40,7 @@ const SignUp: React.FC = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  
   const {
     register,
     handleSubmit,
@@ -57,7 +59,7 @@ const SignUp: React.FC = () => {
   useEffect(() => {
     if (authInfo.signUpStatus) {
       enqueueSnackbar({ message: authInfo.signUpStatus, variant: "success", autoHideDuration: 2000 })
-      navigate('/login')
+      // navigate('/login')
     }
     dispatch(setSignUpStatusAction(null))
   }, [authInfo?.signUpStatus]);
@@ -69,7 +71,6 @@ const SignUp: React.FC = () => {
     const firstName = data.firstName;
     const lastName = data.lastName;
     dispatch(requestSignUp({ password, email, phoneNumber, firstName, lastName }))
-    navigate('/success-popup');
   };
 
   return (
@@ -157,10 +158,11 @@ const SignUp: React.FC = () => {
             <span id="sign-up">or Sign in with</span>
           </Divider>
 
-          {/* Google Sign In */}
+          {/* {Google Sign In
           <button className="google-login">
             <GoogleOutlined /> Sign In with Google
-          </button>
+          </button>} */}
+          {/* <Button onClick={()=>resendEmailVerification("tri5042003")}>Resend</Button> */}
         </form>
 
         {/* Back to Home Page */}

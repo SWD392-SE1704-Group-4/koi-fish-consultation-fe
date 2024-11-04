@@ -8,7 +8,8 @@ import {
     SignUpCommandInput,
     SignUpCommandOutput,
     SignUpCommand,
-    GetUserCommand
+    GetUserCommand,
+    ResendConfirmationCodeCommand
 } from '@aws-sdk/client-cognito-identity-provider';
 import CryptoJS from "crypto-js";
 import { RemoveAccessToken } from '../../utils/tokens';
@@ -107,5 +108,22 @@ export async function getUserInfo(accessToken) {
     } catch (error) {
         RemoveAccessToken();
         console.error("Error fetching user info:", error);
+    }
+}
+
+export async function resendEmailVerification(username: string) {
+    const client = new CognitoIdentityProviderClient({ region });
+    try {
+        const secretHash = calculateSecretHash(clientSecret, username, clientId);
+        const command = new ResendConfirmationCodeCommand({
+            ClientId: clientId,
+            Username: username,
+            SecretHash: secretHash,
+        });
+        const response = await client.send(command);
+        return response.CodeDeliveryDetails; // Optional: Return details about the code delivery
+    } catch (error) {
+        console.error("Error resending email verification:", error);
+        throw error; // Re-throw the error for further handling
     }
 }

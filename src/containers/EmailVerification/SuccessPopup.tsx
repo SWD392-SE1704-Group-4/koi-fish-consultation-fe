@@ -8,7 +8,6 @@ const SuccessPopup = () => {
 
   const handleClose = () => {
     setVisible(false);
-    navigate('/home');
   };
 
   return (
