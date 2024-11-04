@@ -321,7 +321,6 @@ const Annual: React.FC = () => {
           of this ancient art
         </Typography>
       </Box>
-        <Footer></Footer>
     </React.Fragment>
   );
 };

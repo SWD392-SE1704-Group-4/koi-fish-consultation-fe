@@ -52,20 +52,20 @@ const AdvertisementCard: React.FC<{ advertisement: Advertisement }> = ({ adverti
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const {
-                advertisementId,
-                title,
-                advertisementType,
-                description,
-                viewsCount,
-                // koiFishName,
-                postedBy,
-                createdAt,
-                location,
-                contactInfo,
-                phone,
-                address,
-                additionalImages,
-            } = advertisement;
+        advertisementId,
+        title,
+        advertisementType,
+        description,
+        viewsCount,
+        // koiFishName,
+        postedBy,
+        createdAt,
+        location,
+        contactInfo,
+        phone,
+        address,
+        additionalImages,
+    } = advertisement;
 
     const limitDescription = (text: string, limit: number) => {
         const words = text.split(' ');
@@ -90,7 +90,7 @@ const AdvertisementCard: React.FC<{ advertisement: Advertisement }> = ({ adverti
                                 <img
                                     src={`${cloudfrontUrl + additionalImages[0]}`}
                                     loading="lazy"
-alt={title}
+                                    alt={title}
                                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                                 />
                                 <Typography
@@ -147,7 +147,7 @@ alt={title}
                                 {contactInfo}
                             </Typography>
                         </Box>
-<Box sx={{ width: 1, display: 'flex', justifyContent: 'space-between' }}>
+                        <Box sx={{ width: 1, display: 'flex', justifyContent: 'space-between' }}>
                             <Typography fontWeight={500} fontSize={14}>
                                 Phone:
                             </Typography>
@@ -162,7 +162,7 @@ alt={title}
                             <Box>
                                 <Chip
                                     color="success"
-                                    onClick={() => {}}
+                                    onClick={() => { }}
                                     size="md"
                                     variant="soft"
                                     startDecorator={<VerifiedIcon />}
@@ -208,7 +208,7 @@ alt={title}
                                 }}
                                 onClick={handleContactClick}
                             >
-Contact
+                                Contact
                             </Button>
                         </Box>
                     </Stack>

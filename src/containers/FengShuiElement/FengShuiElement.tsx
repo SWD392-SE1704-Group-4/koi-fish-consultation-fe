@@ -206,7 +206,6 @@ const FengShuiElement: React.FC = () => {
           readTime="6 min read"
         />
       </div>
-      <Footer></Footer>
     </React.Fragment>
   );
 };
