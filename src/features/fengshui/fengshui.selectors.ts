@@ -36,3 +36,6 @@ export const selectFengshuiDirectionList = (state: RootState) => state.fengshui.
 export const selectHeavenEarth = (state: RootState) =>
   state.fengshui.heavenEarth;
 
+export const selectAICalculationModalOpen = (state: RootState) => state.fengshui.AICalculationModalOpen;
+export const selectAIconsultation = (state: RootState) => state.fengshui.AIconsultation;
+export const selectTargetCompareData = (state: RootState) => state.fengshui.targetCompareData;
