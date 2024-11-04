@@ -113,9 +113,24 @@ const AdvertisementDetail: React.FC = () => {
                             <Typography level="h2" sx={{ fontWeight: 'bold', color: '#333' }}>
                                 {advertisement.title}
                             </Typography>
-                            <Chip
+                            {/* <Chip
                                 variant="solid"
                                 color={advertisement.status === 'Active' ? 'success' : 'warning'}
+                                sx={{ mt: 1, fontSize: '1rem', px: '12px' }}
+                            >
+                                {advertisement.status}
+                            </Chip> */}
+                            <Chip
+                                variant="solid"
+                                color={
+                                    advertisement.status === 'APPROVED'
+                                        ? 'success'
+                                        : advertisement.status === 'REJECTED'
+                                            ? 'danger'
+                                            : advertisement.status === 'WAITING_APPROVE'
+                                                ? 'warning'
+                                                : 'neutral' // default color if status does not match
+                                }
                                 sx={{ mt: 1, fontSize: '1rem', px: '12px' }}
                             >
                                 {advertisement.status}
