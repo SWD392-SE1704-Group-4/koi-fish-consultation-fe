@@ -88,7 +88,6 @@ const AboutUsSection = () => {
           tradition come together.
         </p>
       </div>
-      <Footer></Footer>
 
       {/* <Header></Header>
       <div className="about-us-container">

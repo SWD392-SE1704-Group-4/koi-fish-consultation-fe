@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Grid, Button, Chip, Divider, Avatar } from '@mui/joy';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Advertisement } from 'AppModels';
@@ -11,11 +11,41 @@ import { requestGetAdvertisementById } from '../../features/advertisement/advert
 
 const cloudfrontUrl = process.env.REACT_APP_AWS_CLOUDFRONT_URL;
 
+const modalStyles: { overlay: React.CSSProperties; modalContent: React.CSSProperties; closeButton: React.CSSProperties } = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000,
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: '20px',
+        borderRadius: '8px',
+        maxWidth: '500px',
+        width: '100%',
+        position: 'relative',
+    },
+    closeButton: {
+        position: 'absolute',
+        top: '10px',
+        right: '10px',
+        cursor: 'pointer',
+    },
+};
+
 const AdvertisementDetail: React.FC = () => {
     const { advertisementId } = useParams<{ advertisementId: string }>();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const advertisement = useSelector(selectAdvertisement);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const buttonStyles = {
         mt: 2,
@@ -29,6 +59,14 @@ const AdvertisementDetail: React.FC = () => {
 
     const handleBackClick = () => {
         navigate('/information/advertisement');
+    };
+
+    const handleContactClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
     };
 
     React.useEffect(() => {
@@ -175,11 +213,62 @@ const AdvertisementDetail: React.FC = () => {
                     <Button onClick={handleBackClick} sx={{ ...buttonStyles, backgroundColor: "#9e777c" }}>
                         Back to Listings
                     </Button>
-                    <Button variant="solid" sx={{ ...buttonStyles, backgroundColor: "#ed2d4d" }}>
+                    <Button variant="solid" sx={{ ...buttonStyles, backgroundColor: "#ed2d4d" }} onClick={handleContactClick}>
                         Contact Seller
                     </Button>
                 </Box>
             </Box>
+
+
+            {/* <Typography>Name: {advertisement.postedBy.lastName} {advertisement.postedBy.firstName}</Typography>
+                                <Typography>Email: {advertisement.postedBy.email}</Typography>
+                                <Typography>Phone: {advertisement.postedBy.phone_number}</Typography>
+                                <Typography>Address: {advertisement.postedBy.address}</Typography> */}
+
+            {/* Custom Popup Modal */}
+            {isModalOpen && (
+                <div style={modalStyles.overlay} onClick={handleCloseModal}>
+                    <div style={modalStyles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <span style={modalStyles.closeButton} onClick={handleCloseModal}>&times;</span>
+                        <Typography level="title-md" fontWeight="bold" marginBottom={2}>
+                            Advertiser's Contact Information
+                        </Typography>
+                        <Box sx={{ width: 1, display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                            <Typography fontWeight={500} fontSize={14}>
+                                Name:
+                            </Typography>
+                            <Typography fontWeight={400} fontSize={14}>
+                                {advertisement.postedBy.lastName} {advertisement.postedBy.firstName}
+                            </Typography>
+                        </Box>
+                        <Box sx={{ width: 1, display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                            <Typography fontWeight={500} fontSize={14}>
+                                Email:
+                            </Typography>
+                            <Typography fontWeight={400} fontSize={14}>
+                                {advertisement.postedBy.email}
+                            </Typography>
+                        </Box>
+                        <Box sx={{ width: 1, display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+                            <Typography fontWeight={500} fontSize={14}>
+                                Phone number:
+                            </Typography>
+                            <Typography fontWeight={400} fontSize={14}>
+                                {/* {advertisement.postedBy.phone_number} */}
+                                +84869381397
+                            </Typography>
+                        </Box>
+                        <Box sx={{ width: 1, display: 'flex', justifyContent: 'space-between' }}>
+                            <Typography fontWeight={500} fontSize={14}>
+                                Address:
+                            </Typography>
+                            <Typography fontWeight={400} fontSize={14}>
+                                {advertisement.postedBy.address}
+                            </Typography>
+                        </Box>
+                    </div>
+                </div>
+            )}
         </React.Fragment>
     );
 };
