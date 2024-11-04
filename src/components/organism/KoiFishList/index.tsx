@@ -2,6 +2,7 @@ import React from 'react';
 import KoiFishCard from '../../molecule/KoiFishCard';
 import { Grid } from '@mui/joy';
 import KoiFishPreviewCard from '../KoiFishPreviewCard';
+import AICalculationModal from '../AICalculateModal';
 
 interface KoiFish {
     id: string;
@@ -27,7 +28,8 @@ interface KoiFishListProps {
 const KoiFishList: React.FC<KoiFishListProps> = ({ koiFishData }) => {
     return (
         <Grid container spacing={3}> 
-            {koiFishData.map((koiFish) => (
+        <AICalculationModal />
+            {koiFishData?.map((koiFish) => (
                 <Grid xs={12} sm={6} md={4} lg={3} key={koiFish.id}>
                     <KoiFishPreviewCard koiFish={koiFish} />
                 </Grid>

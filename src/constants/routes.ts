@@ -38,10 +38,10 @@ import AdvertisementDetail from "../containers/AdvertisementDetail";
 import ManageTransaction from "../containers/Dashboard/ManageBlog";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import MyFishPond from "../containers/Dashboard/MyFishPond";
-import MyAdvertisement from "../containers/Dashboard/MyAdvertisement";
-import MainLayout from "../containers/MainLayout";
 import AdsPackage from "../containers/AdsPackage";
 import SuccessPopup from "../containers/EmailVerification/SuccessPopup";
+import MainLayout from "../containers/MainLayout";
+import MyAdvertisement from "../containers/Dashboard/MyAdvertisement";
 
 
 export const privateRoutes = [{ path: "/me/*", container: Dashboard }];

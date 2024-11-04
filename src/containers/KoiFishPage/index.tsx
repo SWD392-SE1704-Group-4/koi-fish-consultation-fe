@@ -54,8 +54,20 @@ const KoiFishPage: React.FC = () => {
 
     return (
         <React.Fragment>
+            <div className="about-us-container">
+                <div className="about-us-image">
+                    <img
+                        src="https://www.tallengestore.com/cdn/shop/files/KoiFish_JapaneseCarp_InAPond-FengShuiPainting_d2320422-7ad3-4d93-8471-8f60d5c23b0d.jpg?v=1721249681"
+                        alt="About Us"
+                        className="about-us-img"
+                    />
+                </div>
+                <div className="about-us-text">
+                    <h1>Koi fish</h1>
+                </div>
+                <div className="additional-content"></div>
+            </div>
             <div style={{ padding: '0 80px' }}>
-                <Typography style={{ fontSize: '50px' }}>Koi Fish List</Typography>
                 <div style={{ marginTop: '20px' }}>
                     <KoiFishList koiFishData={filteredKoiFish} />
                 </div>

@@ -94,6 +94,9 @@ declare module "AppModels" {
         status: string;
         error: string,
         heavenEarth: null,
+        AICalculationModalOpen: boolean,
+        AIconsultation: any,
+        targetCompareData: any                                                                             
     }
 }
 

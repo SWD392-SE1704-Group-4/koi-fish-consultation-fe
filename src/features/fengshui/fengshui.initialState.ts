@@ -16,6 +16,9 @@ const fengshuiInitialState: TFengshuiState = {
     heavenEarth: null,
     status: null,
     error: null,
+    AICalculationModalOpen: null,
+    AIconsultation: null,
+    targetCompareData: null
 };
 
 

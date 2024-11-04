@@ -64,3 +64,13 @@ export const setHeavenEarth = (
   state.heavenEarth = action.payload;
 };
 
+export const setAICalculationModalOpen = (state: TFengshuiState, action: PayloadAction<any>) => {
+    state.AICalculationModalOpen = action.payload;
+}
+
+export const setTargetCompareData = (state: TFengshuiState, action: PayloadAction<any>) => {
+    state.targetCompareData = action.payload;
+}
+export const setAIconsultation = (state: TFengshuiState, action: PayloadAction<any>) => {
+    state.AIconsultation = action.payload;
+}

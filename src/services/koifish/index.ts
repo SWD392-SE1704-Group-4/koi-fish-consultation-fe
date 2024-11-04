@@ -34,3 +34,9 @@ export function GetHeavenEarth(
   return api.post(endpoint.GET_HEAVEN_EARTH, requestBody);
 }
 
+export function GetKoiFishByElementName(
+  requestBody: any
+): AxiosResponse<BaseResponse<any>, any> {
+  return api.post(endpoint.GET_KOI_FISH_BY_ELEMENT_NAME, requestBody);
+}
+
